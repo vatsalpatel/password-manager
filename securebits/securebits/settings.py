@@ -73,6 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'securebits.wsgi.application'
 
+AUTH_USER_MODEL = 'api.VaultUser'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
