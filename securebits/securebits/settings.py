@@ -75,6 +75,12 @@ WSGI_APPLICATION = 'securebits.wsgi.application'
 
 AUTH_USER_MODEL = 'api.VaultUser'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
