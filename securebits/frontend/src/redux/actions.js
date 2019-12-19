@@ -28,13 +28,22 @@ export const logoutUser = data => dispatch => {
         )
 }
 
+export const fetchUser = data => dispatch => {
+    axios.get('auth/users/me', {}, {
+        headers: {
+            Authorization: `Token ${data}`
+        }
+    })
+        .then(res => 
+            dispatch({
+                type: "FETCH_USER",
+                payload: res.data
+            })
+        )
+}
+
 export const createUser = data => ({
     type: "CREATE_USER",
-    payload: { data }
-})
-
-export const getUser = data => ({
-    type: "GET_USER",
     payload: { data }
 })
 
