@@ -14,17 +14,19 @@ export const loginUser = data => dispatch => {
         )
 }
 
-export const logoutUser = data => ({
-    type: "LOGOUT",
-    payload: (
-        axios.post('auth/token/logout', {
-            headers: {
-                Authorization: `Token ${data.token}`
-            }
-        })
-
-    )
-})
+export const logoutUser = data => dispatch => {
+    axios.post('/auth/token/logout/', {}, {
+        headers: {
+            Authorization: `Token ${data}`
+        }
+    })
+        .then(res =>
+            dispatch({
+                type: "LOGOUT_USER",
+                payload: res
+            })
+        )
+}
 
 export const createUser = data => ({
     type: "CREATE_USER",

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions';
+import { loginUser, logoutUser } from '../redux/actions';
 
 class TestComp extends Component {
     componentDidMount() {
@@ -10,10 +10,17 @@ class TestComp extends Component {
         })
     }
 
+    logout = (e) => {
+        this.props.logoutUser(this.props.token.token)
+    }
+
     render() {
         console.log(this.props.token.token)
         return (
-            <h1>{this.props.token.token}</h1>
+            <>
+                <button onClick={e => this.logout(e)}>Logout</button>
+                <h1>{this.props.token.token}</h1>
+            </>
         )
     }
 }
@@ -24,4 +31,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { loginUser })(TestComp)
+export default connect(mapStateToProps, { loginUser, logoutUser })(TestComp)
