@@ -1,4 +1,31 @@
+import axios from 'axios';
+
 // User Actions
+export const loginUser = data => dispatch => {
+    axios.post('auth/token/login/', {
+        username: data.username,
+        password: data.password,
+    })
+        .then(res =>
+            dispatch({
+                type: "LOGIN_USER",
+                payload: res.data.auth_token,
+            })
+        )
+}
+
+export const logoutUser = data => ({
+    type: "LOGOUT",
+    payload: (
+        axios.post('auth/token/logout', {
+            headers: {
+                Authorization: `Token ${data.token}`
+            }
+        })
+
+    )
+})
+
 export const createUser = data => ({
     type: "CREATE_USER",
     payload: { data }
@@ -16,16 +43,6 @@ export const updateUser = data => ({
 
 export const deleteUser = data => ({
     type: "DELETE_USER",
-    payload: { data }
-})
-
-export const loginUser = data => ({
-    type: "LOGIN",
-    payload: { data }
-})
-
-export const logoutUser = data => ({
-    type: "LOGOUT",
     payload: { data }
 })
 
