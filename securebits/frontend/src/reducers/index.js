@@ -1,4 +1,4 @@
-import { combineReducers } from 'react-redux';
+import { combineReducers } from 'redux';
 import tokenReducer from './tokenReducer';
 import userReducer from './userReducer';
 import folderReducer from './folderReducer';
