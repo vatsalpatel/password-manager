@@ -7,5 +7,8 @@ export const FETCH_FOLDERS = "FETCH_FOLDERS";
 
 export const FETCH_VAULTITEMS = "FETCH_VAULTITEMS";
 
+export const OBTAIN_TOKEN = "OBTAIN_TOKEN";
+export const OBTAIN_KEY = "OBTAIN_KEY";
+
 export const ENCRYPT_DATA = "ENCRYPT_DATA;";
 export const DECRYPT_DATA = "DECRYPT_DATA"
