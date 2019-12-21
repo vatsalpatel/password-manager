@@ -8,20 +8,11 @@ import './App.css';
 function App(props) {
     return (
         <div className="App">
+            <Navbar />
             <Router>
                 <Switch>
-                    <Route exact path="/">
-                        <>
-                            <Navbar />
-                            <Home />
-                        </>
-                    </Route>
-                    <Route exact path="/vault/">
-                        <>
-                            <Navbar />
-                            <Vault />
-                        </>
-                    </Route>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/vault/" component={Vault} />
                 </Switch>
             </Router>
         </div>
