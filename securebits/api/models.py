@@ -17,7 +17,7 @@ class Folder(models.Model):
     user = models.ForeignKey(to=VaultUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.username
+        return self.name
 
 
 class VaultItem(models.Model):

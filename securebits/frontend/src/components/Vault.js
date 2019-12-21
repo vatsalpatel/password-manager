@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Vault extends React.Component {
     render() {
@@ -8,4 +9,8 @@ class Vault extends React.Component {
     }
 }
 
-export default Vault;
+const mapState = state => ({
+    folders: state.folders,
+})
+
+export default connect(mapState, {})(Vault);
