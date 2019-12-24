@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import tokenReducer from './tokenReducer';
 import userReducer from './userReducer';
 import folderReducer from './folderReducer';
-import VaultItemReducer from './VaultItemReducer';
+import VaultReducer from './VaultReducer';
+import keyReducer from './keyReducer';
 
 export default combineReducers({
     token: tokenReducer,
+    key: keyReducer,
     user: userReducer,
     folders: folderReducer,
-    vault: VaultItemReducer,
+    vaults: VaultReducer,
 })

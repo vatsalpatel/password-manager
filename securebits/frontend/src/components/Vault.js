@@ -9,8 +9,4 @@ class Vault extends React.Component {
     }
 }
 
-const mapState = state => ({
-    folders: state.folders,
-})
-
-export default connect(mapState, {})(Vault);
+export default Vault;

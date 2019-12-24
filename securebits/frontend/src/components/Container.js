@@ -10,7 +10,7 @@ class Folder extends React.Component {
 }
 
 const mapState = state => ({
-    vaults: state.vaults,
+    folders: state.folders,
 })
 
 export default connect(mapState, {})(Folder);
