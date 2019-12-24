@@ -81,6 +81,14 @@ REST_FRAMEWORK = {
     ]
 }
 
+DJOSER = {
+    "SERIALIZERS": {
+        'user': 'api.serializers.VaultUserSerializer',
+        'current_user': 'api.serializers.VaultUserSerializer',
+        'user_create': 'api.serializers.VaultUserCreateSerializer',
+    }
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

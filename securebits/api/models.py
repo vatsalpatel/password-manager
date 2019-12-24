@@ -6,7 +6,6 @@ from django.contrib.auth.models import AbstractUser
 class VaultUser(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
     reminder = models.CharField(max_length=200, blank=True)
-    mobile = models.CharField(max_length=15)
 
     def __str__(self):
         return self.username
