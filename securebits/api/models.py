@@ -20,7 +20,7 @@ class Folder(models.Model):
         return self.name
 
 
-class VaultItem(models.Model):
+class Vault(models.Model):
     name = models.CharField(max_length=128)
     username = models.CharField(max_length=128)
     password = models.CharField(max_length=128)

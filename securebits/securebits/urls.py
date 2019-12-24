@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from api.views import VaultItemViewSet, FolderViewSet
+from api.views import VaultViewSet, FolderViewSet
 
 router = SimpleRouter()
-router.register("vault", VaultItemViewSet, basename="Vault")
+router.register("vault", VaultViewSet, basename="Vault")
 router.register("folder", FolderViewSet, basename="Folder")
 
 urlpatterns = [

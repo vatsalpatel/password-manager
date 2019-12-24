@@ -1,16 +1,16 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .serializers import VaultItemSerializer, FolderSerializer
-from .models import VaultItem, Folder
+from .serializers import VaultSerializer, FolderSerializer
+from .models import Vault, Folder
 
 
 # Create your views here.
-class VaultItemViewSet(viewsets.ModelViewSet):
-    serializer_class = VaultItemSerializer
+class VaultViewSet(viewsets.ModelViewSet):
+    serializer_class = VaultSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return VaultItem.objects.filter(user=self.request.user)
+        return Vault.objects.filter(user=self.request.user)
 
 
 class FolderViewSet(viewsets.ModelViewSet):
@@ -18,4 +18,4 @@ class FolderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Folder.objects.get(user=self.request.user)
+        return Folder.objects.filter(user=self.request.user)

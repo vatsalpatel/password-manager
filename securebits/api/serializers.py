@@ -1,16 +1,14 @@
 from rest_framework import serializers
-from .models import VaultItem, Folder
+from .models import Vault, Folder
 
 
-class VaultItemSerializer(serializers.ModelSerializer):
-    folder_name = serializers.CharField(source="Folder.name")
-
+class VaultSerializer(serializers.ModelSerializer):
     class Meta:
-        model = VaultItem
-        fields = ["id", "name", "username", "password", "folder_name", "folder", "user"]
+        model = Vault
+        fields = ["id", "name", "username", "password", "folder", "user"]
 
 
 class FolderSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Folder
-        fields = "__all__"
+        model = Folder
+        fields = ["id", "name", "user"]
