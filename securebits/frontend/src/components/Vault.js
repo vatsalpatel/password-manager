@@ -1,12 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-class Vault extends React.Component {
-    render() {
-        return (
-            <h1>Vault</h1>
-        )
-    }
+function Vault(props) {
+    return (
+        <p>{props.vault.name}</p>
+    )
 }
 
 export default Vault;

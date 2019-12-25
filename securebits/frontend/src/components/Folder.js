@@ -1,12 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Vault from './Vault'
 
-class Folder extends React.Component {
-    render() {
-        return(
-            <h1>Folder</h1>
-        )
-    }
+function Folder(props) {
+    console.log(props.folder.id)
+    const folderVaults = props.vaults.filter(vault => { return vault.folder === props.folder.id })
+    const vaults = folderVaults.map(vault => {
+        return <Vault vault={vault} />
+    })
+    console.log(props)
+    return (
+        <div className="folder">
+            {vaults}
+        </div>
+    )
 }
 
 const mapState = state => ({

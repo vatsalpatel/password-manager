@@ -1,16 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Folder from './Folder'
 
-class Folder extends React.Component {
-    render() {
-        return(
-            <h1>Folder</h1>
-        )
-    }
+function Container(props) {
+    const folders = props.folders.map(folder => {
+        return <Folder folder={folder} />
+    })
+    console.log(props)
+    return (
+        <div className="ctn">
+            {folders}
+        </div>
+    )
 }
 
 const mapState = state => ({
     folders: state.folders,
 })
 
-export default connect(mapState, {})(Folder);
+export default connect(mapState, {})(Container);
