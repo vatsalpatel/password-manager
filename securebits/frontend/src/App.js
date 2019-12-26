@@ -11,7 +11,7 @@ function App(props) {
             <Navbar />
             <Router>
                 <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" component={Container} />
                     <Route exact path="/vault/" component={Container} />
                 </Switch>
             </Router>
