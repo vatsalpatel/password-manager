@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AppBar, Toolbar, Typography, Button, Link} from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import User from './User';
 
 const useStyles = makeStyles({
     toolbar: {
@@ -29,14 +30,7 @@ function Navbar(props) {
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>About</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>Contact</Link>
                 </nav>
-                {props.username === "" ?
-                    <>
-                        <Button variant="outlined" color="primary" className={classes.link}>Log In</Button>
-                        <Button variant="contained" color="primary" className={classes.link}>Sign Up</Button>
-                    </> :
-                    <>
-
-                    </>}
+                <User {...props.user}/>
             </Toolbar>
         </AppBar>
     )
