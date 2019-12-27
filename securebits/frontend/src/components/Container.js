@@ -6,26 +6,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 function Container(props) {
-    const folders = props.folders.map(folder => {
-        return (
-            <div className="folder" style={{ margin: 5 }}>
-                <ContainerMUI maxWidth={"lg"}>
-                    <ExpansionPanel defaultExpanded style={{ backgroundColor: "whitesmoke" }}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <p>{folder.name}</p>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails>
-                            <Folder folder={folder} />
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                </ContainerMUI>
-            </div>
-        )
-    })
-    console.log(props)
     return (
         <>
-            {folders}
         </>
     )
 }
