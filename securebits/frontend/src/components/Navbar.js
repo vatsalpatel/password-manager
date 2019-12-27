@@ -22,7 +22,7 @@ function Navbar(props) {
     return (
         <AppBar position="static" color="default">
             <Toolbar className={classes.toolbar}>
-                <Typography variant="h6" color="primary" className={classes.toolbarTitle}>
+                <Typography variant="h5" color="primary" className={classes.toolbarTitle}>
                     Secure Bits
                 </Typography>
                 <nav>
