@@ -1,8 +1,13 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
 function Vault(props) {
     return (
-        <p>{props.vault.name}</p>
+        <>
+            <Typography variant="h6">
+                {props.vault.name}
+            </Typography>
+        </>
     )
 }
 

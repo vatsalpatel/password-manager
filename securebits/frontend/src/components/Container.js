@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Container as ContainerMUI } from '@material-ui/core'
 import Folder from './Folder'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -8,15 +8,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 function Container(props) {
     const folders = props.folders.map(folder => {
         return (
-            <div className="folder" style={{margin: 5}}>
-                <ExpansionPanel defaultExpanded style={{backgroundColor: "#36393e", color:"#fff"}}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon style={{color:"white"}} />}>
-                        <p>{folder.name}</p>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Folder folder={folder} />
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
+            <div className="folder" style={{ margin: 5 }}>
+                <ContainerMUI maxWidth={"lg"}>
+                    <ExpansionPanel defaultExpanded style={{ backgroundColor: "whitesmoke" }}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                            <p>{folder.name}</p>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Folder folder={folder} />
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                </ContainerMUI>
             </div>
         )
     })
