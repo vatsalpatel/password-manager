@@ -31,8 +31,8 @@ function Folder(props) {
                         <Vault {...vault} key={vault.name} />
                     </CardContent>
                     <CardActions className={classes.cardActions}>
-                        <IconButton size="medium" color="primary"><EditIcon /></IconButton>
-                        <IconButton size="medium" color="secondary"><DeleteIcon /></IconButton>
+                        <IconButton size="small" color="primary"><EditIcon /></IconButton>
+                        <IconButton size="small" color="secondary"><DeleteIcon /></IconButton>
                     </CardActions>
                 </Card>
             </div>
