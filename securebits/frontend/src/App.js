@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-// import Home from './components/Home';
 import Wrapper from './components/Wrapper';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
-import { getToken, getKey } from './_actions/actions';
+import { getToken, getKey, loginUser } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -16,7 +15,6 @@ const darkTheme = createMuiTheme({
 
 function App(props) {
     useEffect(() => {
-        window.sessionStorage.setItem("enc-key", "demo-key")
         let token = window.sessionStorage.getItem("auth-token")
         let key = window.sessionStorage.getItem("enc-key")
         if(token) {
@@ -25,6 +23,7 @@ function App(props) {
         if(key) {
             props.getKey(key)
         }
+        // props.loginUser("admin", "qweasdrf")
     }, [])
 
     return (
@@ -46,4 +45,4 @@ const mapStateToProps = state => ({
     encKey: state.key,
 })
 
-export default connect(mapStateToProps, { getToken, getKey })(App);
+export default connect(mapStateToProps, { getToken, getKey, loginUser })(App);
