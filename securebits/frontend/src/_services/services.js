@@ -22,3 +22,11 @@ export const login = (username, password) => {
         password: password,
     })
 }
+
+export const logout = (token) => {
+    return axios.post('auth/token/logout', {}, {
+        headers: {
+            Authorization: `Token ${token}`,
+        }
+    })
+}
