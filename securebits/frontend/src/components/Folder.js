@@ -19,14 +19,12 @@ const useStyles = makeStyles({
 function Folder(props) {
     const classes = useStyles();
 
-    console.log(props)
-
     const filteredVaults = props.vaults.filter(vault => vault.folder === props.id)
 
     const vaults = filteredVaults.map(vault => (
-        <Grid item md="4" lg="3" xl="2">
+        <Grid item xs="12" sm="12" md="4" lg="3" xl="3">
             <div className="vault">
-                <Card>
+                <Card variant="outlined">
                     <CardContent className={classes.cardContent}>
                         <Vault {...vault} key={vault.name} />
                     </CardContent>

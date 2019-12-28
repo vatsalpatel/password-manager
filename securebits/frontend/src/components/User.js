@@ -31,7 +31,7 @@ function User(props) {
     return (
         <>
             {
-                props.username === "" ?
+                props.username === undefined ?
                     <>
                         <Button variant="outlined" color="primary" className={classes.link}>Log In</Button>
                         <Button variant="contained" color="primary" className={classes.link}>Sign Up</Button>
