@@ -30,3 +30,11 @@ export const logout = (token) => {
         }
     })
 }
+
+export const fetchData = (url, token) => {
+    return axios.get(url, {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    })
+}

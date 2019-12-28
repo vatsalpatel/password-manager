@@ -19,8 +19,8 @@ from rest_framework.routers import SimpleRouter
 from api.views import VaultViewSet, FolderViewSet
 
 router = SimpleRouter()
-router.register("vault", VaultViewSet, basename="Vault")
-router.register("folder", FolderViewSet, basename="Folder")
+router.register("vaults", VaultViewSet, basename="Vault")
+router.register("folders", FolderViewSet, basename="Folder")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

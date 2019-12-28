@@ -1,5 +1,5 @@
-import { GET_TOKEN, DELETE_TOKEN, GET_KEY, DELETE_KEY, LOGIN_USER, LOGOUT_USER, FETCH_USER } from './types';
-import { produceKey, login, logout } from '../_services/services';
+import { GET_TOKEN, DELETE_TOKEN, GET_KEY, DELETE_KEY, LOGIN_USER, LOGOUT_USER, FETCH_USER, FETCH_FOLDERS, FETCH_VAULTS } from './types';
+import { produceKey, login, logout, fetchData } from '../_services/services';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
@@ -24,13 +24,38 @@ export const loginUser = (username, password) => dispatch => {
             dispatch({ type: GET_KEY.SUCCESS, payload: produceKey(username, password) })
             // TODO: fetch user, folders and vaults
         })
+        .catch()
 }
 
-export const logoutUser = (token) => dispatch => {
+export const logoutUser = token => dispatch => {
     logout(token)
         .then(res => {
             dispatch({ type: DELETE_TOKEN.SUCCESS })
             dispatch({ type: DELETE_KEY.SUCCESS })
             // TODO: clear user, folders and vaults from store
         })
+}
+
+export const fetchUser = token => dispatch => {
+    fetchData('auth/users/me', token)
+        .then(res => {
+            dispatch({ type: FETCH_USER.SUCCESS, payload: res.data })
+        })
+        .catch()
+}
+
+export const fetchFolders = token => dispatch => {
+    fetchData('folders/', token)
+        .then(res => {
+            dispatch({ type: FETCH_FOLDERS.SUCCESS, payload: res.data })
+        })
+        .catch()
+}
+
+export const fetchVaults = token => dispatch => {
+    fetchData('vaults/', token)
+        .then(res => {
+            dispatch({ type: FETCH_VAULTS.SUCCESS, payload: res.data })
+        })
+        .catch()
 }

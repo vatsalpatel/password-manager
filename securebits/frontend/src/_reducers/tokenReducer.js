@@ -1,6 +1,6 @@
 import { GET_TOKEN, DELETE_TOKEN } from '../_actions/types';
 
-const tokenReducer = (state = "", action) => {
+const tokenReducer = (state="", action) => {
     switch(action.type){
         case GET_TOKEN.SUCCESS:
             window.sessionStorage.setItem("auth-token", action.payload)

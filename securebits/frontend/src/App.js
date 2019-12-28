@@ -5,7 +5,7 @@ import Wrapper from './components/Wrapper';
 import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
-import { getToken, getKey, loginUser } from './_actions/actions';
+import { getToken, getKey, loginUser, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -17,22 +17,30 @@ function App(props) {
     useEffect(() => {
         let token = window.sessionStorage.getItem("auth-token")
         let key = window.sessionStorage.getItem("enc-key")
-        if(token) {
+        if (token) {
             props.getToken(token)
         }
-        if(key) {
+        if (key) {
             props.getKey(key)
         }
-        // props.loginUser("admin", "qweasdrf")
+        props.loginUser("admin", "qweasdrf")
     }, [])
+
+    useEffect(() => {
+        if (props.token !== "") {
+            props.fetchUser(props.token)
+            props.fetchFolders(props.token)
+            props.fetchVaults(props.token)
+        }
+    }, [props.token])
 
     return (
         <div className="App">
             <ThemeProvider theme={darkTheme}>
-                <Navbar />
+                <Navbar token={props.token} />
                 <Router>
                     <Switch>
-                        <Route exact path="/" component={Wrapper} />
+                        <Route exact path="/" render={() => <Wrapper token={props.token} />} />
                         <Route exact path="/vault/" component={Wrapper} />
                     </Switch>
                 </Router>
@@ -43,6 +51,7 @@ function App(props) {
 
 const mapStateToProps = state => ({
     encKey: state.key,
+    token: state.token,
 })
 
-export default connect(mapStateToProps, { getToken, getKey, loginUser })(App);
+export default connect(mapStateToProps, { getToken, getKey, loginUser, fetchUser, fetchFolders, fetchVaults })(App);
