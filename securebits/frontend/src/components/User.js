@@ -68,7 +68,7 @@ function User(props) {
                         >
                             <MenuItem onClick={handleClose}><AccountBoxIcon />Profile</MenuItem>
                             <MenuItem onClick={handleClose}><SettingsIcon /> Settings</MenuItem>
-                            <MenuItem onClick={handleClose} className={classes.logout} onClick={props.logoutUser}><ExitToAppIcon /> Logout</MenuItem>
+                            <MenuItem onClick={() => {handleClose(); props.logoutUser(props.token)}} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
                     </>
             }
@@ -80,6 +80,7 @@ function User(props) {
 
 const mapStateToProps = state => ({
     user: state.user,
+    token: state.token
 })
 
 export default connect(mapStateToProps, { logoutUser })(User);

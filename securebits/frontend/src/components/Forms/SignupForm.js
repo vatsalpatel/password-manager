@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../_actions/actions';
 import { Button, Dialog, DialogActions, DialogContent, TextField } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
@@ -25,7 +24,7 @@ const Form = props => {
     } = props;
 
     const handleSubmit = () => {
-        submit(values.username, values.password)
+        submit(values.username, values.password, values.password2, values.email, values.first_name, values.last_name)
         handleClose()
     }
 
@@ -36,12 +35,12 @@ const Form = props => {
                 <TextField variant="outlined" label="E-mail" name="email" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
                 <TextField variant="outlined" label="Password" name="password" type="password" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
                 <TextField variant="outlined" label="Password Reapeat" name="password2" type="password" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="First Name" name="first" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="Last Name" name="last" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
+                <TextField variant="outlined" label="First Name" name="first_name" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
+                <TextField variant="outlined" label="Last Name" name="last_name" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                <Button onClick={submit} variant="contained" color="primary" >Sign Up</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary" >Sign Up</Button>
             </DialogActions>
         </form>
     )
