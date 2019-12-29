@@ -37,7 +37,7 @@ export const logoutUser = token => dispatch => {
 }
 
 export const fetchUser = token => dispatch => {
-    fetchData('auth/users/me', token)
+    fetchData('auth/users/me/', token)
         .then(res => {
             dispatch({ type: FETCH_USER.SUCCESS, payload: res.data })
         })

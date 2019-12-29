@@ -6,6 +6,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
+import LoginForm from './Forms/LoginForm';
+
 const useStyles = makeStyles({
     link: {
         marginLeft: 15,
@@ -28,12 +30,23 @@ function User(props) {
         setAnchorEl(null);
     };
 
+    const [login, setLogin] = useState(false);
+    const [signup, setSignup] = useState(false);
+
+    const openLogin = () => {
+        setLogin(true)
+    }
+
+    const closeLogin = () => {
+        setLogin(false)
+    }
+
     return (
         <>
             {
                 props.username === undefined ?
                     <>
-                        <Button variant="outlined" color="primary" className={classes.link}>Log In</Button>
+                        <Button variant="outlined" color="primary" className={classes.link} onClick={openLogin} >Log In</Button>
                         <Button variant="contained" color="primary" className={classes.link}>Sign Up</Button>
                     </> :
                     <>
@@ -55,6 +68,7 @@ function User(props) {
                         </Menu>
                     </>
             }
+            <LoginForm open={login} onClose={closeLogin} />
         </>
     )
 }

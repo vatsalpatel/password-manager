@@ -22,7 +22,7 @@ function App(props) {
         if (key) {
             props.getKey(key)
         }
-        props.loginUser("admin", "qweasdrf")
+        // props.loginUser("admin", "qweasdrf")
     }, [])
 
     useEffect(() => {
