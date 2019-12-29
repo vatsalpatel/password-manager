@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { AppBar, Toolbar, Typography, Link } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import User from './User';
@@ -30,14 +29,10 @@ function Navbar(props) {
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>About</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>Contact</Link>
                 </nav>
-                <User {...props.user}/>
+                <User />
             </Toolbar>
         </AppBar>
     )
 }
 
-const mapStateToProps = state => ({
-    user: state.user,
-})
-
-export default connect(mapStateToProps, null)(Navbar);
+export default Navbar;

@@ -3,16 +3,16 @@ export const GET_TOKEN = {
     SUCCESS: "GET_TOKEN_SUCCESS",
 }
 
-export const DELETE_TOKEN = {
-    SUCCESS: "DELETE_TOKEN_SUCCESS"
+export const CLEAR_TOKEN = {
+    SUCCESS: "CLEAR_TOKEN_SUCCESS"
 }
 
 export const GET_KEY = {
     SUCCESS: "GET_KEY_SUCCESS",
 }
 
-export const DELETE_KEY = {
-    SUCCESS: "DELETE_KEY_SUCCESS",
+export const CLEAR_KEY = {
+    SUCCESS: "CLEAR_KEY_SUCCESS",
 }
 
 // Login-Logout

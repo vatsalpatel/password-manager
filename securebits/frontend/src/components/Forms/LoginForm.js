@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
     dialogContent: {
-        padding: 15,
+        padding: 25,
     },
     text: {
         marginBottom: 15,
@@ -25,12 +25,11 @@ const Form = props => {
     } = props;
 
     const handleSubmit = () => {
-        console.log(values)
         submit(values.username, values.password)
         handleClose()
     }
     return (
-        <form className={classes.form}>
+        <form>
             <DialogContent className={classes.dialogContent}>
                 <TextField variant="outlined" label="Username" fullWidth className={classes.text}
                     name="username" value={values.username} onChange={handleChange}
@@ -40,8 +39,8 @@ const Form = props => {
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} variant="outlined">Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+                <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">Log In</Button>
             </DialogActions>
         </form>
     )
@@ -58,7 +57,7 @@ const LoginForm = props => {
     const { open, onClose } = props
 
     return (
-        <Dialog onClose={onClose} open={open} maxWidth="md">
+        <Dialog onClose={onClose} open={open} maxWidth="sm">
             <FormikForm handleClose={onClose} submit={props.loginUser} />
         </Dialog >
     )

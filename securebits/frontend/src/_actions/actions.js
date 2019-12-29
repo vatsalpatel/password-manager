@@ -1,20 +1,12 @@
-import { GET_TOKEN, DELETE_TOKEN, GET_KEY, DELETE_KEY, FETCH_USER, FETCH_FOLDERS, FETCH_VAULTS } from './types';
+import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, FETCH_USER, FETCH_FOLDERS, FETCH_VAULTS } from './types';
 import { produceKey, login, logout, fetchData } from '../_services/services';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
 }
 
-export const deleteToken = () => dispatch => {
-    dispatch({ type: DELETE_TOKEN.SUCCESS })
-}
-
 export const getKey = data => dispatch => {
     dispatch({ type: GET_KEY.SUCCESS, payload: data })
-}
-
-export const deleteKey = () => dispatch => {
-    dispatch({ type: DELETE_KEY.SUCCESS })
 }
 
 export const loginUser = (username, password) => dispatch => {
@@ -30,11 +22,8 @@ export const loginUser = (username, password) => dispatch => {
 
 export const logoutUser = token => dispatch => {
     logout(token)
-        .then(res => {
-            dispatch({ type: DELETE_TOKEN.SUCCESS })
-            dispatch({ type: DELETE_KEY.SUCCESS })
-            // TODO: clear user, folders and vaults from store
-        })
+    dispatch({ type: CLEAR_TOKEN.SUCCESS })
+    dispatch({ type: CLEAR_KEY.SUCCESS })
 }
 
 export const fetchUser = token => dispatch => {
