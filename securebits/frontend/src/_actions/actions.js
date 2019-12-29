@@ -1,4 +1,4 @@
-import { GET_TOKEN, DELETE_TOKEN, GET_KEY, DELETE_KEY, LOGIN_USER, LOGOUT_USER, FETCH_USER, FETCH_FOLDERS, FETCH_VAULTS } from './types';
+import { GET_TOKEN, DELETE_TOKEN, GET_KEY, DELETE_KEY, FETCH_USER, FETCH_FOLDERS, FETCH_VAULTS } from './types';
 import { produceKey, login, logout, fetchData } from '../_services/services';
 
 export const getToken = data => dispatch => {

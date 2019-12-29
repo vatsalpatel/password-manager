@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Wrapper from './components/Wrapper';
-import './App.css';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
+import Navbar from './components/Navbar';
+import Wrapper from './components/Wrapper';
 import { getToken, getKey, loginUser, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
