@@ -51,6 +51,10 @@ export const DELETE_VAULT = {
     REQUEST: "DELETE_VAULT_REQUEST",
 }
 
+export const CLEAR_VAULTS = {
+    SUCCESS: "CLEAR_VAULTS_SUCCESS",
+}
+
 // Folder Actions
 export const FETCH_FOLDERS = {
     SUCCESS: "FETCH_FOLDERS_SUCCESS",
@@ -76,6 +80,10 @@ export const DELETE_FOLDER = {
     REQUEST: "DELETE_FOLDER_REQUEST",
 }
 
+export const CLEAR_FOLDERS = {
+    SUCCESS: "CLEAR_FOLDERS_SUCCESS",
+}
+
 // User Actions
 export const FETCH_USER = {
     SUCCESS: "FETCH_USER_SUCCESS",
@@ -99,4 +107,8 @@ export const DELETE_USER = {
     SUCCESS: "DELETE_USER_SUCCESS",
     FAILURE: "DELETE_USER_FAILURE",
     REQUEST: "DELETE_USER_REQUEST",
+}
+
+export const CLEAR_USER = {
+    SUCCESS: "CLEAR_USER_SUCCESS",
 }
