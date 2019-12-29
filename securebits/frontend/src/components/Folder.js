@@ -24,15 +24,7 @@ function Folder(props) {
     const vaults = filteredVaults.map(vault => (
         <Grid item xs="12" sm="12" md="4" lg="3" xl="3">
             <div className="vault">
-                <Card variant="outlined">
-                    <CardContent className={classes.cardContent}>
-                        <Vault {...vault} key={vault.name} />
-                    </CardContent>
-                    <CardActions className={classes.cardActions}>
-                        <IconButton size="small" color="primary"><EditIcon /></IconButton>
-                        <IconButton size="small" color="secondary"><DeleteIcon /></IconButton>
-                    </CardActions>
-                </Card>
+                <Vault {...vault} key={vault.name} />
             </div>
         </Grid>
     ))
