@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../_actions/actions';
 import { Button, Dialog, DialogActions, DialogContent, TextField } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
@@ -14,25 +16,32 @@ const useStyles = makeStyles({
 
 const Form = props => {
     const classes = useStyles();
+
     const {
         values,
         handleChange,
-        handleSubmit,
         handleClose,
+        submit,
     } = props;
+
+    const handleSubmit = () => {
+        console.log(values)
+        submit(values.username, values.password)
+        handleClose()
+    }
     return (
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form className={classes.form}>
             <DialogContent className={classes.dialogContent}>
                 <TextField variant="outlined" label="Username" fullWidth className={classes.text}
-                name="username" value={values.username} onChange={handleChange} 
-            />
+                    name="username" value={values.username} onChange={handleChange}
+                />
                 <TextField variant="outlined" label="Password" fullWidth className={classes.text}
-                type="password" name="password" value={values.password} onChange={handleChange} 
-            />
+                    type="password" name="password" value={values.password} onChange={handleChange}
+                />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined">Cancel</Button>
-                <Button type="submit" variant="contained" color="primary">Submit</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
             </DialogActions>
         </form>
     )
@@ -40,12 +49,9 @@ const Form = props => {
 
 const FormikForm = withFormik({
     mapPropsToValues: () => ({
-        username: "",
-        password: "",
+        username: "admin",
+        password: "qweasdrf",
     }),
-    handleSubmit: values => {
-        console.log(values)
-    },
 })(Form);
 
 const LoginForm = props => {
@@ -53,9 +59,9 @@ const LoginForm = props => {
 
     return (
         <Dialog onClose={onClose} open={open} maxWidth="md">
-            <FormikForm handleClose={onClose} />
+            <FormikForm handleClose={onClose} submit={props.loginUser} />
         </Dialog >
     )
 }
 
-export default LoginForm;
+export default connect(null, { loginUser })(LoginForm);

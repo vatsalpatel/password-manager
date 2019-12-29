@@ -18,6 +18,7 @@ export const deleteKey = () => dispatch => {
 }
 
 export const loginUser = (username, password) => dispatch => {
+    console.log(username, password)
     login(username, password)
         .then(res => {
             dispatch({ type: GET_TOKEN.SUCCESS, payload: res.data.auth_token })

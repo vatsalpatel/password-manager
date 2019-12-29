@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
 import Wrapper from './components/Wrapper';
-import { getToken, getKey, loginUser, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
+import { getToken, getKey, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -22,7 +22,6 @@ function App(props) {
         if (key) {
             props.getKey(key)
         }
-        // props.loginUser("admin", "qweasdrf")
     }, [])
 
     useEffect(() => {
@@ -53,4 +52,4 @@ const mapStateToProps = state => ({
     token: state.token,
 })
 
-export default connect(mapStateToProps, { getToken, getKey, loginUser, fetchUser, fetchFolders, fetchVaults })(App);
+export default connect(mapStateToProps, { getToken, getKey, fetchUser, fetchFolders, fetchVaults })(App);
