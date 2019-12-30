@@ -1,4 +1,4 @@
-import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT } from '../_actions/types';
+import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, DELETE_VAULT } from '../_actions/types';
 
 const vaultReducer = (state=[], action) => {
     switch(action.type) {
@@ -9,6 +9,8 @@ const vaultReducer = (state=[], action) => {
                 ...state,
                 action.payload,
             ]
+        case DELETE_VAULT.SUCCESS:
+            return state.filter(vault => vault.id !== action.payload)
         case CLEAR_VAULTS.SUCCESS:
             return []
         default:

@@ -44,7 +44,16 @@ export const fetchData = (url, token) => {
 export const addData = (url, data) => {
     const token = store.getState().token
     const user = store.getState().user
-    return axios.post(url, {...data, user: user.id}, {
+    return axios.post(url, { ...data, user: user.id }, {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    })
+}
+
+export const deleteData = (url) => {
+    const token = store.getState().token
+    return axios.delete(url, {
         headers: {
             Authorization: `Token ${token}`
         }
