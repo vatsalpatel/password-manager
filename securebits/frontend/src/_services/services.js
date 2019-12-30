@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import store from '../store';
 
 export const encrypt = (text, key) => {
     let res = CryptoJS.AES.encrypt(text, key)
@@ -23,7 +24,8 @@ export const login = (username, password) => {
     })
 }
 
-export const logout = (token) => {
+export const logout = () => {
+    const token = store.getState().token
     return axios.post('auth/token/logout', {}, {
         headers: {
             Authorization: `Token ${token}`,
@@ -33,6 +35,16 @@ export const logout = (token) => {
 
 export const fetchData = (url, token) => {
     return axios.get(url, {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    })
+}
+
+export const addData = (url, data) => {
+    const token = store.getState().token
+    const user = store.getState().user
+    return axios.post(url, {...data, user: user.id}, {
         headers: {
             Authorization: `Token ${token}`
         }

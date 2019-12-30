@@ -32,5 +32,4 @@ class VaultUserCreateSerializer(UserCreateSerializer):
             "reminder",
             "first_name",
             "last_name",
-            "reminder",
         ]

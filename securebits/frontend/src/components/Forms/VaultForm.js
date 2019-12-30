@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, TextField, Dialog, DialogActions, DialogContent, MenuItem } from '@material-ui/core';
 import { withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
+import { addVault } from '../../_actions/actions';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -24,7 +25,7 @@ const Form = props => {
     } = props;
 
     const handleSubmit = () => {
-        submit(values.username, values.password)
+        submit({name: values.name ,username: values.username, password: values.password, folder:folder})
         handleClose()
     }
     const handleSelect = event => {
@@ -35,7 +36,7 @@ const Form = props => {
         <form>
             <DialogContent className={classes.dialogContent}>
                 <TextField variant="outlined" label="Name" fullWidth className={classes.text}
-                    name="name" value={values.username} onChange={handleChange}
+                    name="name" value={values.name} onChange={handleChange}
                 />
                 <TextField variant="outlined" label="Username" fullWidth className={classes.text}
                     name="username" value={values.username} onChange={handleChange}
@@ -52,7 +53,7 @@ const Form = props => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary">Log In</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">Add</Button>
             </DialogActions>
         </form>
     )
@@ -63,14 +64,13 @@ const FormikForm = withFormik({
         name: "",
         username: "",
         password: "",
-        folder: "",
     })
 })(Form);
 
 const VaultForm = props => {
     return (
         <Dialog onClose={props.onClose} open={props.open}>
-            <FormikForm handleClose={props.onClose} folders={props.folders} />
+            <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.addVault} />
         </Dialog>
     )
 }
@@ -86,4 +86,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, {})(VaultForm);
+export default connect(mapStateToProps, { addVault })(VaultForm);
