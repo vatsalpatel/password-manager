@@ -7,7 +7,7 @@ function Folder(props) {
     const filteredVaults = props.vaults.filter(vault => vault.folder === props.id)
 
     const vaults = filteredVaults.map(vault => (
-        <Grid item xs={12} sm={12} md={6} lg={3} xl={3}>
+        <Grid item xs={12} sm={12} md={6} lg={3} xl={3} key={vault.id}>
             <div className="vault">
                 <Vault {...vault} key={vault.name} />
             </div>

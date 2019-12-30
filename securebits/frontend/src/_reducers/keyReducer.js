@@ -6,7 +6,7 @@ const keyReducer = (state = "", action) => {
             window.sessionStorage.setItem("enc-key", action.payload)
             return action.payload
         case CLEAR_KEY.SUCCESS:
-            window.sessionStorage.setItem("enc-key", "")
+            window.sessionStorage.removeItem("enc-key")
             return ""
         default:
             return state

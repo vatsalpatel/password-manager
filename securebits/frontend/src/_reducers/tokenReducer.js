@@ -6,7 +6,7 @@ const tokenReducer = (state="", action) => {
             window.sessionStorage.setItem("auth-token", action.payload)
             return action.payload
         case CLEAR_TOKEN.SUCCESS:
-            window.sessionStorage.setItem("auth-token", "")
+            window.sessionStorage.removeItem("auth-token")
             return ""
         default:
             return state
