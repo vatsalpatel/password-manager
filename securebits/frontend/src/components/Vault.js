@@ -40,7 +40,7 @@ function Vault(props) {
                     Username: {props.username}
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <IconButton size="small" color="primary"><EditIcon /></IconButton>
+                    <IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton>
                     <IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton>
                 </CardActions>
             </Card>

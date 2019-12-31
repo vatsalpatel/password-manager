@@ -18,14 +18,14 @@ const useStyles = makeStyles({
 
 const Form = props => {
     const classes = useStyles();
-    const [folder, setFolder] = useState(props.folders[0].id);
-    const [showPass, setShowPass] = useState(false);
     const {
         values,
         handleChange,
         handleClose,
         submit,
     } = props;
+    const [folder, setFolder] = useState(values.folder);
+    const [showPass, setShowPass] = useState(false);
 
     const handleSubmit = () => {
         submit({ name: values.name, username: values.username, password: values.password, folder: folder })
@@ -67,25 +67,26 @@ const Form = props => {
 }
 
 const FormikForm = withFormik({
-    mapPropsToValues: () => ({
-        name: "",
-        username: "",
-        password: "",
+    mapPropsToValues: (props) => ({
+            name: props.vault.name,
+            username: props.vault.username,
+            password: props.vault.password,
+            folder: props.vault.folder,
     })
 })(Form);
 
 const VaultForm = props => {
     return (
         <Dialog onClose={props.onClose} open={props.open}>
-            <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.addVault} />
+            <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.addVault} vault={props.vault} />
         </Dialog>
     )
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let vault = null;
+    let vault = {name: "", username: "", password: "", folder: ""};
     if (ownProps.vault) {
-        vault = state.vaults.map(vault => vault.id === ownProps.vault)
+        vault = state.vaults.filter(vault => vault.id === ownProps.vault)[0]
     }
     return {
         vault,
