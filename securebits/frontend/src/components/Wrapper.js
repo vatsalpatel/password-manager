@@ -42,11 +42,14 @@ function Wrapper(props) {
         )
     })
     return (
-        <div className="wrappre">
-            <div className={classes.buttons}>
-                <Button onClick={openDialog} variant="contained" size="large" color="primary" >Add Vault</Button>
-                <VaultForm open={dialog} onClose={closeDialog} />
-            </div>
+        <div className="wrapper">
+            {props.folders ?
+                <div className={classes.buttons}>
+                    <Button onClick={openDialog} variant="contained" size="large" color="primary" >Add Vault</Button>
+                    <VaultForm open={dialog} onClose={closeDialog} />
+                </div>
+            : null    
+            }
             <Container maxWidth="lg">
                 {folders}
             </Container>
