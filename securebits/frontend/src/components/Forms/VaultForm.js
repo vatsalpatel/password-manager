@@ -5,7 +5,7 @@ import { withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { addVault } from '../../_actions/actions';
+import { addVault, editVault } from '../../_actions/actions';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -28,7 +28,7 @@ const Form = props => {
     const [showPass, setShowPass] = useState(false);
 
     const handleSubmit = () => {
-        submit({ name: values.name, username: values.username, password: values.password, folder: folder })
+        submit({ id: values.id ,name: values.name, username: values.username, password: values.password, folder: folder })
         handleClose()
     }
     const handleSelect = event => {
@@ -68,6 +68,7 @@ const Form = props => {
 
 const FormikForm = withFormik({
     mapPropsToValues: (props) => ({
+        id: props.vault.id,
         name: props.vault.name,
         username: props.vault.username,
         password: props.vault.password,
@@ -78,13 +79,13 @@ const FormikForm = withFormik({
 const VaultForm = props => {
     return (
         <Dialog onClose={props.onClose} open={props.open}>
-            <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.addVault} vault={props.vault} />
+            <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.vault.id ? props.editVault : props.addVault} vault={props.vault} />
         </Dialog>
     )
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let vault = { name: "", username: "", password: "", folder: "" };
+    let vault = { id: 0, name: "", username: "", password: "", folder: "" };
     if (ownProps.vault) {
         vault = state.vaults.filter(vault => vault.id === ownProps.vault)[0]
     }
@@ -94,4 +95,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { addVault })(VaultForm);
+export default connect(mapStateToProps, { addVault, editVault })(VaultForm);

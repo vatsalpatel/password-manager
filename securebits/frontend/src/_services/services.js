@@ -51,6 +51,16 @@ export const addData = (url, data) => {
     })
 }
 
+export const editData = (url, data) => {
+    const token = store.getState().token
+    const user = store.getState().user
+    return axios.put(url, { ...data, user: user.id}, {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    })
+}
+
 export const deleteData = (url) => {
     const token = store.getState().token
     return axios.delete(url, {
