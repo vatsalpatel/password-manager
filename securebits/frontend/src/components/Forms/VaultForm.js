@@ -24,7 +24,7 @@ const Form = props => {
         handleClose,
         submit,
     } = props;
-    const [folder, setFolder] = useState(values.folder);
+    const [folder, setFolder] = useState(values.folder || props.folders[0].id);
     const [showPass, setShowPass] = useState(false);
 
     const handleSubmit = () => {
@@ -68,10 +68,10 @@ const Form = props => {
 
 const FormikForm = withFormik({
     mapPropsToValues: (props) => ({
-            name: props.vault.name,
-            username: props.vault.username,
-            password: props.vault.password,
-            folder: props.vault.folder,
+        name: props.vault.name,
+        username: props.vault.username,
+        password: props.vault.password,
+        folder: props.vault.folder,
     })
 })(Form);
 
@@ -84,7 +84,7 @@ const VaultForm = props => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    let vault = {name: "", username: "", password: "", folder: ""};
+    let vault = { name: "", username: "", password: "", folder: "" };
     if (ownProps.vault) {
         vault = state.vaults.filter(vault => vault.id === ownProps.vault)[0]
     }
