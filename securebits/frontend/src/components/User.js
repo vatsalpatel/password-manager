@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import FolderIcon from '@material-ui/icons/Folder';
 import LoginForm from './Forms/LoginForm';
 import SignupForm from './Forms/SignupForm';
 import { connect } from 'react-redux';
@@ -66,7 +66,7 @@ function User(props) {
                             transformOrigin={{ vertical: "top", horizontal: "center" }}
                             getContentAnchorEl={null}
                         >
-                            <MenuItem onClick={handleClose}><AccountBoxIcon />Profile</MenuItem>
+                            <MenuItem onClick={handleClose}><FolderIcon />Folders</MenuItem>
                             <MenuItem onClick={handleClose}><SettingsIcon /> Settings</MenuItem>
                             <MenuItem onClick={() => {handleClose(); props.logoutUser()}} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
