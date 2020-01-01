@@ -9,6 +9,8 @@ import VaultForm from './Forms/VaultForm';
 const useStyles = makeStyles({
     buttons: {
         margin: 10,
+        display: "flex",
+        justifyContent: "center",
     },
     folder: {
         margin: 10,
@@ -48,7 +50,7 @@ function Wrapper(props) {
                     <Button onClick={openDialog} variant="contained" size="large" color="primary" >Add Vault</Button>
                     <VaultForm open={dialog} onClose={closeDialog} />
                 </div>
-                : <Typography>Please create some folders.</Typography>
+                : <Typography align="center">Please create some folders.</Typography>
             }
             <Container maxWidth="lg">
                 {folders}

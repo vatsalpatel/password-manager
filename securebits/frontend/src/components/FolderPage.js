@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Paper, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import FolderForm from './Forms/FolderForm';
 // import {} from '../_action/actions';
 
 const useStyles = makeStyles({
@@ -29,11 +30,15 @@ const useStyles = makeStyles({
 function FolderPage(props) {
     const classes = useStyles();
 
+    const [dialog, setDialog] = useState(0);
+    const openDialog = id => setDialog(id);
+    const closeDialog = () => setDialog(0);
+
     return (
         <>
             <Container maxWidth="lg">
                 <div className={classes.addButton}>
-                    <Button variant="contained" color="primary">Add Folder</Button>
+                    <Button variant="contained" color="primary" onClick={() => openDialog(-1)}>Add Folder</Button>
                 </div>
                 {props.folders.map(folder => (
                     <Paper className={classes.paper} key={folder.id}>
@@ -41,12 +46,13 @@ function FolderPage(props) {
                             {folder.name}
                         </Typography>
                         <div>
-                            <Button variant="outlined" color="primary" className={classes.btn}>Edit</Button>
-                            <Button variant="contained" color="secondary" className={classes.btn}>Delete</Button>
+                            <Button variant="contained" color="primary" className={classes.btn} onClick={() => openDialog(folder.id)}>Edit</Button>
+                            <Button variant="outlined" color="secondary" className={classes.btn}>Delete</Button>
                         </div>
                     </Paper>
                 ))}
             </Container>
+            <FolderForm open={Boolean(dialog)} folder={dialog} onClose={closeDialog} />
         </>
     )
 }

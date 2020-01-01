@@ -2,7 +2,7 @@ import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER } from './types'
-import { produceKey, login, logout, fetchData, addData, editData ,deleteData } from '../_services/services';
+import { produceKey, login, logout, fetchData, addData, editData, deleteData } from '../_services/services';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
@@ -13,7 +13,6 @@ export const getKey = data => dispatch => {
 }
 
 export const loginUser = (username, password) => dispatch => {
-    console.log(username, password)
     login(username, password)
         .then(res => {
             dispatch({ type: GET_TOKEN.SUCCESS, payload: res.data.auth_token })
@@ -73,22 +72,29 @@ export const editVault = data => dispatch => {
 }
 
 export const deleteVault = data => dispatch => {
-    console.log(data)
     deleteData(`vaults/${data}/`)
         .then(res => {
-            dispatch({ type:DELETE_VAULT.SUCCESS, payload: data})
+            dispatch({ type: DELETE_VAULT.SUCCESS, payload: data })
         })
         .catch(res => console.log(res))
 }
 
 export const addFolder = data => dispatch => {
-
+    addData('folders/', data)
+        .then(res => {
+            dispatch({ type: ADD_FOLDER.SUCCESS, payload: res.data })
+        })
+        .catch(res => console.log(res))
 }
 
 export const editFolder = data => dispatch => {
-    
+    editData(`folders/${data.id}/`, data)
+        .then(res => {
+            dispatch({ type: EDIT_FOLDER.SUCCESS, payload: res.data })
+        })
+        .catch(res => console.log(res))
 }
 
 export const deleteFolder = data => dispatch => {
-    
+
 }
