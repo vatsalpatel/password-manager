@@ -25,7 +25,9 @@ function Navbar(props) {
                     Secure Bits
                 </Typography>
                 <nav>
-                    <Link variant="button" color="textPrimary" href="#" className={classes.link}>Home</Link>
+                    <Link variant="button" color="textPrimary" href="/vault" className={classes.link}>Vault</Link>
+                    {/* This link is temporary */}
+                    <Link variant="button" color="textPrimary" href="/folder" className={classes.link}>Folder</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>About</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>Contact</Link>
                 </nav>

@@ -41,7 +41,7 @@ function App(props) {
                 <Router browser>
                     <Switch>
                         <Route exact path="/vault/" render={() => <Wrapper token={props.token} />} />
-                        <Route exact path="/" component={FolderPage} />
+                        <Route exact path="/folder" component={FolderPage} />
                         <Route exact path="/" component={Home} />
                     </Switch>
                 </Router>
