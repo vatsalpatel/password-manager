@@ -14,6 +14,8 @@ const folderReducer = (state=[], action) => {
                 ...state.filter(folder => folder.id !== action.payload.id),
                 action.payload,
             ].sort((a, b) => a.id - b.id)
+        case DELETE_FOLDER.SUCCESS:
+            return state.filter(folder => folder.id !== action.payload)
         case CLEAR_FOLDERS.SUCCESS:
             return []
         default:

@@ -96,5 +96,9 @@ export const editFolder = data => dispatch => {
 }
 
 export const deleteFolder = data => dispatch => {
-
+    deleteData(`folders/${data}/`)
+        .then(res => {
+            dispatch({ type: DELETE_FOLDER.SUCCESS, payload: data })
+        })
+        .catch(res => console.log(res))
 }

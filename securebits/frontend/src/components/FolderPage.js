@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, Button } from '@material-ui/core';
+import { Container, Paper, Typography, Button, Dialog, DialogContent, DialogActions } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import FolderForm from './Forms/FolderForm';
-// import {} from '../_action/actions';
+import { deleteFolder } from '../_actions/actions';
 
 const useStyles = makeStyles({
     paper: {
@@ -34,6 +34,10 @@ function FolderPage(props) {
     const openDialog = id => setDialog(id);
     const closeDialog = () => setDialog(0);
 
+    const [del, setDel] = useState(0);
+    const openDelete = id => setDel(id);
+    const closeDelete = () => setDel(0);
+
     return (
         <>
             <Container maxWidth="lg">
@@ -47,11 +51,20 @@ function FolderPage(props) {
                         </Typography>
                         <div>
                             <Button variant="contained" color="primary" className={classes.btn} onClick={() => openDialog(folder.id)}>Edit</Button>
-                            <Button variant="outlined" color="secondary" className={classes.btn}>Delete</Button>
+                            <Button variant="outlined" color="secondary" className={classes.btn} onClick={() => openDelete(folder.id)}>Delete</Button>
                         </div>
                     </Paper>
                 ))}
             </Container>
+            <Dialog open={Boolean(del)} onClose={closeDelete}>
+                <DialogContent>
+                    {`Deleteing this folder will delete all items inside it.`}
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="outlined" color="primary" onClick={closeDelete}>Cancel</Button>
+                    <Button variant="contained" color="secondary" onClick={() => { props.deleteFolder(del); closeDelete() }}>Delete</Button>
+                </DialogActions>
+            </Dialog>
             <FolderForm open={Boolean(dialog)} folder={dialog} onClose={closeDialog} />
         </>
     )
@@ -61,4 +74,4 @@ const mapStateToProps = state => ({
     folders: state.folders
 })
 
-export default connect(mapStateToProps, {})(FolderPage);
+export default connect(mapStateToProps, { deleteFolder })(FolderPage);
