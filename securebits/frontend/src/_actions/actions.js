@@ -26,6 +26,12 @@ export const loginUser = (username, password) => dispatch => {
         .catch(res => console.log(res))
 }
 
+export const continueSession = token => dispatch => {
+    dispatch(fetchUser(token))
+    dispatch(fetchFolders(token))
+    dispatch(fetchVaults(token))
+}
+
 export const logoutUser = token => dispatch => {
     logout(token)
     dispatch({ type: CLEAR_TOKEN.SUCCESS })

@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Wrapper from './components/Wrapper';
 import Home from './components/Home'
 import FolderPage from './components/FolderPage'
-import { getToken, getKey, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
+import { getToken, getKey, continueSession } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -28,9 +28,7 @@ function App(props) {
 
     useEffect(() => {
         if (props.token !== "") {
-            props.fetchUser(props.token)
-            props.fetchFolders(props.token)
-            props.fetchVaults(props.token)
+            props.continueSession(props.token)
         }
     }, [props.token])
 
@@ -55,4 +53,4 @@ const mapStateToProps = state => ({
     token: state.token,
 })
 
-export default connect(mapStateToProps, { getToken, getKey, fetchUser, fetchFolders, fetchVaults })(App);
+export default connect(mapStateToProps, { getToken, getKey, continueSession })(App);
