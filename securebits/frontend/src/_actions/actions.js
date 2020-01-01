@@ -2,7 +2,7 @@ import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER } from './types'
-import { produceKey, login, logout, fetchData, addData, editData, deleteData } from '../_services/services';
+import { produceKey, login, logout, fetchData, addData, editData, deleteData, encrypt, decrypt } from '../_services/services';
 import axios from 'axios';
 
 export const getToken = data => dispatch => {
@@ -60,23 +60,42 @@ export const fetchFolders = token => dispatch => {
 export const fetchVaults = token => dispatch => {
     fetchData('vaults/', token)
         .then(res => {
-            dispatch({ type: FETCH_VAULTS.SUCCESS, payload: res.data })
+            let data = res.data.map(vault => ({
+                ...vault,
+                username: decrypt(vault.username),
+                password: decrypt(vault.password),
+            }))
+            dispatch({ type: FETCH_VAULTS.SUCCESS, payload: data })
         })
         .catch()
 }
 
 export const addVault = data => dispatch => {
+    data = { ...data, username: encrypt(data.username), password: encrypt(data.password) }
     addData('vaults/', data)
         .then(res => {
-            dispatch({ type: ADD_VAULT.SUCCESS, payload: res.data })
+            dispatch({
+                type: ADD_VAULT.SUCCESS, payload: {
+                    ...res.data,
+                    username: decrypt(res.data.username),
+                    password: decrypt(res.data.password),
+                }
+            })
         })
         .catch(res => console.log(res))
 }
 
 export const editVault = data => dispatch => {
+    data = { ...data, username: encrypt(data.username), password: encrypt(data.password) }
     editData(`vaults/${data.id}/`, data)
         .then(res => {
-            dispatch({ type: EDIT_VAULT.SUCCESS, payload: res.data })
+            dispatch({
+                type: EDIT_VAULT.SUCCESS, payload: {
+                    ...res.data,
+                    username: decrypt(res.data.username),
+                    password: decrypt(res.data.password),
+                }
+            })
         })
         .catch(res => console.log(res))
 }
@@ -114,7 +133,6 @@ export const deleteFolder = data => dispatch => {
 }
 
 export const addUser = data => dispatch => {
-    console.log(data)
     axios.post('auth/users/', data)
         .then(res => {
             dispatch(loginUser(data.username, data.password))

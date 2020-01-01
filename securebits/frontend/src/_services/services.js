@@ -2,12 +2,14 @@ import CryptoJS from 'crypto-js';
 import axios from 'axios';
 import store from '../store';
 
-export const encrypt = (text, key) => {
+export const encrypt = text => {
+    let key = store.getState().key
     let res = CryptoJS.AES.encrypt(text, key)
     return res.toString()
 }
 
-export const decrypt = (text, key) => {
+export const decrypt = text => {
+    let key = store.getState().key
     let res = CryptoJS.AES.decrypt(text, key)
     return res.toString(CryptoJS.enc.Utf8)
 }
