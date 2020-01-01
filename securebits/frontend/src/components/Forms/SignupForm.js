@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, TextField } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
+import { addUser } from '../../_actions/actions'
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -24,7 +25,14 @@ const Form = props => {
     } = props;
 
     const handleSubmit = () => {
-        submit(values.username, values.password, values.password2, values.email, values.first_name, values.last_name)
+        submit({
+            username: values.username,
+            password: values.password,
+            re_password: values.password2,
+            email: values.email,
+            first_name: values.first_name,
+            last_name: values.last_name,
+        })
         handleClose()
     }
 
@@ -32,15 +40,15 @@ const Form = props => {
         <form>
             <DialogContent className={classes.dialogContent}>
                 <TextField variant="outlined" label="Username" name="username" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="E-mail" name="email" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="Password" name="password" type="password" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="Password Reapeat" name="password2" type="password" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="First Name" name="first_name" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
-                <TextField variant="outlined" label="Last Name" name="last_name" fullWidth className={classes.text} value={values.username} onChange={handleChange} />
+                <TextField variant="outlined" label="E-mail" name="email" fullWidth className={classes.text} value={values.email} onChange={handleChange} />
+                <TextField variant="outlined" label="Password" name="password" type="password" fullWidth className={classes.text} value={values.password} onChange={handleChange} />
+                <TextField variant="outlined" label="Password Reapeat" name="password2" type="password" fullWidth className={classes.text} value={values.password2} onChange={handleChange} />
+                <TextField variant="outlined" label="First Name" name="first_name" fullWidth className={classes.text} value={values.first_name} onChange={handleChange} />
+                <TextField variant="outlined" label="Last Name" name="last_name" fullWidth className={classes.text} value={values.last_name} onChange={handleChange} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary" >Sign Up</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">Sign Up</Button>
             </DialogActions>
         </form>
     )
@@ -61,10 +69,10 @@ const SignupForm = props => {
     const { open, onClose } = props;
 
     return (
-        <Dialog open={open} onClose={onClose} maxWidth="sm">
-            <FormikForm handleClose={onClose} />
+        <Dialog open={open} maxWidth="sm">
+            <FormikForm handleClose={onClose} submit={props.addUser} />
         </Dialog>
     )
 }
 
-export default connect(null, {})(SignupForm);
+export default connect(null, { addUser })(SignupForm);

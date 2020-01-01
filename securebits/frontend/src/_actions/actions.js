@@ -3,6 +3,7 @@ import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from 
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER } from './types'
 import { produceKey, login, logout, fetchData, addData, editData, deleteData } from '../_services/services';
+import axios from 'axios';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
@@ -15,11 +16,14 @@ export const getKey = data => dispatch => {
 export const loginUser = (username, password) => dispatch => {
     login(username, password)
         .then(res => {
-            dispatch({ type: GET_TOKEN.SUCCESS, payload: res.data.auth_token })
-            dispatch({ type: GET_KEY.SUCCESS, payload: produceKey(username, password) })
-            // TODO: fetch user, folders and vaults
+            let token = res.data.auth_token
+            dispatch(getToken(token))
+            dispatch(getKey(produceKey(username, password)))
+            dispatch(fetchUser(token))
+            dispatch(fetchFolders(token))
+            dispatch(fetchVaults(token))
         })
-        .catch()
+        .catch(res => console.log(res))
 }
 
 export const logoutUser = token => dispatch => {
@@ -99,6 +103,15 @@ export const deleteFolder = data => dispatch => {
     deleteData(`folders/${data}/`)
         .then(res => {
             dispatch({ type: DELETE_FOLDER.SUCCESS, payload: data })
+        })
+        .catch(res => console.log(res))
+}
+
+export const addUser = data => dispatch => {
+    console.log(data)
+    axios.post('auth/users/', data)
+        .then(res => {
+            dispatch(loginUser(data.username, data.password))
         })
         .catch(res => console.log(res))
 }
