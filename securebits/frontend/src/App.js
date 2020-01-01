@@ -4,6 +4,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
 import Wrapper from './components/Wrapper';
+import Home from './components/Home'
+import FolderPage from './components/FolderPage'
 import { getToken, getKey, fetchUser, fetchFolders, fetchVaults } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
@@ -36,10 +38,11 @@ function App(props) {
         <div className="App">
             <ThemeProvider theme={darkTheme}>
                 <Navbar token={props.token} />
-                <Router>
+                <Router browser>
                     <Switch>
-                        <Route exact path="/" render={() => <Wrapper token={props.token} />} />
-                        <Route exact path="/vault/" component={Wrapper} />
+                        <Route exact path="/vault/" render={() => <Wrapper token={props.token} />} />
+                        <Route exact path="/" component={FolderPage} />
+                        <Route exact path="/" component={Home} />
                     </Switch>
                 </Router>
             </ThemeProvider>

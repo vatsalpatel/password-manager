@@ -11,7 +11,7 @@ const vaultReducer = (state=[], action) => {
             ]
         case EDIT_VAULT.SUCCESS:
             return [
-                ...state.filter(vault => vault.id != action.payload.id),
+                ...state.filter(vault => vault.id !== action.payload.id),
                 action.payload,
             ].sort((a, b) => a.id - b.id)
         case DELETE_VAULT.SUCCESS:

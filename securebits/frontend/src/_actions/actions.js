@@ -1,6 +1,6 @@
 import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
-import { FETCH_FOLDERS, CLEAR_FOLDERS } from './types'
+import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER } from './types'
 import { produceKey, login, logout, fetchData, addData, editData ,deleteData } from '../_services/services';
 
@@ -79,4 +79,16 @@ export const deleteVault = data => dispatch => {
             dispatch({ type:DELETE_VAULT.SUCCESS, payload: data})
         })
         .catch(res => console.log(res))
+}
+
+export const addFolder = data => dispatch => {
+
+}
+
+export const editFolder = data => dispatch => {
+    
+}
+
+export const deleteFolder = data => dispatch => {
+    
 }

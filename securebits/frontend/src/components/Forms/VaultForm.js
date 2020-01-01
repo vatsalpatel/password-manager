@@ -60,7 +60,7 @@ const Form = props => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary">Add</Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">Save</Button>
             </DialogActions>
         </form>
     )
