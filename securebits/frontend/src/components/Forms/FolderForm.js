@@ -50,7 +50,7 @@ const FormikForm = withFormik({
 
 const FolderForm = props => {
     return (
-        <Dialog onClose={props.onClose} open={props.open} maxWidth="sm" >
+        <Dialog onClose={props.onClose} open={props.open} maxWidth="xs" fullWidth>
             <FormikForm folder={props.folder} handleClose={props.onClose} submit={props.folder.id ? props.editFolder : props.addFolder} />
         </Dialog>
     )

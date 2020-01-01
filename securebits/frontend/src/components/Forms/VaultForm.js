@@ -78,7 +78,7 @@ const FormikForm = withFormik({
 
 const VaultForm = props => {
     return (
-        <Dialog onClose={props.onClose} open={props.open}>
+        <Dialog onClose={props.onClose} open={props.open} maxWidth="xs" fullWidth>
             <FormikForm handleClose={props.onClose} folders={props.folders} submit={props.vault.id ? props.editVault : props.addVault} vault={props.vault} />
         </Dialog>
     )

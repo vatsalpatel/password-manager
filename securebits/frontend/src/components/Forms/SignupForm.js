@@ -69,7 +69,7 @@ const SignupForm = props => {
     const { open, onClose } = props;
 
     return (
-        <Dialog open={open} maxWidth="sm">
+        <Dialog open={open} maxWidth="xs" fullWidth>
             <FormikForm handleClose={onClose} submit={props.addUser} />
         </Dialog>
     )
