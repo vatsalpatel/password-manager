@@ -9,6 +9,7 @@ import LoginForm from './Forms/LoginForm';
 import SignupForm from './Forms/SignupForm';
 import { connect } from 'react-redux';
 import { logoutUser } from '../_actions/actions';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     link: {
@@ -66,7 +67,7 @@ function User(props) {
                             transformOrigin={{ vertical: "top", horizontal: "center" }}
                             getContentAnchorEl={null}
                         >
-                            <MenuItem onClick={handleClose}><FolderIcon />Folders</MenuItem>
+                            <MenuItem onClick={() => {handleClose(); props.history.push("/folder")}}><FolderIcon />Folders</MenuItem>
                             <MenuItem onClick={handleClose}><SettingsIcon /> Settings</MenuItem>
                             <MenuItem onClick={() => {handleClose(); props.logoutUser()}} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
@@ -82,4 +83,4 @@ const mapStateToProps = state => ({
     user: state.user,
 })
 
-export default connect(mapStateToProps, { logoutUser })(User);
+export default withRouter(connect(mapStateToProps, { logoutUser })(User));

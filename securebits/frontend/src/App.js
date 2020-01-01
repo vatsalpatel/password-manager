@@ -37,8 +37,8 @@ function App(props) {
     return (
         <div className="App">
             <ThemeProvider theme={darkTheme}>
-                <Navbar token={props.token} />
-                <Router browser>
+                <Router>
+                    <Navbar token={props.token} />
                     <Switch>
                         <Route exact path="/vault/" render={() => <Wrapper token={props.token} />} />
                         <Route exact path="/folder" component={FolderPage} />

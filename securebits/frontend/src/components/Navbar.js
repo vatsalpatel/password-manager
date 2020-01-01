@@ -22,12 +22,10 @@ function Navbar(props) {
         <AppBar position="static" color="default">
             <Toolbar className={classes.toolbar}>
                 <Typography variant="h5" color="primary" className={classes.toolbarTitle}>
-                    Secure Bits
+                    SecureBits
                 </Typography>
                 <nav>
                     <Link variant="button" color="textPrimary" href="/vault" className={classes.link}>Vault</Link>
-                    {/* This link is temporary */}
-                    <Link variant="button" color="textPrimary" href="/folder" className={classes.link}>Folder</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>About</Link>
                     <Link variant="button" color="textPrimary" href="#" className={classes.link}>Contact</Link>
                 </nav>
