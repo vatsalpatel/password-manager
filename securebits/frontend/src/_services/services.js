@@ -16,7 +16,7 @@ export const decrypt = text => {
 
 export const produceKey = (username, password) => {
     let hash = CryptoJS.SHA256(username)
-    return CryptoJS.PBKDF2(password, hash, { keySize: 256 / 32 }).toString()
+    return CryptoJS.PBKDF2(password, hash, { keySize: 256 / 32, iteration: 100 }).toString()
 }
 
 export const login = (username, password) => {
