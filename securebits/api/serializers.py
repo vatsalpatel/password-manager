@@ -18,7 +18,7 @@ class FolderSerializer(serializers.ModelSerializer):
 class VaultUserSerializer(UserSerializer):
     class Meta:
         model = VaultUser
-        fields = ["id", "username", "email", "reminder", "first_name", "last_name"]
+        fields = ["id", "username", "email", "first_name", "last_name"]
 
 
 class VaultUserCreateSerializer(UserCreateSerializer):
@@ -29,7 +29,6 @@ class VaultUserCreateSerializer(UserCreateSerializer):
             "username",
             "password",
             "email",
-            "reminder",
             "first_name",
             "last_name",
         ]
