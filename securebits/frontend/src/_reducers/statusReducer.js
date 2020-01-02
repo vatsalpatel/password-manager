@@ -1,8 +1,8 @@
-const errorReducer = (state={}, action) => {
+const statusReducer = (state={}, action) => {
     switch(action.type) {
         default:
             return state
     }
 }
 
-export default errorReducer;
+export default statusReducer;

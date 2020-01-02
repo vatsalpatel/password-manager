@@ -4,7 +4,7 @@ import keyReducer from './keyReducer';
 import userReducer from './userReducer';
 import folderReducer from './folderReducer';
 import vaultReducer from './vaultReducer';
-import errorReducer from './errorReducer';
+import statusReducer from './statusReducer';
 
 export default combineReducers({
     token: tokenReducer,
@@ -12,5 +12,5 @@ export default combineReducers({
     user: userReducer,
     folders: folderReducer,
     vaults: vaultReducer,
-    error: errorReducer
+    status: statusReducer,
 })
