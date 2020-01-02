@@ -38,7 +38,7 @@ function App(props) {
                 <Router>
                     <Navbar token={props.token} />
                     <Switch>
-                        <Route exact path="/vault/" render={() => <Wrapper token={props.token} />} />
+                        <Route exact path="/vault/" component={Wrapper} />
                         <Route exact path="/folder" component={FolderPage} />
                         <Route exact path="/" component={Home} />
                     </Switch>
