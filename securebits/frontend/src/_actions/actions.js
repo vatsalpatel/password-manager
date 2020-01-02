@@ -13,17 +13,17 @@ export const getKey = data => dispatch => {
     dispatch({ type: GET_KEY.SUCCESS, payload: data })
 }
 
-export const loginUser = (username, password) => dispatch => {
-    login(username, password)
-        .then(res => {
-            let token = res.data.auth_token
-            dispatch(getToken(token))
-            dispatch(getKey(produceKey(username, password)))
-            dispatch(fetchUser(token))
-            dispatch(fetchFolders(token))
-            dispatch(fetchVaults(token))
-        })
-        .catch(res => console.log(res))
+export const loginUser = (username, password, token) => dispatch => {
+    dispatch(getToken(token))
+    dispatch(getKey(produceKey(username, password)))
+    dispatch(fetchUser(token))
+    dispatch(fetchFolders(token))
+    dispatch(fetchVaults(token))
+
+}
+
+export const loginForm = (username, password) => dispatch => {
+    return login(username, password)
 }
 
 export const continueSession = token => dispatch => {

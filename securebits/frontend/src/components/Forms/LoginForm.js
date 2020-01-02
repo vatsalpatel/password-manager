@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../_actions/actions';
-import { Button, Dialog, DialogActions, DialogContent, TextField } from '@material-ui/core'
+import { loginUser, loginForm } from '../../_actions/actions';
+import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -12,55 +12,61 @@ const useStyles = makeStyles({
     text: {
         marginBottom: 15,
     },
+    error: {
+        color: "red",
+    }
 })
 
 const Form = props => {
+    const { open, onClose } = props
     const classes = useStyles();
 
     const {
         values,
+        errors,
+        touched,
         handleChange,
-        handleClose,
-        submit,
+        handleSubmit,
+        isSubmitting,
     } = props;
-
-    const handleSubmit = () => {
-        submit(values.username, values.password)
-        handleClose()
-    }
+    console.log(errors)
     return (
-        <form>
-            <DialogContent className={classes.dialogContent}>
-                <TextField variant="outlined" label="Username" fullWidth className={classes.text}
-                    name="username" value={values.username} onChange={handleChange}
-                />
-                <TextField variant="outlined" label="Password" fullWidth className={classes.text}
-                    type="password" name="password" value={values.password} onChange={handleChange}
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                <Button onClick={handleSubmit} variant="contained" color="primary">Log In</Button>
-            </DialogActions>
-        </form>
+        <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
+            <form>
+                <DialogContent className={classes.dialogContent}>
+                    <TextField variant="outlined" label="Username" fullWidth className={classes.text}
+                        name="username" value={values.username} onChange={handleChange}
+                    />
+                    <TextField variant="outlined" label="Password" fullWidth className={classes.text}
+                        type="password" name="password" value={values.password} onChange={handleChange}
+                    />
+                    {errors.password && touched.password && <div className={classes.error}>{errors.password}</div>}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
+                    <Button onClick={handleSubmit} variant="contained" color="primary">{isSubmitting ? <CircularProgress color="extended" size="1.8em" /> : "Log In"}</Button>
+                </DialogActions>
+            </form>
+        </Dialog>
     )
 }
 
-const FormikForm = withFormik({
+const LoginForm = withFormik({
     mapPropsToValues: () => ({
         username: "admin",
         password: "qweasdrf",
     }),
+    handleSubmit: (values, { props, setErrors, setSubmitting }) => {
+        props.loginForm(values.username, values.password)
+            .then(res => {
+                props.loginUser(values.username, values.password, res.data.auth_token)
+                props.onClose()
+            })
+            .catch(res => {
+                setErrors({"password": "Username and password do not match"})
+            })
+            .finally(() => setSubmitting(false))
+    },
 })(Form);
 
-const LoginForm = props => {
-    const { open, onClose } = props
-
-    return (
-        <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
-            <FormikForm handleClose={onClose} submit={props.loginUser} />
-        </Dialog >
-    )
-}
-
-export default connect(null, { loginUser })(LoginForm);
+export default connect(null, { loginUser, loginForm })(LoginForm);
