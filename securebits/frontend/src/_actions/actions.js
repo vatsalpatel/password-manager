@@ -22,10 +22,6 @@ export const loginUser = (username, password, token) => dispatch => {
 
 }
 
-export const loginForm = (username, password) => dispatch => {
-    return login(username, password)
-}
-
 export const continueSession = token => dispatch => {
     dispatch(fetchUser(token))
     dispatch(fetchFolders(token))

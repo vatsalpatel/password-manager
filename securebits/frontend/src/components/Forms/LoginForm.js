@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser, loginForm } from '../../_actions/actions';
+import { loginUser } from '../../_actions/actions';
+import { login } from '../../_services/services';
 import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
@@ -29,7 +30,6 @@ const Form = props => {
         handleSubmit,
         isSubmitting,
     } = props;
-    console.log(errors)
     return (
         <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
             <form>
@@ -44,7 +44,9 @@ const Form = props => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
-                    <Button onClick={handleSubmit} variant="contained" color="primary">{isSubmitting ? <CircularProgress color="extended" size="1.8em" /> : "Log In"}</Button>
+                    <Button onClick={handleSubmit} variant="contained" color="primary">
+                        {isSubmitting ? <CircularProgress color="default" size="1.8em" /> : "Log In"}
+                    </Button>
                 </DialogActions>
             </form>
         </Dialog>
@@ -57,16 +59,16 @@ const LoginForm = withFormik({
         password: "qweasdrf",
     }),
     handleSubmit: (values, { props, setErrors, setSubmitting }) => {
-        props.loginForm(values.username, values.password)
+        login(values.username, values.password)
             .then(res => {
                 props.loginUser(values.username, values.password, res.data.auth_token)
                 props.onClose()
             })
             .catch(res => {
-                setErrors({"password": "Username and password do not match"})
+                setErrors({ "password": "Username and password do not match" })
             })
             .finally(() => setSubmitting(false))
     },
 })(Form);
 
-export default connect(null, { loginUser, loginForm })(LoginForm);
+export default connect(null, { loginUser })(LoginForm);
