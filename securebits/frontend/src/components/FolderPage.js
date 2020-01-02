@@ -23,8 +23,9 @@ const useStyles = makeStyles({
     },
     addButton: {
         display: "flex",
-        margin: 15,
-        justifyContent: "center",
+        justifyContent: "flex-end",
+        marginRight: "2em",
+        marginTop: "1em",
     }
 });
 

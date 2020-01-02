@@ -8,9 +8,10 @@ import VaultForm from './Forms/VaultForm';
 
 const useStyles = makeStyles({
     buttons: {
-        margin: 10,
+        marginTop: "1em",
+        marginRight: "5em",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
     },
     folder: {
         margin: 10,
