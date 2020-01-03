@@ -14,7 +14,7 @@ function Folder(props) {
     const closeDialog = () => setDialog(0)
 
     const vaults = filteredVaults.map(vault => (
-        <Grid item xs={12} sm={12} md={6} lg={3} xl={3} key={vault.id}>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={vault.id}>
             <div className="vault">
                 <Vault {...vault} onEdit={openDialog} />
             </div>
