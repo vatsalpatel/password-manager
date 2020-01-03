@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, TextField, IconButton, Dialog, DialogActions, DialogContent, MenuItem, InputAdornment } from '@material-ui/core';
+import { Button, TextField, IconButton, Dialog, DialogActions, DialogContent, MenuItem, InputAdornment, CircularProgress } from '@material-ui/core';
 import { withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { addVault, editVault } from '../../_actions/actions';
+import { addData, encrypt } from '../../_services/services';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -24,8 +25,8 @@ const Form = props => {
         values,
         errors,
         handleSubmit,
-        handleClose,
         handleChange,
+        isSubmitting,
     } = props;
 
     const [showPass, setShowPass] = useState(false)
@@ -54,7 +55,9 @@ const Form = props => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
-                    <Button onClick={handleSubmit} variant="contained" color="primary">Save</Button>
+                    <Button onClick={handleSubmit} variant="contained" color="primary">
+                        { isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save" }
+                    </Button>
                 </DialogActions>
             </form>
         </Dialog>
@@ -63,14 +66,28 @@ const Form = props => {
 
 const VaultForm = withFormik({
     mapPropsToValues: (props) => ({
+        id: props.vault.id,
         name: props.vault.name,
         username: props.vault.username,
         password: props.vault.password,
         folder: props.vault.folder || props.folders[0].id,
     }),
     enableReinitialize: true,
-    handleSubmit: (values, { props }) => {
-        console.log(values)
+    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+        if(values.id) {
+            // Edit
+        } else {
+            let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
+            addData('vaults/', data)
+                .then(res => {
+                    props.addVault(res.data)
+                    props.onClose()
+                })
+                .catch(res => {
+                    console.log(res.response)
+                })
+                .finally(setSubmitting(false))
+        }
     }
 })(Form)
 
