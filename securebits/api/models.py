@@ -19,9 +19,9 @@ class Folder(models.Model):
 
 
 class Vault(models.Model):
-    name = models.CharField(max_length=128)
-    username = models.CharField(max_length=128)
-    password = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, blank=False)
+    username = models.CharField(max_length=128, blank=False)
+    password = models.CharField(max_length=128, blank=False)
     folder = models.ForeignKey(to=Folder, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(to=VaultUser, on_delete=models.CASCADE)
 
