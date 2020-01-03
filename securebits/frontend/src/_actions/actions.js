@@ -67,26 +67,23 @@ export const fetchVaults = token => dispatch => {
 }
 
 export const addVault = data => dispatch => {
-    dispatch({type: ADD_VAULT.SUCCESS, payload: {
-        ...data,
-        username: decrypt(data.username),
-        password: decrypt(data.password),
-    }})
+    dispatch({
+        type: ADD_VAULT.SUCCESS, payload: {
+            ...data,
+            username: decrypt(data.username),
+            password: decrypt(data.password),
+        }
+    })
 }
 
 export const editVault = data => dispatch => {
-    data = { ...data, username: encrypt(data.username), password: encrypt(data.password) }
-    editData(`vaults/${data.id}/`, data)
-        .then(res => {
-            dispatch({
-                type: EDIT_VAULT.SUCCESS, payload: {
-                    ...res.data,
-                    username: decrypt(res.data.username),
-                    password: decrypt(res.data.password),
-                }
-            })
-        })
-        .catch(res => console.log(res))
+    dispatch({
+        type: EDIT_VAULT.SUCCESS, payload: {
+            ...data,
+            username: decrypt(data.username),
+            password: decrypt(data.password),
+        }
+    })
 }
 
 export const deleteVault = data => dispatch => {

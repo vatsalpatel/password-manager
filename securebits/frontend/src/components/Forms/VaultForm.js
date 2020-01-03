@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { addVault, editVault } from '../../_actions/actions';
-import { addData, encrypt } from '../../_services/services';
+import { addData, editData, encrypt } from '../../_services/services';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -75,7 +75,16 @@ const VaultForm = withFormik({
     enableReinitialize: true,
     handleSubmit: (values, { props, setSubmitting, setErrors }) => {
         if(values.id) {
-            // Edit
+            let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
+            editData(`vaults/${values.id}/`, data)
+                .then(res => {
+                    props.editVault(data)
+                    props.onClose()
+                })
+                .catch(res => {
+                    console.log(res.response)
+                })
+                .finally(setSubmitting(false))
         } else {
             let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
             addData('vaults/', data)
