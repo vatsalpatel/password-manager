@@ -45,7 +45,7 @@ const Form = props => {
                 <DialogActions>
                     <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
                     <Button onClick={handleSubmit} variant="contained" color="primary">
-                        {isSubmitting ? <CircularProgress color="default" size="1.8em" /> : "Log In"}
+                        {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Log In"}
                     </Button>
                 </DialogActions>
             </form>

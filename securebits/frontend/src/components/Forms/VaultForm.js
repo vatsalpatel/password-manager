@@ -100,9 +100,9 @@ const VaultForm = withFormik({
             let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
             addData('vaults/', data)
                 .then(res => {
-                    props.addVault(res.data)
-                    resetForm()
                     props.onClose()
+                    resetForm()
+                    props.addVault(res.data)
                 })
                 .catch(res => {
                     setErrors({ "name": "Required" })
