@@ -15,6 +15,9 @@ const useStyles = makeStyles({
     text: {
         marginBottom: 15,
     },
+    error: {
+        color: "red",
+    }
 });
 
 const Form = props => {
@@ -24,9 +27,11 @@ const Form = props => {
         onClose,
         values,
         errors,
+        touched,
         handleSubmit,
         handleChange,
         isSubmitting,
+        resetForm,
     } = props;
 
     const [showPass, setShowPass] = useState(false)
@@ -37,15 +42,19 @@ const Form = props => {
             <form>
                 <DialogContent className={classes.dialogContent}>
                     <TextField variant="outlined" label="Name" fullWidth className={classes.text}
-                        name="name" value={values.name} onChange={handleChange}
+                        name="name" value={values.name} onChange={handleChange} error={errors.name && touched.name}
                     />
+                    {errors.name && touched.name && <div className={classes.error}>This Field is required</div>}
                     <TextField variant="outlined" label="Username" fullWidth className={classes.text}
-                        name="username" value={values.username} onChange={handleChange}
+                        name="username" value={values.username} onChange={handleChange} error={errors.username && touched.username}
                     />
+                    {errors.name && touched.username && <div className={classes.error}>This Field is required</div>}
                     <TextField variant="outlined" label="Password" fullWidth className={classes.text}
                         type={showPass ? "text" : "password"} name="password" value={values.password} onChange={handleChange}
                         InputProps={{ endAdornment: <InputAdornment><IconButton onClick={togglePass}>{showPass ? <Visibility /> : <VisibilityOff />}</IconButton></InputAdornment> }}
+                        error={errors.password && touched.password}
                     />
+                    {errors.name && touched.password && <div className={classes.error}>This Field is required</div>}
                     <TextField variant="outlined" label="Folder" fullWidth className={classes.text}
                         select name="folder" value={values.folder} onChange={handleChange}>
                         {props.folders.map(folder => (
@@ -54,9 +63,9 @@ const Form = props => {
                     </TextField>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
+                    <Button onClick={() => {onClose(); resetForm();}} variant="outlined" color="secondary">Cancel</Button>
                     <Button onClick={handleSubmit} variant="contained" color="primary">
-                        { isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save" }
+                        {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save"}
                     </Button>
                 </DialogActions>
             </form>
@@ -73,12 +82,13 @@ const VaultForm = withFormik({
         folder: props.vault.folder || props.folders[0].id,
     }),
     enableReinitialize: true,
-    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
-        if(values.id) {
+    handleSubmit: (values, { props, setSubmitting, setErrors, resetForm }) => {
+        if (values.id) {
             let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
             editData(`vaults/${values.id}/`, data)
                 .then(res => {
                     props.editVault(data)
+                    resetForm()
                     props.onClose()
                 })
                 .catch(res => {
@@ -90,13 +100,24 @@ const VaultForm = withFormik({
             addData('vaults/', data)
                 .then(res => {
                     props.addVault(res.data)
+                    resetForm()
                     props.onClose()
                 })
                 .catch(res => {
-                    console.log(res.response)
+                    setErrors({ "name": "Required" })
                 })
                 .finally(setSubmitting(false))
         }
+    },
+    validate: values => {
+        const errors = {}
+        if (!values.name)
+            errors.name = true
+        if (!values.username)
+            errors.username = true
+        if (!values.password)
+            errors.password = true
+        return errors
     }
 })(Form)
 
