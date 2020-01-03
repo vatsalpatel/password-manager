@@ -2,7 +2,7 @@ import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER } from './types'
-import { produceKey, logout, fetchData, addData, editData, deleteData, decrypt } from '../_services/services';
+import { produceKey, login, logout, fetchData, addData, editData, deleteData, decrypt } from '../_services/services';
 import axios from 'axios';
 
 export const getToken = data => dispatch => {
@@ -118,10 +118,9 @@ export const deleteFolder = data => dispatch => {
         .catch(res => console.log(res))
 }
 
-export const addUser = data => dispatch => {
-    axios.post('auth/users/', data)
+export const addUser = (username, password) => dispatch => {
+    login(username, password)
         .then(res => {
-            dispatch(loginUser(data.username, data.password))
+            dispatch(loginUser(username, password, res.data.auth_token))
         })
-        .catch(res => console.log(res))
 }

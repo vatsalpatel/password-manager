@@ -13,10 +13,11 @@ const useStyles = makeStyles({
         padding: 15,
     },
     text: {
-        marginBottom: 15,
+        marginBottom: 10,
     },
     error: {
         color: "red",
+        marginBottom: 10,
     }
 });
 
