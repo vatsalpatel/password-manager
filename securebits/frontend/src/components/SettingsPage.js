@@ -71,7 +71,7 @@ function SettingsPage(props) {
                         <TabPanel index={1} value={value}>
                             <Username history={props.history} />
                             <div className={classes.space}></div>
-                            <Email />
+                            <Email history={props.history} />
                         </TabPanel>
                         <TabPanel index={2} value={value}>
                             <Password history={props.history} />
