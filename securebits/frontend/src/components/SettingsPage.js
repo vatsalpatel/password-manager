@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Container, Tabs, Tab, Typography } from '@material-ui/core';
+import { Grid, Container, Tabs, Tab, Divider } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,19 +21,21 @@ const useStyles = makeStyles({
     tabContent: {
         paddingLeft: "1em",
     },
-    tabs: {
+    tab: {
         border: "1px solid lightgray",
         borderRadius: "5px",
     },
-    tab: {
-        borderBottom: "1px solid lightgray",
-        // padding: 
-    },
+    space: {
+        margin: "2em",
+    }
 })
 
 function TabPanel(props) {
     return (
-        <div hidden={props.value !== props.index}>{props.children}</div>
+        // <div hidden={props.value !== props.index}>{props.children}</div>
+        <>
+            {props.value === props.index ? props.children : null}
+        </>
     )
 }
 
@@ -55,7 +57,6 @@ function SettingsPage(props) {
                             orientation="vertical"
                             onChange={handleChange}
                             indicatorColor="primary"
-                            className={classes.tabs}
                             variant="scrollable"
                         >
                             <Tab label={"Profile"} className={classes.tab}></Tab>
@@ -69,6 +70,7 @@ function SettingsPage(props) {
                         </TabPanel>
                         <TabPanel index={1} value={value}>
                             <Username />
+                            <div className={classes.space}></div>
                             <Email />
                         </TabPanel>
                         <TabPanel index={2} value={value}>
