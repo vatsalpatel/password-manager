@@ -71,3 +71,16 @@ export const deleteData = (url) => {
         }
     })
 }
+
+export const encryptAllVaults = () => {
+    const vaults = store.getState().vaults
+    let newVaults = vaults.map(vault => ({
+        ...vault,
+        username: encrypt(vault.username),
+        password: encrypt(vault.password),
+    }))
+    newVaults.map( async vault => {
+        await editData(`vaults/${vault.id}/`, vault)
+    })
+    return newVaults
+}
