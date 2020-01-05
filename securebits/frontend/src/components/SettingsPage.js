@@ -41,7 +41,7 @@ function TabPanel(props) {
 
 function SettingsPage(props) {
     const classes = useStyles();
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(2)
     const handleChange = (evenv, newValue) => {
         setValue(newValue)
     }
