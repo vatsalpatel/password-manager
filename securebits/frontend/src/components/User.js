@@ -68,7 +68,7 @@ function User(props) {
                             getContentAnchorEl={null}
                         >
                             <MenuItem onClick={() => {handleClose(); props.history.push("/folder")}}><FolderIcon />Folders</MenuItem>
-                            <MenuItem onClick={handleClose}><SettingsIcon /> Settings</MenuItem>
+                            <MenuItem onClick={() => {handleClose(); props.history.push("/settings")}}><SettingsIcon /> Settings</MenuItem>
                             <MenuItem onClick={() => {handleClose(); props.logoutUser()}} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
                     </>
