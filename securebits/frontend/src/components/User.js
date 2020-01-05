@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Menu, MenuItem, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -17,7 +17,12 @@ const useStyles = makeStyles({
     },
     logout: {
         color: "#c00",
-    }
+    },
+    avatar: {
+        height: "1.5em",
+        width: "1.5em",
+        marginRight: "0.2em",
+    },
 })
 
 function User(props) {
@@ -37,7 +42,7 @@ function User(props) {
     const closeLogin = () => {
         setLogin(false)
     }
-    
+
     const [signup, setSignup] = useState(false);
     const openSignup = () => {
         setSignup(true)
@@ -55,8 +60,8 @@ function User(props) {
                         <Button variant="contained" color="primary" className={classes.link} onClick={openSignup}>Sign Up</Button>
                     </> :
                     <>
-                        <Button size="large" className={classes.link} onClick={handleClick}>
-                            {props.user.first_name} {props.user.last_name} <ExpandMoreIcon />
+                        <Button size="large" className={classes.link} onClick={handleClick} text>
+                            <Avatar className={classes.avatar}>{props.user.first_name[0]}</Avatar>{props.user.first_name} {props.user.last_name} <ExpandMoreIcon />
                         </Button>
                         <Menu
                             anchorEl={anchorEl}
@@ -67,14 +72,14 @@ function User(props) {
                             transformOrigin={{ vertical: "top", horizontal: "center" }}
                             getContentAnchorEl={null}
                         >
-                            <MenuItem onClick={() => {handleClose(); props.history.push("/folder")}}><FolderIcon />Folders</MenuItem>
-                            <MenuItem onClick={() => {handleClose(); props.history.push("/settings")}}><SettingsIcon /> Settings</MenuItem>
-                            <MenuItem onClick={() => {handleClose(); props.logoutUser()}} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.history.push("/folder") }}><FolderIcon />Folders</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.history.push("/settings") }}><SettingsIcon /> Settings</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.logoutUser() }} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
+                        <LoginForm open={login} onClose={closeLogin} />
+                        <SignupForm open={signup} onClose={closeSignup} />
                     </>
             }
-            <LoginForm open={login} onClose={closeLogin} />
-            <SignupForm open={signup} onClose={closeSignup} />
         </>
     )
 }
