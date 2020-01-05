@@ -17,20 +17,17 @@ const useStyles = makeStyles({
         display: "flex",
         justifyContent: "right",
         paddingRight: "1em",
-        display: "flex",
-        alignItems: "stretch",
     },
     tabContent: {
         paddingLeft: "1em",
-        display: "flex",
-        alignItems: "stretch",
     },
     tabs: {
         border: "1px solid lightgray",
         borderRadius: "5px",
     },
     tab: {
-        borderBottom: "1px solid lightgray"
+        borderBottom: "1px solid lightgray",
+        // padding: 
     },
 })
 
@@ -52,20 +49,21 @@ function SettingsPage(props) {
             {/* {props.token ? null : <Redirect to="/" />} */}
             <Container maxWidth="lg">
                 <Grid container className={classes.wrapper}>
-                    <Grid item xs={3} className={classes.grid}>
+                    <Grid item xs={4} className={classes.grid}>
                         <Tabs
                             value={value}
                             orientation="vertical"
                             onChange={handleChange}
                             indicatorColor="primary"
                             className={classes.tabs}
+                            variant="scrollable"
                         >
                             <Tab label={"Profile"} className={classes.tab}></Tab>
                             <Tab label={"Account"} className={classes.tab}></Tab>
                             <Tab label={"Security"} className={classes.tab}></Tab>
                         </Tabs>
                     </Grid>
-                    <Grid item xs={9} className={classes.tabContent}>
+                    <Grid item xs={5} className={classes.tabContent}>
                         <TabPanel index={0} value={value}>
                             <FullName />
                         </TabPanel>
