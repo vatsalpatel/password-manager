@@ -3,7 +3,6 @@ import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from 
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER, EDIT_USER } from './types'
 import { produceKey, login, logout, fetchData, addData, editData, deleteData, decrypt, encryptAllVaults } from '../_services/services';
-import axios from 'axios';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })

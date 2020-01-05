@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik'
-import { Button, TextField, CircularProgress, Typography } from '@material-ui/core'
+import { Button, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { updateVaultsAfterUserChange } from '../../../_actions/actions'
 import { produceKey } from '../../../_services/services';
@@ -80,13 +80,14 @@ const FullName = withFormik({
         axios.post('auth/users/set_password/', {
             current_password: values.password,
             new_password: values.password2,
-            // re_new_password: values.password3,
+            re_new_password: values.password3,
         }, {
             headers: { Authorization: `Token ${props.token}` }
         })
             .then(
                 props.updateVaultsAfterUserChange(props.user.username, values.password2)
             )
+            .then(props.history.push('/vault'))
             .catch(res => {
                 console.log(res)
             })

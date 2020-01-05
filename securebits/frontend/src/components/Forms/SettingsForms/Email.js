@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik'
-import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
+import { Button, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { editData } from '../../../_services/services'
 import { editUser } from '../../../_actions/actions'
@@ -62,6 +62,7 @@ const Email = withFormik({
             .then(res => {
                 props.editUser(res.data)
             })
+            .then(props.history.push('/vault'))
             .catch(res => {
                 setErrors(res.response.data)
             })

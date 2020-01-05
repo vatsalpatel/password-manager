@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Container, Tabs, Tab, Divider } from '@material-ui/core';
+import { Grid, Container, Tabs, Tab } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import FullName from './Forms/SettingsForms/FullName';
 import Email from './Forms/SettingsForms/Email';
 import Username from './Forms/SettingsForms/Username';
 import Password from './Forms/SettingsForms/Password';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -32,7 +33,6 @@ const useStyles = makeStyles({
 
 function TabPanel(props) {
     return (
-        // <div hidden={props.value !== props.index}>{props.children}</div>
         <>
             {props.value === props.index ? props.children : null}
         </>
@@ -41,14 +41,14 @@ function TabPanel(props) {
 
 function SettingsPage(props) {
     const classes = useStyles();
-    const [value, setValue] = useState(2)
+    const [value, setValue] = useState(0)
     const handleChange = (evenv, newValue) => {
         setValue(newValue)
     }
 
     return (
         <>
-            {/* {props.token ? null : <Redirect to="/" />} */}
+            {props.token ? null : <Redirect to="/" />}
             <Container maxWidth="lg">
                 <Grid container className={classes.wrapper}>
                     <Grid item xs={4} className={classes.grid}>
@@ -66,15 +66,15 @@ function SettingsPage(props) {
                     </Grid>
                     <Grid item xs={5} className={classes.tabContent}>
                         <TabPanel index={0} value={value}>
-                            <FullName />
+                            <FullName history={props.history} />
                         </TabPanel>
                         <TabPanel index={1} value={value}>
-                            <Username />
+                            <Username history={props.history} />
                             <div className={classes.space}></div>
                             <Email />
                         </TabPanel>
                         <TabPanel index={2} value={value}>
-                            <Password />
+                            <Password history={props.history} />
                         </TabPanel>
                     </Grid>
                 </Grid>
@@ -87,4 +87,4 @@ const mapStateToProps = state => ({
     token: state.token,
 })
 
-export default connect(mapStateToProps, {})(SettingsPage);
+export default withRouter(connect(mapStateToProps, {})(SettingsPage));

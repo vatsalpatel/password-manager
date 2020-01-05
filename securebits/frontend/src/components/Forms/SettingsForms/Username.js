@@ -77,6 +77,7 @@ const FullName = withFormik({
                 props.updateVaultsAfterUserChange(res.data.username, values.password)
                 props.editUser(res.data)
             })
+            .then(props.history.push('/vault'))
             .catch(res => {
                 console.log(res)
                 // setErrors(res.response.data)
