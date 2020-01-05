@@ -3,24 +3,76 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik'
 import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { editData } from '../../../_services/services'
+import { editUser } from '../../../_actions/actions'
+
+const useStyles = makeStyles({
+    dialogContent: {
+        padding: 25,
+    },
+    text: {
+        marginBottom: 10,
+    },
+    error: {
+        marginBottom: 10,
+        color: "red",
+    }
+})
 
 function EmailForm(props) {
+    const classes = useStyles()
+    const {
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleSubmit,
+        isSubmitting,
+    } = props;
     return (
         <>
+            <form>
+                <TextField variant="outlined" label="Email" fullWidth className={classes.text}
+                    name="email" value={values.email} onChange={handleChange}
+                    error={errors.email && touched.email}
+                />
+                {errors.email && touched.email && <div className={classes.error}>{errors.email}</div>}
+                <Button onClick={handleSubmit} variant="contained" color="primary">
+                    {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save"}
+                </Button>
+            </form>
         </>
     )
 }
 
 const Email = withFormik({
     mapPropsToValues: props => ({
-
+        email: props.email || "",
     }),
     validate: values => {
+        const errors = {}
 
+        if (!values.email)
+            errors.email = "Required"
+
+        return errors
     },
-    handleSubmit: (values, { props }) => {
-
-    }
+    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+        editData(`auth/users/${props.user.id}/`, { ...props.user, email: values.email })
+            .then(res => {
+                props.editUser(res.data)
+            })
+            .catch(res => {
+                setErrors(res.response.data)
+            })
+            .finally(() => setSubmitting(false))
+    },
+    enableReinitialize: true,
 })(EmailForm)
 
-export default connect()(Email)
+const mapStateToProps = state => ({
+    email: state.user.email,
+    user: state.user,
+})
+
+export default connect(mapStateToProps, { editUser })(Email)
