@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, Container, Tabs, Tab } from '@material-ui/core';
+import { Grid, Container, Tabs, Tab, Typography } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import FullName from './Forms/SettingsForms/FullName';
+import Email from './Forms/SettingsForms/Email';
+import Username from './Forms/SettingsForms/Username';
+import Password from './Forms/SettingsForms/Password';
 
 const useStyles = makeStyles({
     wrapper: {
@@ -27,17 +31,12 @@ const useStyles = makeStyles({
     },
     tab: {
         borderBottom: "1px solid lightgray"
-    }
+    },
 })
 
 function TabPanel(props) {
-
     return (
-        <div
-            hidden={props.value !== props.index}
-        >
-            <p>{props.index}</p>
-        </div>
+        <div hidden={props.value !== props.index}></div>
     )
 }
 
@@ -68,13 +67,14 @@ function SettingsPage(props) {
                     </Grid>
                     <Grid item xs={9} className={classes.tabContent}>
                         <TabPanel index={0} value={value}>
-                            
+                            <FullName />
                         </TabPanel>
                         <TabPanel index={1} value={value}>
-                            
+                            <Username />
+                            <Email />
                         </TabPanel>
                         <TabPanel index={2} value={value}>
-                            
+                            <Password />
                         </TabPanel>
                     </Grid>
                 </Grid>
