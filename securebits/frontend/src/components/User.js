@@ -76,10 +76,10 @@ function User(props) {
                             <MenuItem onClick={() => { handleClose(); props.history.push("/settings") }}><SettingsIcon /> Settings</MenuItem>
                             <MenuItem onClick={() => { handleClose(); props.logoutUser() }} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
-                        <LoginForm open={login} onClose={closeLogin} />
-                        <SignupForm open={signup} onClose={closeSignup} />
                     </>
             }
+            <LoginForm open={login} onClose={closeLogin} />
+            <SignupForm open={signup} onClose={closeSignup} />
         </>
     )
 }
