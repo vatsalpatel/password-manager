@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     grid: {
         display: "flex",
         justifyContent: "right",
-        // paddingRight: "1em",
+        paddingRight: "1em",
         display: "flex",
         alignItems: "stretch",
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 
 function TabPanel(props) {
     return (
-        <div hidden={props.value !== props.index}></div>
+        <div hidden={props.value !== props.index}>{props.children}</div>
     )
 }
 

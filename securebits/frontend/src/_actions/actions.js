@@ -1,7 +1,7 @@
-import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, } from './types';
+import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
-import { FETCH_USER, CLEAR_USER } from './types'
+import { FETCH_USER, CLEAR_USER, EDIT_USER } from './types'
 import { produceKey, login, logout, fetchData, addData, editData, deleteData, decrypt } from '../_services/services';
 import axios from 'axios';
 
@@ -123,4 +123,8 @@ export const addUser = (username, password) => dispatch => {
         .then(res => {
             dispatch(loginUser(username, password, res.data.auth_token))
         })
+}
+
+export const editUser = data => dispatch => {
+    dispatch({ type: EDIT_USER.SUCCESS, payload: data })
 }

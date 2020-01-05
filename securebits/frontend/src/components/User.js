@@ -60,7 +60,7 @@ function User(props) {
                         <Button variant="contained" color="primary" className={classes.link} onClick={openSignup}>Sign Up</Button>
                     </> :
                     <>
-                        <Button size="large" className={classes.link} onClick={handleClick} text>
+                        <Button size="large" className={classes.link} onClick={handleClick}>
                             <Avatar className={classes.avatar}>{props.user.first_name[0]}</Avatar>{props.user.first_name} {props.user.last_name} <ExpandMoreIcon />
                         </Button>
                         <Menu
