@@ -57,37 +57,31 @@ const FullName = withFormik({
         username: props.user.username || "",
         password: "",
     }),
-    validate: values => {
+    validate: (values, props) => {
         const errors = {}
 
         if (!values.username)
             errors.username = "Required"
         if (!values.password)
             errors.password = "Required"
+        if (props.user.username === values.username)
+            errors.username = "Username can't be the same"
+        if (produceKey(props.user.username, values.password) !== props.enckey)
+            errors.password = "Password is incorrect"
 
         return errors
     },
     handleSubmit: (values, { props, setSubmitting, setErrors }) => {
-        if (values.username !== props.user.username) {
-            if (produceKey(props.user.username, values.password) === props.enckey) {
-                editData(`auth/users/${props.user.id}/`, { ...props.user, username: values.username })
-                    .then(res => {
-                        props.editUser(res.data)
-                        props.updateVaultsAfterUserChange(res.data.username, values.password)
-                    })
-                    .catch(res => {
-                        console.log(res)
-                        // setErrors(res.response.data)
-                    })
-                    .finally(() => setSubmitting(false))
-            } else {
-                setErrors({ "password": "Password is incorrect" })
-                setSubmitting(false)
-            }
-        } else {
-            setErrors({ "username": "Username can't be the same" })
-            setSubmitting(false)
-        }
+        editData(`auth/users/${props.user.id}/`, { ...props.user, username: values.username })
+            .then(res => {
+                props.updateVaultsAfterUserChange(res.data.username, values.password)
+                props.editUser(res.data)
+            })
+            .catch(res => {
+                console.log(res)
+                // setErrors(res.response.data)
+            })
+            .finally(() => setSubmitting(false))
     },
     enableReinitialize: true,
 })(NameForm)
