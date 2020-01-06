@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loginUser, displayError } from '../../_actions/actions';
 import { login } from '../../_services/services';
@@ -19,10 +19,10 @@ const useStyles = makeStyles({
 })
 
 const Form = props => {
-    const { open, onClose } = props
     const classes = useStyles();
-
     const {
+        open,
+        onClose,
         values,
         errors,
         touched,
@@ -30,6 +30,12 @@ const Form = props => {
         handleSubmit,
         isSubmitting,
     } = props;
+
+    useEffect(() => {
+        if(props.code.code !== 0)
+            onClose()
+    }, [props.code.code])
+    
     return (
         <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
             <form>
@@ -68,11 +74,15 @@ const LoginForm = withFormik({
                 if (res.response.status === 400) {
                     setErrors({ "password": "Username and password do not match" })
                 } else {
-                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                    props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
                 }
             })
             .finally(() => setSubmitting(false))
     },
 })(Form);
 
-export default connect(null, { loginUser, displayError })(LoginForm);
+const mapStateToProps = state => ({
+    code: state.status
+})
+
+export default connect(mapStateToProps, { loginUser, displayError })(LoginForm);

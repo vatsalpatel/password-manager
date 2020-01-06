@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, TextField, IconButton, Dialog, DialogActions, DialogContent, MenuItem, InputAdornment, CircularProgress } from '@material-ui/core';
 import { withFormik } from 'formik';
@@ -38,6 +38,11 @@ const Form = props => {
     const [showPass, setShowPass] = useState(false)
     const togglePass = () => setShowPass(!showPass)
 
+    useEffect(() => {
+        if (props.code.code !== 0)
+            onClose()
+    }, [props.code.code])
+
     return (
         <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
             <form>
@@ -64,7 +69,7 @@ const Form = props => {
                     </TextField>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => {onClose(); resetForm();}} variant="outlined" color="secondary">Cancel</Button>
+                    <Button onClick={() => { onClose(); resetForm(); }} variant="outlined" color="secondary">Cancel</Button>
                     <Button onClick={handleSubmit} variant="contained" color="primary">
                         {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save"}
                     </Button>
@@ -93,10 +98,10 @@ const VaultForm = withFormik({
                     props.onClose()
                 })
                 .catch(res => {
-                    if(res.response.status === 400) {
+                    if (res.response.status === 400) {
                         setErrors(res.response.data)
                     } else {
-                        props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                        props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
                     }
                 })
                 .finally(setSubmitting(false))
@@ -134,6 +139,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         vault,
         folders: state.folders,
+        status: state.status,
     }
 }
 
