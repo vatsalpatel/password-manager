@@ -24,7 +24,6 @@ const useStyles = makeStyles({
     },
     tab: {
         border: "1px solid lightgray",
-        borderRadius: "5px",
     },
     space: {
         margin: "2em",

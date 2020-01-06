@@ -77,7 +77,6 @@ const FullName = withFormik({
                 props.updateVaultsAfterUserChange(res.data.username, values.password)
                 props.editUser(res.data)
             })
-            .then(props.history.push('/vault'))
             .catch(res => {
                 if (res.response.status === 400) {
                     setErrors(res.response.data)
@@ -85,7 +84,10 @@ const FullName = withFormik({
                     props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
                 }
             })
-            .finally(() => setSubmitting(false))
+            .finally(() => {
+                setSubmitting(false)
+                props.history.push('/vault')
+            })
     },
     enableReinitialize: true,
 })(NameForm)
