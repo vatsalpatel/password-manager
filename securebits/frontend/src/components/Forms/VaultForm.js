@@ -139,7 +139,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         vault,
         folders: state.folders,
-        status: state.status,
+        code: state.status,
     }
 }
 

@@ -75,7 +75,7 @@ const FullName = withFormik({
                 if (res.response.status === 400) {
                     setErrors(res.response.data)
                 } else {
-                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                    props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
                 }
             })
             .finally(() => setSubmitting(false))
