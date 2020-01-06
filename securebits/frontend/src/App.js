@@ -7,6 +7,8 @@ import Wrapper from './components/Wrapper';
 import Home from './components/Home'
 import FolderPage from './components/FolderPage'
 import SettingsPage from './components/SettingsPage';
+import About from './components/About'
+import Contact from './components/Contact'
 import { getToken, getKey, continueSession } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
@@ -43,6 +45,8 @@ function App(props) {
                         <Route exact path="/vault/" component={Wrapper} />
                         <Route exact path="/folder" component={FolderPage} />
                         <Route exact path="/settings" component={SettingsPage} />
+                        <Route exact path="/about" component={About} />
+                        <Route exact path="/contact" component={Contact} />
                     </Switch>
                 </Router>
             </ThemeProvider>
