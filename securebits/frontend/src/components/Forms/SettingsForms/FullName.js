@@ -65,7 +65,7 @@ const FullName = withFormik({
 
         return errors
     },
-    handleSubmit: (values, { props, setSubmitting }) => {
+    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
         editData(`auth/users/${props.user.id}/`, { ...props.user, first_name: values.first_name, last_name: values.last_name })
             .then(res => {
                 props.editUser(res.data)

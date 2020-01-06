@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { withFormik } from 'formik'
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 
 const Form = props => {
     const classes = useStyles();
-
     const {
         open,
         onClose,
@@ -33,6 +32,11 @@ const Form = props => {
         isSubmitting,
         resetForm,
     } = props;
+    
+    useEffect(() => {
+        if(props.code.code !== 0)
+            onClose()
+    }, [props.code.code])
 
     return (
         <Dialog open={open} maxWidth="xs" fullWidth>
@@ -70,7 +74,7 @@ const Form = props => {
                     {errors.last_name && touched.last_name && <div className={classes.error}>{errors.last_name}</div>}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => {onClose(); resetForm()}} variant="outlined" color="secondary">Cancel</Button>
+                    <Button onClick={() => { onClose(); resetForm() }} variant="outlined" color="secondary">Cancel</Button>
                     <Button onClick={handleSubmit} variant="contained" color="primary">
                         {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Sign Up"}
                     </Button>
@@ -96,10 +100,10 @@ const SignupForm = withFormik({
                 props.onClose()
             })
             .catch(res => {
-                if(res.response.status === 400) {
+                if (res.response.status === 400) {
                     setErrors(res.response.data)
                 } else {
-                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                    props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
                 }
             })
             .finally(setSubmitting(false))
@@ -107,20 +111,24 @@ const SignupForm = withFormik({
     },
     validate: values => {
         const errors = {}
-        if(!values.username)
+        if (!values.username)
             errors.username = "Required"
-        if(!values.email)
+        if (!values.email)
             errors.email = "Required"
-        if(values.password.length < 8)
+        if (values.password.length < 8)
             errors.password = "Minimum length is 8"
-        if(values.password !== values.password2)
+        if (values.password !== values.password2)
             errors.password2 = "Passwords do not match"
-        if(!values.first_name)
+        if (!values.first_name)
             errors.first_name = "Required"
-        if(!values.last_name)
+        if (!values.last_name)
             errors.last_name = "Required"
         return errors
     }
 })(Form);
 
-export default connect(null, { addUser, displayError })(SignupForm);
+const mapStateToProps = state => ({
+    code: state.status
+})
+
+export default connect(mapStateToProps, { addUser, displayError })(SignupForm);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginUser } from '../../_actions/actions';
+import { loginUser, displayError } from '../../_actions/actions';
 import { login } from '../../_services/services';
 import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { withFormik } from 'formik'

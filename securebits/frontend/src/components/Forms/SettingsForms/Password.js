@@ -76,7 +76,7 @@ const FullName = withFormik({
 
         return errors
     },
-    handleSubmit: (values, { props, setSubmitting }) => {
+    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
         axios.post('auth/users/set_password/', {
             current_password: values.password,
             new_password: values.password2,
