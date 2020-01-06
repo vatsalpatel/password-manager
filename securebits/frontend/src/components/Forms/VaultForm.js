@@ -5,7 +5,7 @@ import { withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { addVault, editVault } from '../../_actions/actions';
+import { addVault, editVault, displayError } from '../../_actions/actions';
 import { addData, editData, encrypt } from '../../_services/services';
 
 const useStyles = makeStyles({
@@ -93,7 +93,11 @@ const VaultForm = withFormik({
                     props.onClose()
                 })
                 .catch(res => {
-                    console.log(res.response)
+                    if(res.response.status === 400) {
+                        setErrors(res.response.data)
+                    } else {
+                        props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                    }
                 })
                 .finally(setSubmitting(false))
         } else {
@@ -133,4 +137,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, { addVault, editVault })(VaultForm);
+export default connect(mapStateToProps, { addVault, editVault, displayError })(VaultForm);

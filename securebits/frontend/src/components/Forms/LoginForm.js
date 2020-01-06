@@ -65,10 +65,14 @@ const LoginForm = withFormik({
                 props.onClose()
             })
             .catch(res => {
-                setErrors({ "password": "Username and password do not match" })
+                if (res.response.status === 400) {
+                    setErrors({ "password": "Username and password do not match" })
+                } else {
+                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                }
             })
             .finally(() => setSubmitting(false))
     },
 })(Form);
 
-export default connect(null, { loginUser })(LoginForm);
+export default connect(null, { loginUser, displayError })(LoginForm);

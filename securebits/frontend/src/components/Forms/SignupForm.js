@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, TextField, CircularProgress } from '@material-ui/core'
 import { withFormik } from 'formik'
 import { makeStyles } from '@material-ui/core/styles'
-import { addUser } from '../../_actions/actions'
+import { addUser, displayError } from '../../_actions/actions'
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -96,7 +96,11 @@ const SignupForm = withFormik({
                 props.onClose()
             })
             .catch(res => {
-                setErrors(res.response.data)
+                if(res.response.status === 400) {
+                    setErrors(res.response.data)
+                } else {
+                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                }
             })
             .finally(setSubmitting(false))
 
@@ -119,4 +123,4 @@ const SignupForm = withFormik({
     }
 })(Form);
 
-export default connect(null, { addUser })(SignupForm);
+export default connect(null, { addUser, displayError })(SignupForm);

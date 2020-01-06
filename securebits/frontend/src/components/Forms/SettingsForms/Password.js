@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withFormik } from 'formik'
 import { Button, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { updateVaultsAfterUserChange } from '../../../_actions/actions'
+import { updateVaultsAfterUserChange, displayError } from '../../../_actions/actions'
 import { produceKey } from '../../../_services/services';
 import axios from 'axios';
 
@@ -89,7 +89,11 @@ const FullName = withFormik({
             )
             .then(props.history.push('/vault'))
             .catch(res => {
-                console.log(res)
+                if (res.response.status === 400) {
+                    setErrors(res.response.data)
+                } else {
+                    props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
+                }
             })
             .finally(setSubmitting(false))
     },
@@ -102,4 +106,4 @@ const mapStateToProps = state => ({
     token: state.token,
 })
 
-export default connect(mapStateToProps, { updateVaultsAfterUserChange })(FullName)
+export default connect(mapStateToProps, { updateVaultsAfterUserChange, displayError })(FullName)

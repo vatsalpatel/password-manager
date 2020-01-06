@@ -4,7 +4,7 @@ import { withFormik } from 'formik'
 import { Button, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { editData } from '../../../_services/services'
-import { editUser } from '../../../_actions/actions'
+import { editUser, displayError } from '../../../_actions/actions'
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -71,7 +71,13 @@ const FullName = withFormik({
                 props.editUser(res.data)
             })
             .then(props.history.push('/vault'))
-            .catch()
+            .catch(res => {
+                if (res.response.status === 400) {
+                    setErrors(res.response.data)
+                } else {
+                    props.displayError({ code: res.response.status, msg:"Server is Unreachable. Please try again later."})
+                }
+            })
             .finally(() => setSubmitting(false))
     },
     enableReinitialize: true,
@@ -83,4 +89,4 @@ const mapStateToProps = state => ({
     user: state.user,
 })
 
-export default connect(mapStateToProps, { editUser })(FullName)
+export default connect(mapStateToProps, { editUser, displayError })(FullName)
