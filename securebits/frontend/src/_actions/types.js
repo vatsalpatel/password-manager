@@ -112,3 +112,8 @@ export const DELETE_USER = {
 export const CLEAR_USER = {
     SUCCESS: "CLEAR_USER_SUCCESS",
 }
+
+export const REQUEST_FAILURE = {
+    DISPLAY: "REQUEST_FAILURE_DISPLAY",
+    CLEAR: "REQUEST_FAILURE_CLEAR"
+}

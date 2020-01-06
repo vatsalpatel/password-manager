@@ -1,4 +1,4 @@
-import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY } from './types';
+import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, REQUEST_FAILURE } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER, EDIT_USER } from './types'
@@ -133,4 +133,12 @@ export const updateVaultsAfterUserChange = (username, password) => dispatch => {
     dispatch(getKey(newKey))
     let newVaults = encryptAllVaults()
     newVaults.map(vault => dispatch(editVault(vault)))
+}
+
+export const displayError = data => dispatch => {
+    dispatch({ type: REQUEST_FAILURE.DISPLAY, payload: data })
+}
+
+export const clearError = data => dispatch => {
+    dispatch({ type: REQUEST_FAILURE.CLEAR, paylad: data })
 }
