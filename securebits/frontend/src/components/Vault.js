@@ -31,7 +31,7 @@ function Vault(props) {
         <>
             <Card variant="outlined">
                 <CardContent className={classes.cardTitle}>
-                    <Typography variant="h6">
+                    <Typography variant="h6" noWrap>
                         {props.name}
                     </Typography>
                 </CardContent>

@@ -44,7 +44,7 @@ const Form = props => {
     }, [props.code.code])
 
     return (
-        <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
+        <Dialog open={open} maxWidth="xs" fullWidth>
             <form>
                 <DialogContent className={classes.dialogContent}>
                     <TextField variant="outlined" label="Name" fullWidth className={classes.text}

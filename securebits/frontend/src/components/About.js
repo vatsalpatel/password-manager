@@ -1,8 +1,22 @@
 import React from 'react';
+import { Container, Typography, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    wrapper: {
+        display: "flex",
+        justifyContent: "center",
+    }
+})
 
 function About(props) {
+    const classes = useStyles();
     return (
-        <h1>About</h1>
+        <Container maxWidth="md" className={classes.wrapper}>
+            <Typography>
+                
+            </Typography>
+        </Container>
     )
 }
 
