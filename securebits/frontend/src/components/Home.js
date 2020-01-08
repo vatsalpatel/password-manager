@@ -48,7 +48,7 @@ function About(props) {
                             Passwords Are Frustrating...
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Weak Passwords
                     </Typography>
@@ -56,7 +56,7 @@ function About(props) {
                             Most people use short and weak password, Which are easy to crack.
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Reused Passwords
                     </Typography>
@@ -64,7 +64,7 @@ function About(props) {
                             Most people use same password for more than one site, increasing security risks.
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Hard to remember
                     </Typography>
@@ -75,10 +75,10 @@ function About(props) {
                 </Grid>
             </Container>
             <Grid container spacing={5}>
-                <Grid sm={6} md={6}>
+                <Grid item sm={6} md={6}>
                     <img src={vaultimg} width="95%" />
                 </Grid>
-                <Grid sm={6} md={6}>
+                <Grid item sm={6} md={6}>
                     <img src={editimg} width="95%" />
                 </Grid>
             </Grid>
@@ -89,7 +89,7 @@ function About(props) {
                             Never Forget Another Password...
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Secure Password Storage
                     </Typography>
@@ -97,7 +97,7 @@ function About(props) {
                             Passwords are encrypted and decrypted on client using key derived from your password.
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Easy And Convenient
                     </Typography>
@@ -105,7 +105,7 @@ function About(props) {
                             Very simple and easy to use, can be used anywhere and anytime.
                     </Typography>
                     </Grid>
-                    <Grid sm={6} md={4}>
+                    <Grid item sm={6} md={4}>
                         <Typography variant="h5" className={classes.topics}>
                             Organize Passwords Easily
                     </Typography>
@@ -116,7 +116,7 @@ function About(props) {
                 </Grid>
             </Container>
             <Grid container className={classes.wrapper} spacing={5}>
-                <Grid xs={12} md={5}>
+                <Grid item xs={12} md={5}>
                     <Card raised>
                         <CardContent className={classes.topics}>
                             <div className={classes.cardTitle}>
@@ -132,8 +132,8 @@ function About(props) {
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid md={1} ></Grid>
-                <Grid xs={12} md={5}>
+                <Grid item md={1} ></Grid>
+                <Grid item xs={12} md={5}>
                     <Card raised>
                         <CardContent className={classes.topics}>
                             <div className={classes.cardTitle}>

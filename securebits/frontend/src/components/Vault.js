@@ -29,7 +29,7 @@ function Vault(props) {
 
     return (
         <>
-            <Card variant="outlined">
+            <Card raised>
                 <CardContent className={classes.cardTitle}>
                     <Typography variant="h6" noWrap>
                         {props.name}
