@@ -144,7 +144,8 @@ function About(props) {
                             <Typography paragraph align="justify">
                                 We process your password through 100 rounds of PBKDF2
                                 (Password Based Key Derivation Function 2) with salting
-                                from SHA256 making it practically impossible to break.
+                                from Secure Hashing Algorithm making it practically 
+                                impossible to break.
                             </Typography>
                         </CardContent>
                     </Card>
