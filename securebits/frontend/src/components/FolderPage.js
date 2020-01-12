@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import FolderForm from './Forms/FolderForm';
 import { deleteFolder } from '../_actions/actions';
-import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles({
     paper: {
@@ -42,7 +41,6 @@ function FolderPage(props) {
 
     return (
         <>
-            { props.token ? null : <Redirect to="/" /> }
             <Container maxWidth="lg">
                 <div className={classes.addButton}>
                     <Button variant="contained" color="primary" onClick={() => openDialog(-1)}>Add Folder</Button>

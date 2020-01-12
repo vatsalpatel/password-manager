@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
@@ -16,6 +16,14 @@ const darkTheme = createMuiTheme({
         type: 'light'
     }
 })
+
+function PrivateRoute({ children, ...rest }) {
+    let isAuthenticated = Boolean(window.sessionStorage.getItem("auth-token"))
+    console.log(isAuthenticated)
+    return (
+        <Route {...rest} render={() => isAuthenticated ? children : <Redirect to='/' />} />
+    )
+}
 
 function App(props) {
     useEffect(() => {
@@ -42,9 +50,15 @@ function App(props) {
                     <Navbar token={props.token} />
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/vault/" component={Wrapper} />
-                        <Route exact path="/folder" component={FolderPage} />
-                        <Route exact path="/settings" component={SettingsPage} />
+                        <PrivateRoute exact path="/vault/">
+                            <Wrapper />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/folder">
+                            <FolderPage />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/settings">
+                            <SettingsPage />
+                        </PrivateRoute>
                         <Route exact path="/about" component={About} />
                         <Route exact path="/contact" component={Contact} />
                     </Switch>
