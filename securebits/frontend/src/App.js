@@ -35,12 +35,14 @@ function App(props) {
         if (key) {
             props.getKey(key)
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if (props.token !== "") {
             props.continueSession(props.token)
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.token])
 
     return (

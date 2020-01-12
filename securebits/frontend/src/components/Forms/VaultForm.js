@@ -41,6 +41,7 @@ const Form = props => {
     useEffect(() => {
         if (props.code.code !== 0)
             onClose()
+            //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.code.code])
 
     return (
