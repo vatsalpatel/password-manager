@@ -41,7 +41,6 @@ function Navbar(props) {
                     <nav>
                         <Link className={classes.link} to="/">Home</Link>
                         <Link className={classes.link} to="/about">About</Link>
-                        <Link className={classes.link} to="/contact">Contact</Link>
                     </nav>
                     <User />
                 </Toolbar>
