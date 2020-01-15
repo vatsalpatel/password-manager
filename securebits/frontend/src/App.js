@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
@@ -17,6 +17,14 @@ const darkTheme = createMuiTheme({
     }
 })
 
+function PrivateRoute({ children, ...rest }) {
+    let isAuthenticated = Boolean(window.sessionStorage.getItem("auth-token"))
+    console.log(isAuthenticated)
+    return (
+        <Route {...rest} render={() => isAuthenticated ? children : <Redirect to='/' />} />
+    )
+}
+
 function App(props) {
     useEffect(() => {
         let token = window.sessionStorage.getItem("auth-token")
@@ -27,12 +35,14 @@ function App(props) {
         if (key) {
             props.getKey(key)
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         if (props.token !== "") {
             props.continueSession(props.token)
         }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.token])
 
     return (
@@ -42,9 +52,15 @@ function App(props) {
                     <Navbar token={props.token} />
                     <Switch>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/vault/" component={Wrapper} />
-                        <Route exact path="/folder" component={FolderPage} />
-                        <Route exact path="/settings" component={SettingsPage} />
+                        <PrivateRoute exact path="/vault/">
+                            <Wrapper />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/folder">
+                            <FolderPage />
+                        </PrivateRoute>
+                        <PrivateRoute exact path="/settings">
+                            <SettingsPage />
+                        </PrivateRoute>
                         <Route exact path="/about" component={About} />
                         <Route exact path="/contact" component={Contact} />
                     </Switch>

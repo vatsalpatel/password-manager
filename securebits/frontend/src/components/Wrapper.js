@@ -5,7 +5,6 @@ import Folder from './Folder'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 import VaultForm from './Forms/VaultForm';
-import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles({
     buttons: {
@@ -47,7 +46,6 @@ function Wrapper(props) {
     })
     return (
         <div className="wrapper">
-            { props.token ? null : <Redirect to="/" /> }
             {props.folders.length
                 ? <div className={classes.buttons}>
                     <Button onClick={openDialog} variant="contained" size="large" color="primary" >Add Vault</Button>

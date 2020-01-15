@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Grid, Container, Tabs, Tab } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import FullName from './Forms/SettingsForms/FullName';
@@ -47,7 +46,6 @@ function SettingsPage(props) {
 
     return (
         <>
-            {props.token ? null : <Redirect to="/" />}
             <Container maxWidth="lg">
                 <Grid container className={classes.wrapper}>
                     <Grid item xs={4} className={classes.grid}>

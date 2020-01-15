@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@material-ui/core';
-import { grey, indigo, blueGrey, blue } from '@material-ui/core/colors';
+import { Container, Typography, Grid, Card, CardContent } from '@material-ui/core';
+import { grey, indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import editimg from '../editimg.jpg'
 import vaultimg from '../vaultimg.jpg'
@@ -76,10 +76,10 @@ function About(props) {
             </Container>
             <Grid container spacing={5}>
                 <Grid item sm={6} md={6}>
-                    <img src={vaultimg} width="95%" />
+                    <img src={vaultimg} alt="Vault" width="95%" />
                 </Grid>
                 <Grid item sm={6} md={6}>
-                    <img src={editimg} width="95%" />
+                    <img src={editimg} alt="Edit Vault" width="95%" />
                 </Grid>
             </Grid>
             <Container maxWidth="lg" className={classes.wrapper}>
@@ -142,10 +142,9 @@ function About(props) {
                                 </Typography>
                             </div>
                             <Typography paragraph align="justify">
-                                We process your password through 100 rounds of PBKDF2
-                                (Password Based Key Derivation Function 2) with salting
-                                from Secure Hashing Algorithm making it practically 
-                                impossible to break.
+                                We process your password through 100 rounds of PBKDF2 (Password Based 
+                                Key Derivation Function 2) with salting from Secure Hashing Algorithm 
+                                for encryption key, making it practically impossible to break.
                             </Typography>
                         </CardContent>
                     </Card>
