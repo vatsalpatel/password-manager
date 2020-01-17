@@ -54,13 +54,13 @@ function App(props) {
                         <PrivateRoute exact path="/vault/">
                             <Wrapper />
                         </PrivateRoute>
-                        <PrivateRoute exact path="/folder">
+                        <PrivateRoute exact path="/folder/">
                             <FolderPage />
                         </PrivateRoute>
-                        <PrivateRoute exact path="/settings">
+                        <PrivateRoute exact path="/settings/">
                             <SettingsPage />
                         </PrivateRoute>
-                        <Route exact path="/about" component={About} />
+                        <Route exact path="/about/" component={About} />
                     </Switch>
                 </Router>
             </ThemeProvider>

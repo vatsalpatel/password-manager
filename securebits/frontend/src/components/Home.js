@@ -2,15 +2,13 @@ import React from 'react';
 import { Container, Typography, Grid, Card, CardContent } from '@material-ui/core';
 import { grey, indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
-import editimg from '../editimg.jpg'
-import vaultimg from '../vaultimg.jpg'
 
 const useStyles = makeStyles({
     back: {
         backgroundColor: grey[300],
     },
     wrapper: {
-        marginBottom: "10em",
+        marginBottom: "5em",
         display: "flex",
         justifyContent: "center",
     },
@@ -21,15 +19,6 @@ const useStyles = makeStyles({
     topics: {
         color: grey[700],
     },
-    cardTitle: {
-        textAlign: "center",
-    },
-    margin: {
-        marginTop: "5em",
-    },
-    padding: {
-        padding: "0.5em",
-    }
 })
 
 function About(props) {
@@ -38,7 +27,7 @@ function About(props) {
         <Container maxWidth="xl" className="back" >
             <Container maxWidth="sm">
                 <video autoPlay loop width="100%" height="100%">
-                    <source src="https://d38muu3h4xeqr1.cloudfront.net/website/static/DL-255/videos/animation-hero/homepage-desktop-video.webm" />
+                    <source src="/mainvid.webm" />
                 </video>
             </Container>
             <Container maxWidth="lg" className={classes.wrapper}>
@@ -46,110 +35,40 @@ function About(props) {
                     <Grid item xs={12}>
                         <Typography variant="h4" className={classes.title}>
                             Passwords Are Frustrating...
+                        </Typography>
+                        <Typography variant="h6">
+                            With SecureBits, you never have to worry about them. Ever Again...
+                        </Typography>
+                    </Grid>
+                    <Grid item sm={6} md={4}>
+                        <img src="/pm1.png" />
+                        <Typography variant="h5" className={classes.topics}>
+                            Save Time
+                    </Typography>
+                        <Typography variant="h6" className={classes.topics}>
+                            Using a password manager will save you time since you don't have to recall passwords for each website
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
+                        <img src="/pm2.png" />
                         <Typography variant="h5" className={classes.topics}>
-                            Weak Passwords
+                            Single Password
                     </Typography>
                         <Typography variant="h6" className={classes.topics}>
-                            Most people use short and weak password, Which are easy to crack.
+                            You only have to remember one password which will give you access to all of your other passwords.
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
+                        <img src="/pm3.png" />
                         <Typography variant="h5" className={classes.topics}>
-                            Reused Passwords
+                            Access Anywhere
                     </Typography>
                         <Typography variant="h6" className={classes.topics}>
-                            Most people use same password for more than one site, increasing security risks.
-                    </Typography>
-                    </Grid>
-                    <Grid item sm={6} md={4}>
-                        <Typography variant="h5" className={classes.topics}>
-                            Hard to remember
-                    </Typography>
-                        <Typography variant="h6" className={classes.topics}>
-                            Strong passwords are hard to remember, and resetting them each time is inconvenient
+                            SecureBits can be used on any device, giving you easy access to your passwords. Anytime. Anywhere.
                     </Typography>
                     </Grid>
                 </Grid>
             </Container>
-            <Grid container spacing={5}>
-                <Grid item sm={6} md={6}>
-                    <img src={vaultimg} alt="Vault" width="95%" />
-                </Grid>
-                <Grid item sm={6} md={6}>
-                    <img src={editimg} alt="Edit Vault" width="95%" />
-                </Grid>
-            </Grid>
-            <Container maxWidth="lg" className={classes.wrapper}>
-                <Grid container align="center" spacing={6} className={classes.margin}>
-                    <Grid item xs={12}>
-                        <Typography variant="h4" className={classes.title}>
-                            Never Forget Another Password...
-                    </Typography>
-                    </Grid>
-                    <Grid item sm={6} md={4}>
-                        <Typography variant="h5" className={classes.topics}>
-                            Secure Password Storage
-                    </Typography>
-                        <Typography variant="h6" className={classes.topics}>
-                            Passwords are encrypted and decrypted on client using key derived from your password.
-                    </Typography>
-                    </Grid>
-                    <Grid item sm={6} md={4}>
-                        <Typography variant="h5" className={classes.topics}>
-                            Easy And Convenient
-                    </Typography>
-                        <Typography variant="h6" className={classes.topics}>
-                            Very simple and easy to use, can be used anywhere and anytime.
-                    </Typography>
-                    </Grid>
-                    <Grid item sm={6} md={4}>
-                        <Typography variant="h5" className={classes.topics}>
-                            Organize Passwords Easily
-                    </Typography>
-                        <Typography variant="h6" className={classes.topics}>
-                            Passwords can be organized into folders for categorization and convenience.
-                    </Typography>
-                    </Grid>
-                </Grid>
-            </Container>
-            <Grid container className={classes.wrapper} spacing={5}>
-                <Grid item xs={12} md={5}>
-                    <Card raised>
-                        <CardContent className={classes.topics}>
-                            <div className={classes.cardTitle}>
-                                <Typography variant="h4" className={classes.padding}>
-                                    Encryption
-                                </Typography>
-                            </div>
-                            <Typography paragraph align="justify">
-                                We use Advanced Encryption Standard to encrypt your username and password.
-                                Encryption is done on the client meaning that username and password 
-                                are already encrypted even beofre they leave your browser.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item md={1} ></Grid>
-                <Grid item xs={12} md={5}>
-                    <Card raised>
-                        <CardContent className={classes.topics}>
-                            <div className={classes.cardTitle}>
-                                <Typography variant="h4" className={classes.padding}>
-                                    Security
-                                </Typography>
-                            </div>
-                            <Typography paragraph align="justify">
-                                We process your password through 100 rounds of PBKDF2 (Password Based 
-                                Key Derivation Function 2) with salting from Secure Hashing Algorithm 
-                                for encryption key, making it practically impossible to break.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
         </Container>
     )
 }

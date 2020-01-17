@@ -13,9 +13,7 @@ function About(props) {
     const classes = useStyles();
     return (
         <Container maxWidth="md" className={classes.wrapper}>
-            <Typography>
-                
-            </Typography>
+            
         </Container>
     )
 }
