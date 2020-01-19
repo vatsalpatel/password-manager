@@ -26,7 +26,7 @@ const Form = props => {
     }
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <DialogContent>
                     <TextField variant="outlined" label="Name" fullWidth className={classes.text}
                         name="name" value={values.name} onChange={handleChange} 

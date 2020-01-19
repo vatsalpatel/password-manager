@@ -46,7 +46,7 @@ const Form = props => {
 
     return (
         <Dialog open={open} maxWidth="xs" fullWidth>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <DialogContent className={classes.dialogContent}>
                     <TextField variant="outlined" label="Name" fullWidth className={classes.text}
                         name="name" value={values.name} onChange={handleChange} error={errors.name && touched.name}
@@ -71,7 +71,7 @@ const Form = props => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => { onClose(); resetForm(); }} variant="outlined" color="secondary">Cancel</Button>
-                    <Button onClick={handleSubmit} variant="contained" color="primary">
+                    <Button variant="contained" color="primary" type="submit">
                         {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Save"}
                     </Button>
                 </DialogActions>
