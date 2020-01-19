@@ -1,13 +1,18 @@
-import React from 'react';
-import { Dialog, TextField, DialogContent, DialogActions, Button } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Dialog, TextField, DialogContent, DialogActions, Button, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withFormik } from 'formik';
-import { addFolder, editFolder } from '../../_actions/actions';
+import { addFolder, editFolder, displayError } from '../../_actions/actions';
+import { addData, editData } from '../../_services/services';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
     text: {
         marginBottom: 15,
+    },
+    error: {
+        color: "red",
+        marginBottom: 10,
     },
 });
 
@@ -15,46 +20,91 @@ const Form = props => {
     const classes = useStyles();
     const {
         values,
+        errors,
+        touched,
         handleChange,
-        handleClose,
-        submit
+        handleSubmit,
+        isSubmitting,
+        onClose,
+        open,
     } = props;
 
-    const handleSubmit = () => {
-        submit({ id: values.id, name: values.name })
-        handleClose()
-    }
+    useEffect(() => {
+        if (props.code.code !== 0)
+            onClose()
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.code.code])
+
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <DialogContent>
-                    <TextField variant="outlined" label="Name" fullWidth className={classes.text}
-                        name="name" value={values.name} onChange={handleChange} 
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} variant="outlined" color="secondary">Cancel</Button>
-                    <Button onClick={handleSubmit} variant="contained" color="primary">Save</Button>
-                </DialogActions>
-            </form>
+            <Dialog onClose={onClose} open={open} maxWidth="xs" fullWidth>
+                <form onSubmit={handleSubmit}>
+                    <DialogContent>
+                        <TextField variant="outlined" label="Name" fullWidth className={classes.text}
+                            name="name" value={values.name} onChange={handleChange} error={errors.name && touched.name}
+                        />
+                        {errors.name && touched.name && <div className={classes.error}>{errors.name}</div>}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
+                        <Button onClick={handleSubmit} variant="contained" color="primary">
+                            {isSubmitting ? <CircularProgress color="inherit" /> : "Save"}
+                        </Button>
+                    </DialogActions>
+                </form>
+            </Dialog>
         </>
     )
 }
 
-const FormikForm = withFormik({
+const FolderForm = withFormik({
     mapPropsToValues: (props) => ({
         id: props.folder.id,
         name: props.folder.name,
-    })
+    }),
+    handleSubmit: (values, { props, setSubmitting, setErrors, resetForm }) => {
+        if (values.id) {
+            editData(`folders/${values.id}/`, { id: values.id, name: values.name })
+                .then(res => {
+                    props.onClose()
+                    resetForm()
+                    props.editFolder(res.data)
+                })
+                .catch(res => {
+                    if (res.response.status === 400) {
+                        setErrors(res.response.data)
+                    } else {
+                        props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
+                    }
+                })
+                .finally(setSubmitting(false))
+        } else {
+            addData(`folders/`, { name: values.name })
+                .then(res => {
+                    console.log("s")
+                    props.onClose()
+                    resetForm()
+                    props.addFolder(res.data)
+                })
+                .catch(res => {
+                    console.log("f")
+                    if (res.response.status === 400) {
+                        setErrors(res.response.data)
+                    } else {
+                        props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
+                    }
+                })
+                .finally(setSubmitting(false))
+        }
+    },
+    validata: values => {
+        let errors = {}
+        if (!values.name)
+            errors.name = "Required"
+        return errors
+    },
+    enableReinitialize: true,
 })(Form)
-
-const FolderForm = props => {
-    return (
-        <Dialog onClose={props.onClose} open={props.open} maxWidth="xs" fullWidth>
-            <FormikForm folder={props.folder} handleClose={props.onClose} submit={props.folder.id ? props.editFolder : props.addFolder} />
-        </Dialog>
-    )
-}
 
 const mapStateToProps = (state, ownProps) => {
     let folder = { id: 0, name: "", user: 0 }
@@ -62,8 +112,9 @@ const mapStateToProps = (state, ownProps) => {
         folder = state.folders.filter(folder => folder.id === ownProps.folder)[0]
     }
     return {
-        folder: folder
+        folder: folder,
+        code: state.status,
     }
 }
 
-export default connect(mapStateToProps, { addFolder, editFolder })(FolderForm);
+export default connect(mapStateToProps, { addFolder, editFolder, displayError })(FolderForm);

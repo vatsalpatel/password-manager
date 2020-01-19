@@ -18,7 +18,6 @@ const darkTheme = createMuiTheme({
 
 function PrivateRoute({ children, ...rest }) {
     let isAuthenticated = Boolean(window.sessionStorage.getItem("auth-token"))
-    console.log(isAuthenticated)
     return (
         <Route {...rest} render={() => isAuthenticated ? children : <Redirect to='/' />} />
     )

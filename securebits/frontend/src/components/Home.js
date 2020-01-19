@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Grid, Card, CardContent } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { grey, indigo } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -41,7 +41,7 @@ function About(props) {
                         </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/pm1.png" />
+                        <img src="/pm1.png" alt="Time" />
                         <Typography variant="h5" className={classes.topics}>
                             Save Time
                     </Typography>
@@ -50,7 +50,7 @@ function About(props) {
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/pm2.png" />
+                        <img src="/pm2.png" alt="Access" />
                         <Typography variant="h5" className={classes.topics}>
                             Single Password
                     </Typography>
@@ -59,7 +59,7 @@ function About(props) {
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/pm3.png" />
+                        <img src="/pm3.png" alt="Anywhere" />
                         <Typography variant="h5" className={classes.topics}>
                             Access Anywhere
                     </Typography>
