@@ -27,8 +27,9 @@ export const continueSession = token => dispatch => {
     dispatch(fetchVaults(token))
 }
 
-export const logoutUser = token => dispatch => {
-    logout(token)
+export const logoutUser = isDelete => dispatch => {
+    if(!isDelete)
+        logout()
     dispatch({ type: CLEAR_TOKEN.SUCCESS })
     dispatch({ type: CLEAR_KEY.SUCCESS })
     dispatch({ type: CLEAR_USER.SUCCESS })

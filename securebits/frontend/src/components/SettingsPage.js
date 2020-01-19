@@ -6,6 +6,7 @@ import FullName from './Forms/SettingsForms/FullName';
 import Email from './Forms/SettingsForms/Email';
 import Username from './Forms/SettingsForms/Username';
 import Password from './Forms/SettingsForms/Password';
+import UserDelete from './Forms/SettingsForms/UserDelete';
 import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -69,6 +70,8 @@ function SettingsPage(props) {
                             <Username history={props.history} />
                             <div className={classes.space}></div>
                             <Email history={props.history} />
+                            <div className={classes.space}></div>
+                            <UserDelete history={props.history} />
                         </TabPanel>
                         <TabPanel index={2} value={value}>
                             <Password history={props.history} />

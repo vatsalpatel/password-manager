@@ -63,11 +63,14 @@ export const editData = (url, data) => {
     })
 }
 
-export const deleteData = (url) => {
+export const deleteData = (url, data) => {
     const token = store.getState().token
     return axios.delete(url, {
         headers: {
-            Authorization: `Token ${token}`
+            Authorization: `Token ${token}`,
+        },
+        data: {
+            current_password: data,
         }
     })
 }

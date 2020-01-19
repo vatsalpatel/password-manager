@@ -54,9 +54,9 @@ function Navbar(props) {
                 onClose={handleClose}
                 autoHideDuration={5000}
                 message={<span>{props.status.msg}</span>}
-                action={[
+                action={
                     <IconButton onClick={handleClose} className={classes.icon}><CloseIcon /></IconButton>
-                ]}
+                }
             />
         </>
     )

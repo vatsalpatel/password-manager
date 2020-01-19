@@ -60,14 +60,14 @@ const FullName = withFormik({
     validate: (values, props) => {
         const errors = {}
 
+        if (props.user.username === values.username)
+        errors.username = "Username can't be the same"
+        if (produceKey(props.user.username, values.password) !== props.enckey)
+        errors.password = "Password is incorrect"
         if (!values.username)
             errors.username = "Required"
         if (!values.password)
             errors.password = "Required"
-        if (props.user.username === values.username)
-            errors.username = "Username can't be the same"
-        if (produceKey(props.user.username, values.password) !== props.enckey)
-            errors.password = "Password is incorrect"
 
         return errors
     },
