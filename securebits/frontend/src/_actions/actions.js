@@ -41,7 +41,12 @@ export const fetchUser = token => dispatch => {
         .then(res => {
             dispatch({ type: FETCH_USER.SUCCESS, payload: res.data })
         })
-        .catch()
+        .catch(res => {
+            console.log(res.response)
+            if(res.response.status === 500) {
+                dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
+            }
+        })
 }
 
 export const fetchFolders = token => dispatch => {
@@ -49,7 +54,12 @@ export const fetchFolders = token => dispatch => {
         .then(res => {
             dispatch({ type: FETCH_FOLDERS.SUCCESS, payload: res.data })
         })
-        .catch()
+        .catch(res => {
+            console.log(res.response)
+            if(res.response.status === 500) {
+                dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
+            }
+        })
 }
 
 export const fetchVaults = token => dispatch => {
@@ -62,7 +72,12 @@ export const fetchVaults = token => dispatch => {
             }))
             dispatch({ type: FETCH_VAULTS.SUCCESS, payload: data })
         })
-        .catch()
+        .catch(res => {
+            console.log(res.response)
+            if(res.response.status === 500) {
+                dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
+            }
+        })
 }
 
 export const addVault = data => dispatch => {
@@ -90,7 +105,11 @@ export const deleteVault = data => dispatch => {
         .then(res => {
             dispatch({ type: DELETE_VAULT.SUCCESS, payload: data })
         })
-        .catch(res => console.log(res.response))
+        .catch(res => {
+            if(res.response.status === 500) {
+                dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
+            }
+        })
 }
 
 export const addFolder = data => dispatch => {
@@ -106,7 +125,11 @@ export const deleteFolder = data => dispatch => {
         .then(res => {
             dispatch({ type: DELETE_FOLDER.SUCCESS, payload: data })
         })
-        .catch(res => console.log(res.response))
+        .catch(res => {
+            if(res.response.status === 500) {
+                dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
+            }
+        })
 }
 
 export const addUser = (username, password) => dispatch => {

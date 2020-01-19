@@ -81,13 +81,11 @@ const FolderForm = withFormik({
         } else {
             addData(`folders/`, { name: values.name })
                 .then(res => {
-                    console.log("s")
                     props.onClose()
                     resetForm()
                     props.addFolder(res.data)
                 })
                 .catch(res => {
-                    console.log("f")
                     if (res.response.status === 400) {
                         setErrors(res.response.data)
                     } else {
