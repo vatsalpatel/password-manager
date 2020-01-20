@@ -65,10 +65,11 @@ const LoginForm = withFormik({
         username: "",
         password: "",
     }),
-    handleSubmit: (values, { props, setErrors, setSubmitting }) => {
+    handleSubmit: (values, { props, setErrors, setSubmitting, resetForm }) => {
         login(values.username, values.password)
             .then(res => {
                 props.loginUser(values.username, values.password, res.data.auth_token)
+                resetForm()
                 props.onClose()
             })
             .catch(res => {

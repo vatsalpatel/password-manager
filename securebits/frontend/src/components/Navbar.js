@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import User from './User';
 import { connect } from 'react-redux';
 import { displayError, clearError } from '../_actions/actions';
@@ -13,11 +13,14 @@ const useStyles = makeStyles({
     },
     toolbarTitle: {
         flexGrow: 1,
+        fontFamily: "Roboto Condensed",
+        fontSize: "2em",
     },
     link: {
         marginLeft: 15,
         textDecoration: "none",
         color: "black",
+        fontFamily: "Roboto Condensed",
     },
     icon: {
         color: "white",
@@ -30,18 +33,19 @@ function Navbar(props) {
     const handleClose = () => {
         props.clearError()
     }
+    
+    let history = useHistory()
+    const homeRedirect = () => {
+        history.push("/")
+    }
 
     return (
         <>
             <AppBar position="static" color="default">
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h5" color="primary" className={classes.toolbarTitle}>
-                        SecureBits
+                        <span onClick={homeRedirect}>SecureBits</span>
                 </Typography>
-                    <nav>
-                        <Link className={classes.link} to="/">Home</Link>
-                        <Link className={classes.link} to="/about">About</Link>
-                    </nav>
                     <User />
                 </Toolbar>
             </AppBar>

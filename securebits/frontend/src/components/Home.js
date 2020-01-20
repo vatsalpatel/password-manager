@@ -27,7 +27,7 @@ function About(props) {
         <Container maxWidth="xl" className="back" >
             <Container maxWidth="sm">
                 <video autoPlay loop width="100%" height="100%">
-                    <source src="/static/mainvid.webm" />
+                    <source src="/mainvid.webm" />
                 </video>
             </Container>
             <Container maxWidth="lg" className={classes.wrapper}>
@@ -41,8 +41,8 @@ function About(props) {
                         </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/static/pm1.png" alt="Time" />
-                        <Typography variant="h5" className={classes.topics}>
+                        <img src="/pm1.png" alt="Time" />
+                        <Typography variant="h5" className={classes.title}>
                             Save Time
                     </Typography>
                         <Typography variant="h6" className={classes.topics}>
@@ -50,8 +50,8 @@ function About(props) {
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/static/pm2.png" alt="Access" />
-                        <Typography variant="h5" className={classes.topics}>
+                        <img src="/pm2.png" alt="Access" />
+                        <Typography variant="h5" className={classes.title}>
                             Single Password
                     </Typography>
                         <Typography variant="h6" className={classes.topics}>
@@ -59,8 +59,8 @@ function About(props) {
                     </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
-                        <img src="/static/pm3.png" alt="Anywhere" />
-                        <Typography variant="h5" className={classes.topics}>
+                        <img src="/pm3.png" alt="Anywhere" />
+                        <Typography variant="h5" className={classes.title}>
                             Access Anywhere
                     </Typography>
                         <Typography variant="h6" className={classes.topics}>

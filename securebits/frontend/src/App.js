@@ -13,6 +13,9 @@ import { getToken, getKey, continueSession } from './_actions/actions';
 const darkTheme = createMuiTheme({
     palette: {
         type: 'light'
+    },
+    typography: {
+        fontFamily: 'Roboto Slab',
     }
 })
 

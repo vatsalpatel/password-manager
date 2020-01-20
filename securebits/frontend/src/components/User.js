@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Menu, MenuItem, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom';
 const useStyles = makeStyles({
     link: {
         marginLeft: 15,
+        fontFamily: "Roboto Condensed",
     },
     logout: {
         color: "#c00",
@@ -51,6 +52,13 @@ function User(props) {
     const closeSignup = () => {
         setSignup(false)
     }
+
+    useEffect(() => {
+        if(props.user.username !== "") {
+            props.history.push('/vault')
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.user])
 
     return (
         <>
