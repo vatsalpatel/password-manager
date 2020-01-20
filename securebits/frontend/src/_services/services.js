@@ -20,7 +20,7 @@ export const produceKey = (username, password) => {
 }
 
 export const login = (username, password) => {
-    return axios.post('auth/token/login/', {
+    return axios.post('api/auth/token/login/', {
         username: username,
         password: password,
     })
@@ -28,7 +28,7 @@ export const login = (username, password) => {
 
 export const logout = () => {
     const token = store.getState().token
-    return axios.post('auth/token/logout', {}, {
+    return axios.post('api/auth/token/logout', {}, {
         headers: {
             Authorization: `Token ${token}`,
         }
@@ -36,7 +36,7 @@ export const logout = () => {
 }
 
 export const fetchData = (url, token) => {
-    return axios.get(url, {
+    return axios.get(`api/${url}`, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -46,7 +46,7 @@ export const fetchData = (url, token) => {
 export const addData = (url, data) => {
     const token = store.getState().token
     const user = store.getState().user
-    return axios.post(url, { ...data, user: user.id }, {
+    return axios.post(`api/${url}`, { ...data, user: user.id }, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -56,7 +56,7 @@ export const addData = (url, data) => {
 export const editData = (url, data) => {
     const token = store.getState().token
     const user = store.getState().user
-    return axios.put(url, { ...data, user: user.id}, {
+    return axios.put(`api/${url}`, { ...data, user: user.id}, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -65,7 +65,7 @@ export const editData = (url, data) => {
 
 export const deleteData = (url, data) => {
     const token = store.getState().token
-    return axios.delete(url, {
+    return axios.delete(`api/${url}`, {
         headers: {
             Authorization: `Token ${token}`,
         },

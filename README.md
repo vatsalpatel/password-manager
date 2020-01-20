@@ -9,7 +9,8 @@ Create a database and user in prostgres as required.<br>
 Place credentials in a file called "dbcred.txt" in "password-manager/securebits" as displayed in "dbcred.example".<br>
 
 ## Python
-(Virtual environment is optional but recommended)
+(Virtual environment is optional but recommended)<br>
+(React files can now be served from django single server. Use yarn run build in "frontend/" if you wish to do so.)
 
 run following commands:<br>
 + pip install -r requirements.txt
@@ -18,6 +19,6 @@ run following commands:<br>
 + py manage.py runserver
 
 ## React
-(I have placed login credentials temporarily for convenience of testing)<br>
 + yarn
-+ yarn run start
++ yarn run build(If you want to use django server only)
++ yarn run start(Only if you did not run yarn run build)

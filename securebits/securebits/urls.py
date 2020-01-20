@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework.routers import SimpleRouter
 from api.views import VaultViewSet, FolderViewSet
 
@@ -24,7 +25,12 @@ router.register("folders", FolderViewSet, basename="Folder")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('', include(router.urls)),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/', include(router.urls)),
+    path('', TemplateView.as_view(template_name="index.html")),
+    path('vault/', TemplateView.as_view(template_name="index.html")),
+    path('folder/', TemplateView.as_view(template_name="index.html")),
+    path('settings/', TemplateView.as_view(template_name="index.html")),
+    path('about/', TemplateView.as_view(template_name="index.html")),
 ]

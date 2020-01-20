@@ -62,8 +62,8 @@ const Form = props => {
 
 const LoginForm = withFormik({
     mapPropsToValues: () => ({
-        username: "admin",
-        password: "qweasdrf",
+        username: "",
+        password: "",
     }),
     handleSubmit: (values, { props, setErrors, setSubmitting }) => {
         login(values.username, values.password)
