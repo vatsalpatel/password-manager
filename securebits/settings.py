@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'api',
-    # 'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -156,4 +155,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build', 'static'),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 django_heroku.settings(locals())
