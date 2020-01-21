@@ -55,7 +55,7 @@ function User(props) {
 
     useEffect(() => {
         if(props.user.username !== "") {
-            props.history.push('/vault')
+            // props.history.push('/vault')
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.user])
