@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dialog, DialogContent, DialogActions, Button } from '@material-ui/core';
+import { Dialog, DialogContent, DialogActions, Button, Tooltip } from '@material-ui/core';
 import { Card, CardContent, CardActions, IconButton, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -41,8 +41,8 @@ function Vault(props) {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton>
-                    <IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton>
+                    <Tooltip title="Edit"><IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton></Tooltip>
+                    <Tooltip title="Delete"><IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton></Tooltip>
                 </CardActions>
             </Card>
             <Dialog open={dialog} onClose={closeDialog}>

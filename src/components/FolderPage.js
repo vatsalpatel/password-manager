@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, Button, Dialog, DialogContent, DialogActions } from '@material-ui/core';
+import { Container, Paper, Typography, Button, Dialog, DialogContent, DialogActions, Tooltip, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import FolderForm from './Forms/FolderForm';
 import { deleteFolder } from '../_actions/actions';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 const useStyles = makeStyles({
     paper: {
@@ -39,10 +40,13 @@ function FolderPage(props) {
     const openDelete = id => setDel(id);
     const closeDelete = () => setDel(0);
 
+    const help = "A Folder is a container for vaults. A Folder groups together similar vaults for organization and convenience."
+
     return (
         <>
             <Container maxWidth="lg">
                 <div className={classes.addButton}>
+                    <Tooltip title={help}><IconButton><HelpOutlineIcon /></IconButton></Tooltip>
                     <Button variant="contained" color="primary" onClick={() => openDialog(-1)}>Add Folder</Button>
                 </div>
                 {props.folders.map(folder => (
