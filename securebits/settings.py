@@ -27,7 +27,8 @@ SECRET_KEY = 'vkf90-40t#&us#azyo8kr4p3$fa-l_1+dvfm=0(f58t=g#suxn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-mimetypes.add_type("text/javascript", ".js", True)
+mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("application/css", ".css", True)
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
