@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import mimetypes
 import django_heroku
 import dj_database_url
 
@@ -26,6 +27,7 @@ SECRET_KEY = 'vkf90-40t#&us#azyo8kr4p3$fa-l_1+dvfm=0(f58t=g#suxn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+mimetypes.add_type("text/javascript", ".js", True)
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
