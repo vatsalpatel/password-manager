@@ -1,3 +1,2 @@
-release: py manage.py migrate
-release: cd frontend && yarn && yarn run build
+release: python manage.py migrate
 web: gunicorn securebits.wsgi --log-file -
