@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +25,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vkf90-40t#&us#azyo8kr4p3$fa-l_1+dvfm=0(f58t=g#suxn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'localhost',
+    '127.0.0.1',
+    'securebits.herokuapp.com',
+]
 
 
 # Application definition
@@ -94,19 +100,16 @@ DJOSER = {
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-with open(os.path.join(BASE_DIR, 'dbcred.txt')) as f:
-    dbName, dbUser, dbPass = f.read().splitlines()
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': dbName,
-        'USER': dbUser,
-        'PASSWORD': dbPass,
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': "",
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
