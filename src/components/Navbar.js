@@ -10,6 +10,7 @@ import { displayError, clearError } from '../_actions/actions';
 const useStyles = makeStyles({
     toolbar: {
         flexWrap: 1,
+        margin: "0em 2em",
     },
     toolbarTitle: {
         flexGrow: 1,

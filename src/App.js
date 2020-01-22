@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Wrapper from './components/Wrapper';
 import Home from './components/Home'
 import FolderPage from './components/FolderPage'
@@ -15,8 +16,19 @@ const darkTheme = createMuiTheme({
         type: 'light'
     },
     typography: {
-        fontFamily: 'Barlow',
-    }
+        fontFamily: 'Barlow, Roboto',
+    },
+})
+
+const useStyles = makeStyles({
+    app: {
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+    },
+    top: {
+        flexGrow: 1,
+    },
 })
 
 function PrivateRoute({ children, ...rest }) {
@@ -46,24 +58,29 @@ function App(props) {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.token])
 
+    const classes = useStyles()
+
     return (
-        <div className="App">
+        <div className={classes.app}>
             <ThemeProvider theme={darkTheme}>
                 <Router>
-                    <Navbar token={props.token} />
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <PrivateRoute exact path="/vault/">
-                            <Wrapper />
-                        </PrivateRoute>
-                        <PrivateRoute exact path="/folder/">
-                            <FolderPage />
-                        </PrivateRoute>
-                        <PrivateRoute exact path="/settings/">
-                            <SettingsPage />
-                        </PrivateRoute>
-                        <Route exact path="/about/" component={About} />
-                    </Switch>
+                    <div className={classes.top}>
+                        <Navbar token={props.token} />
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <PrivateRoute exact path="/vault/">
+                                <Wrapper />
+                            </PrivateRoute>
+                            <PrivateRoute exact path="/folder/">
+                                <FolderPage />
+                            </PrivateRoute>
+                            <PrivateRoute exact path="/settings/">
+                                <SettingsPage />
+                            </PrivateRoute>
+                            <Route exact path="/about/" component={About} />
+                        </Switch>
+                    </div>
+                    <Footer />
                 </Router>
             </ThemeProvider>
         </div>
