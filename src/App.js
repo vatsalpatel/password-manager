@@ -15,7 +15,7 @@ const darkTheme = createMuiTheme({
         type: 'light'
     },
     typography: {
-        fontFamily: 'Roboto Slab',
+        fontFamily: 'Barlow',
     }
 })
 
