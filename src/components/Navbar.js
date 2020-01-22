@@ -41,7 +41,7 @@ function Navbar(props) {
 
     return (
         <>
-            <AppBar position="static" color="default">
+            <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
                 <Toolbar className={classes.toolbar}>
                     <Typography variant="h5" color="primary" className={classes.toolbarTitle}>
                         <span onClick={homeRedirect}>SecureBits</span>
