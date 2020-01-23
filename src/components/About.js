@@ -36,7 +36,7 @@ function About(props) {
                         </Typography>
                 </Grid>
                 <Grid xs={12} sm={6} item >
-                    <img src="/static/pm4.png" width="100%" />
+                    <img src="/static/pm4.png" width="100%" alt="Security" />
                 </Grid>
             </Container>
             <Container maxWidth="md">
