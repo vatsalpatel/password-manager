@@ -104,9 +104,6 @@ DJOSER = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "securebits",
-        'USER': "securebitsuser",
-        'PASSWORD': "secretpass",
     }
 }
 
