@@ -42,21 +42,13 @@ function App(props) {
     useEffect(() => {
         let token = window.sessionStorage.getItem("auth-token")
         let key = window.sessionStorage.getItem("enc-key")
-        if (token) {
+        if (token && key) {
             props.getToken(token)
-        }
-        if (key) {
             props.getKey(key)
+            props.continueSession(token)
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-        if (props.token !== "") {
-            props.continueSession(props.token)
-        }
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.token])
 
     const classes = useStyles()
 
