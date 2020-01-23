@@ -44,28 +44,28 @@ function About(props) {
                         <img src="/static/pm1.png" alt="Time" />
                         <Typography variant="h5" className={classes.title}>
                             Save Time
-                    </Typography>
+                        </Typography>
                         <Typography variant="h6" className={classes.topics}>
                             Using a password manager will save you time since you don't have to recall passwords for each website
-                    </Typography>
+                        </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
                         <img src="/static/pm2.png" alt="Access" />
                         <Typography variant="h5" className={classes.title}>
                             Single Password
-                    </Typography>
+                        </Typography>
                         <Typography variant="h6" className={classes.topics}>
                             You only have to remember one password which will give you access to all of your other passwords.
-                    </Typography>
+                        </Typography>
                     </Grid>
                     <Grid item sm={6} md={4}>
                         <img src="/static/pm3.png" alt="Anywhere" />
                         <Typography variant="h5" className={classes.title}>
                             Access Anywhere
-                    </Typography>
+                        </Typography>
                         <Typography variant="h6" className={classes.topics}>
                             SecureBits can be used on any device, giving you easy access to your passwords. Anytime. Anywhere.
-                    </Typography>
+                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
