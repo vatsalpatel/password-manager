@@ -61,6 +61,7 @@ const Email = withFormik({
         editData(`auth/users/${props.user.id}/`, { ...props.user, email: values.email })
             .then(res => {
                 props.editUser(res.data)
+                props.displayError({ code: 200, msg: "Email Changed" })
             })
             .catch(res => {
                 if (res.response.status === 400) {
@@ -71,7 +72,6 @@ const Email = withFormik({
             })
             .finally(() => {
                 setSubmitting(false)
-                props.history.push('/vault')
             })
     },
     enableReinitialize: true,

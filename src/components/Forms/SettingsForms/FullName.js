@@ -69,6 +69,7 @@ const FullName = withFormik({
         editData(`auth/users/${props.user.id}/`, { ...props.user, first_name: values.first_name, last_name: values.last_name })
             .then(res => {
                 props.editUser(res.data)
+                props.displayError({ code: 200, msg: "Name Changed" })
             })
             .catch(res => {
                 if (res.response.status === 400) {
@@ -79,7 +80,6 @@ const FullName = withFormik({
             })
             .finally(() => {
                 setSubmitting(false)
-                props.history.push('/vault')
             })
     },
     enableReinitialize: true,

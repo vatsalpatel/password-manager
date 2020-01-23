@@ -84,9 +84,10 @@ const FullName = withFormik({
         }, {
             headers: { Authorization: `Token ${props.token}` }
         })
-            .then(
+            .then(() => {
                 props.updateVaultsAfterUserChange(props.user.username, values.password2)
-            )
+                props.displayError({ code: 200, msg: "Password Changed" })
+            })
             .catch(res => {
                 if (res.response.status === 400) {
                     setErrors(res.response.data)

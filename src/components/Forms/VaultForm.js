@@ -96,6 +96,7 @@ const VaultForm = withFormik({
                 .then(res => {
                     props.editVault(data)
                     resetForm()
+                    props.displayError({ code: 200, msg: "Vault Saved" })
                     props.onClose()
                 })
                 .catch(res => {

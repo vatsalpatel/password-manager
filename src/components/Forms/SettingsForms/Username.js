@@ -76,6 +76,7 @@ const FullName = withFormik({
             .then(res => {
                 props.updateVaultsAfterUserChange(res.data.username, values.password)
                 props.editUser(res.data)
+                props.displayError({ code: 200, msg: "Username Changed" })
             })
             .catch(res => {
                 if (res.response.status === 400) {
@@ -86,7 +87,6 @@ const FullName = withFormik({
             })
             .finally(() => {
                 setSubmitting(false)
-                props.history.push('/vault')
             })
     },
     enableReinitialize: true,

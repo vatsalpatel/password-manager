@@ -28,7 +28,7 @@ export const continueSession = token => dispatch => {
 }
 
 export const logoutUser = isDelete => dispatch => {
-    if(!isDelete)
+    if (!isDelete)
         logout()
     dispatch({ type: CLEAR_TOKEN.SUCCESS })
     dispatch({ type: CLEAR_KEY.SUCCESS })
@@ -44,7 +44,7 @@ export const fetchUser = token => dispatch => {
         })
         .catch(res => {
             console.log(res.response)
-            if(res.response.status === 500) {
+            if (res.response.status === 500) {
                 dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
             }
         })
@@ -57,7 +57,7 @@ export const fetchFolders = token => dispatch => {
         })
         .catch(res => {
             console.log(res.response)
-            if(res.response.status === 500) {
+            if (res.response.status === 500) {
                 dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
             }
         })
@@ -75,7 +75,7 @@ export const fetchVaults = token => dispatch => {
         })
         .catch(res => {
             console.log(res.response)
-            if(res.response.status === 500) {
+            if (res.response.status === 500) {
                 dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
             }
         })
@@ -105,9 +105,10 @@ export const deleteVault = data => dispatch => {
     deleteData(`vaults/${data}/`)
         .then(res => {
             dispatch({ type: DELETE_VAULT.SUCCESS, payload: data })
+            dispatch(displayError({ code: 200, msg: "Vault Deleted" }))
         })
         .catch(res => {
-            if(res.response.status === 500) {
+            if (res.response.status === 500) {
                 dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
             }
         })
@@ -125,9 +126,10 @@ export const deleteFolder = data => dispatch => {
     deleteData(`folders/${data}/`)
         .then(res => {
             dispatch({ type: DELETE_FOLDER.SUCCESS, payload: data })
+            dispatch(displayError({ code: 200, msg: "Folder Deleted" }))
         })
         .catch(res => {
-            if(res.response.status === 500) {
+            if (res.response.status === 500) {
                 dispatch(displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." }))
             }
         })
