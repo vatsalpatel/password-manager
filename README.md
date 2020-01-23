@@ -10,7 +10,7 @@ Place credentials in a file called "dbcred.txt" in "password-manager/securebits"
 
 ## Python
 (Virtual environment is optional but recommended)<br>
-(React files can now be served from django single server. Use yarn run build in "frontend/" if you wish to do so.)
+(React files can now be served from django single server. Use yarn run build if you wish to do so.)
 
 run following commands:<br>
 + pip install -r requirements.txt
