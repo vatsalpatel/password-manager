@@ -26,7 +26,7 @@ function About(props) {
     return (
         <Container maxWidth="xl" className="back" >
             <Container maxWidth="sm">
-                <video autoPlay loop width="100%" height="100%">
+                <video autoPlay loop muted width="100%" height="100%">
                     <source src="/static/mainvid.webm" />
                 </video>
             </Container>
