@@ -9,6 +9,7 @@ import Home from './components/Home'
 import FolderPage from './components/FolderPage'
 import SettingsPage from './components/SettingsPage';
 import About from './components/About'
+import NotFound from './components/NotFound'
 import { getToken, getKey, continueSession } from './_actions/actions';
 
 const darkTheme = createMuiTheme({
@@ -70,6 +71,7 @@ function App(props) {
                                 <SettingsPage />
                             </PrivateRoute>
                             <Route exact path="/about/" component={About} />
+                            <Route exact path="*" component={NotFound} />
                         </Switch>
                     </div>
                     <Footer />
