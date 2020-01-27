@@ -56,8 +56,8 @@ function User(props) {
     useEffect(() => {
         if(props.user.username) {
             if(!window.sessionStorage.getItem("loggedIn")) {
-                props.history.push('/vault/')
                 window.sessionStorage.setItem("loggedIn", true)
+                props.history.push('/vault')
             }
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
