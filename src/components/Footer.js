@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Link, IconButton, Dialog, DialogContent, DialogActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import CodeIcon from '@material-ui/icons/Code';
+import CopyrightIcon from '@material-ui/icons/Copyright';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import EmailIcon from '@material-ui/icons/Email';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -44,8 +44,8 @@ function Footer(props) {
                     <IconButton color="inherit" onClick={showDialog} ><EmailIcon /></IconButton>
                 </Grid>
                 <Grid className={classes.right}>
-                    <IconButton color="inherit"><CodeIcon /></IconButton>
-                    <span>Developed by Vatsal Patel</span>
+                    <IconButton color="inherit"><CopyrightIcon /></IconButton>
+                    <span>Copyright SecureBits 2019-2020</span>
                 </Grid>
             </Grid>
             <Dialog open={dialog} onClose={closeDialog} maxWidth="xs" fullWidth>
