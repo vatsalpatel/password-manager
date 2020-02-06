@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Link, IconButton, Dialog, DialogContent, DialogActions, Button, Typography } from '@material-ui/core';
+import { Grid, Link, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import CopyrightIcon from '@material-ui/icons/Copyright';
