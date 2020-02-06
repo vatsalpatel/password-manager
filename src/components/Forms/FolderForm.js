@@ -27,6 +27,7 @@ const Form = props => {
         isSubmitting,
         onClose,
         open,
+        resetForm,
     } = props;
 
     useEffect(() => {
@@ -46,7 +47,7 @@ const Form = props => {
                         {errors.name && touched.name && <div className={classes.error}>{errors.name}</div>}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
+                        <Button onClick={() => {onClose(); resetForm()}} variant="outlined" color="secondary">Cancel</Button>
                         <Button onClick={handleSubmit} variant="contained" color="primary">
                             {isSubmitting ? <CircularProgress color="inherit" /> : "Save"}
                         </Button>

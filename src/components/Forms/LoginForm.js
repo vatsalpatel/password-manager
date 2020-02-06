@@ -29,6 +29,7 @@ const Form = props => {
         handleChange,
         handleSubmit,
         isSubmitting,
+        resetForm,
     } = props;
 
     useEffect(() => {
@@ -50,7 +51,7 @@ const Form = props => {
                     {errors.password && touched.password && <div className={classes.error}>{errors.password}</div>}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose} variant="outlined" color="secondary">Cancel</Button>
+                    <Button onClick={() => {onClose();resetForm()}} variant="outlined" color="secondary">Cancel</Button>
                     <Button type="submit" variant="contained" color="primary">
                         {isSubmitting ? <CircularProgress color="inherit" size="1.8em" /> : "Log In"}
                     </Button>
