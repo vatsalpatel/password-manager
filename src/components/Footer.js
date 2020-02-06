@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, Link, IconButton, Dialog, DialogContent, DialogActions, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
@@ -28,10 +28,6 @@ function Footer(props) {
     const classes = useStyles()
     let history = useHistory()
 
-    const [dialog, setDialog] = useState(false)
-    const showDialog = () => setDialog(true)
-    const closeDialog = () => setDialog(false)
-
     const redirectAbout = () => history.push('/about/')
 
     return (
@@ -41,21 +37,13 @@ function Footer(props) {
                     <span onClick={redirectAbout}>About Us</span>
                     <Link href="https://github.com/N3onFrost" color="inherit"><IconButton color="inherit"><GitHubIcon /></IconButton></Link>
                     <Link href="https://www.linkedin.com/in/vatsal-patel-b95443198/" color="inherit"><IconButton color="inherit" ><LinkedInIcon /></IconButton></Link>
-                    <IconButton color="inherit" onClick={showDialog} ><EmailIcon /></IconButton>
+                    <Link href="mailto:n3onfrost@gmail.com" color="inherit"><IconButton color="inherit" ><EmailIcon /></IconButton></Link>
                 </Grid>
                 <Grid className={classes.right}>
                     <IconButton color="inherit"><CopyrightIcon /></IconButton>
                     <span>Copyright SecureBits 2019-2020</span>
                 </Grid>
             </Grid>
-            <Dialog open={dialog} onClose={closeDialog} maxWidth="xs" fullWidth>
-                <DialogContent>
-                    <Typography variant="h6">My E-mail Address: n3onfrost@gmail.com</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button variant="contained" onClick={closeDialog}>Close</Button>
-                </DialogActions>
-            </Dialog>
         </>
     )
 }
