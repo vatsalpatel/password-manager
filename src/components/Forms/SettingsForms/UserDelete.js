@@ -88,7 +88,7 @@ const FullName = withFormik({
         return errors
     },
     handleSubmit: (values, { props, resetForm, setSubmitting }) => {
-        deleteData(`auth/users/me`, values.password)
+        deleteData(`auth/users/me/`, values.password)
             .then(res => {
                 resetForm()
                 props.logoutUser(true)
