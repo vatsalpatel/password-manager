@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "Barlow";
+  src: url(/static/Barlow-Medium.ttf)
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url(/static/RobotoCondensed-Regular.ttf)
+}
