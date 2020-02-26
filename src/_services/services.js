@@ -87,3 +87,7 @@ export const encryptAllVaults = () => {
     })
     return newVaults
 }
+
+export const shouldUpdateVaults = (v1, v2) => {
+    return !(v1.username === v2.username && v1.password === v2.password && v1.name === v2.name && v1.folder === v2.folder)
+}

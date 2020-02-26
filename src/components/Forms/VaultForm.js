@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { addVault, editVault, displayError } from '../../_actions/actions';
-import { addData, editData, encrypt } from '../../_services/services';
+import { addData, editData, encrypt, shouldUpdateVaults } from '../../_services/services';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -41,7 +41,7 @@ const Form = props => {
     useEffect(() => {
         if (props.code.code !== 0)
             onClose()
-            //eslint-disable-next-line react-hooks/exhaustive-deps
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.code.code])
 
     return (
@@ -91,22 +91,28 @@ const VaultForm = withFormik({
     enableReinitialize: true,
     handleSubmit: (values, { props, setSubmitting, setErrors, resetForm }) => {
         if (values.id) {
-            let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
-            editData(`vaults/${values.id}/`, data)
-                .then(res => {
-                    props.editVault(data)
-                    resetForm()
-                    props.displayError({ code: 200, msg: "Vault Saved" })
-                    props.onClose()
-                })
-                .catch(res => {
-                    if (res.response.status === 400) {
-                        setErrors(res.response.data)
-                    } else {
-                        props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
-                    }
-                })
-                .finally(setSubmitting(false))
+            if (shouldUpdateVaults({ ...values }, props.vault)) {
+                let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
+                editData(`vaults/${values.id}/`, data)
+                    .then(res => {
+                        props.editVault(data)
+                        resetForm()
+                        props.displayError({ code: 200, msg: "Vault Saved" })
+                        props.onClose()
+                    })
+                    .catch(res => {
+                        if (res.response.status === 400) {
+                            setErrors(res.response.data)
+                        } else {
+                            props.displayError({ code: res.response.status, msg: "Server is Unreachable. Please try again later." })
+                        }
+                    })
+                    .finally(setSubmitting(false))
+            } else {
+                resetForm()
+                props.onClose()
+                setSubmitting(false)
+            }
         } else {
             let data = { ...values, username: encrypt(values.username), password: encrypt(values.password) }
             addData('vaults/', data)
