@@ -16,6 +16,9 @@ const useStyles = makeStyles({
         flexGrow: 1,
         fontFamily: "Roboto Condensed",
         fontSize: "2em",
+        '&:hover': {
+            cursor: "pointer",
+        }
     },
     link: {
         marginLeft: 15,
