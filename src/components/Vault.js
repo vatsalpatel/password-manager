@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogActions, Button, Tooltip } from '@material
 import { Card, CardContent, CardActions, IconButton, Typography } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { deleteVault } from '../_actions/actions';
 
 const useStyles = makeStyles({
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
         flexGrow: 1,
     },
     cardActions: {
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
     },
 })
 
@@ -41,6 +42,7 @@ function Vault(props) {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
+                    <Tooltip title="Copy Password"><IconButton size="small" onClick={() => navigator.clipboard.writeText(props.password)}><FileCopyIcon /></IconButton></Tooltip>
                     <Tooltip title="Edit"><IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton></Tooltip>
                     <Tooltip title="Delete"><IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton></Tooltip>
                 </CardActions>
