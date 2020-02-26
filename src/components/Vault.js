@@ -6,11 +6,7 @@ import { Card, CardContent, CardActions, IconButton, Typography } from '@materia
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
-<<<<<<< HEAD
-import { deleteVault } from '../_actions/actions';
-=======
 import { deleteVault, displayError } from '../_actions/actions';
->>>>>>> dev
 
 const useStyles = makeStyles({
     cardTitle: {
@@ -46,26 +42,20 @@ function Vault(props) {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-<<<<<<< HEAD
-                    <Tooltip title="Copy Password"><IconButton size="small" onClick={() => navigator.clipboard.writeText(props.password)}><FileCopyIcon /></IconButton></Tooltip>
+                    <Tooltip title="Copy Password"><IconButton size="small" onClick={() => { navigator.clipboard.writeText(props.password); props.displayError({ code: 200, msg: "Password Copied" }) }}><FileCopyIcon /></IconButton></Tooltip>
                     <Tooltip title="Edit"><IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton></Tooltip>
                     <Tooltip title="Delete"><IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton></Tooltip>
-=======
-                    <Tooltip title="Copy Password"><IconButton size="small" onClick={() => {navigator.clipboard.writeText(props.password); props.displayError({ code: 200, msg: "Password Copied" })} }><FileCopyIcon /></IconButton></Tooltip>
-                <Tooltip title="Edit"><IconButton size="small" color="primary" onClick={() => props.onEdit(props.id)}><EditIcon /></IconButton></Tooltip>
-                <Tooltip title="Delete"><IconButton size="small" color="secondary" onClick={openDialog}><DeleteIcon /></IconButton></Tooltip>
->>>>>>> dev
                 </CardActions>
-        </Card>
-        <Dialog open={dialog} onClose={closeDialog}>
-            <DialogContent>
-                {`Are you sure you want to delete ${props.name} ?`}
-            </DialogContent>
-            <DialogActions>
-                <Button variant="outlined" color="primary" onClick={closeDialog}>Cancel</Button>
-                <Button variant="contained" color="secondary" onClick={() => { props.deleteVault(props.id); closeDialog() }}>Delete</Button>
-            </DialogActions>
-        </Dialog>
+            </Card>
+            <Dialog open={dialog} onClose={closeDialog}>
+                <DialogContent>
+                    {`Are you sure you want to delete ${props.name} ?`}
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="outlined" color="primary" onClick={closeDialog}>Cancel</Button>
+                    <Button variant="contained" color="secondary" onClick={() => { props.deleteVault(props.id); closeDialog() }}>Delete</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }
