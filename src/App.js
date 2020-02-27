@@ -72,6 +72,9 @@ function App(props) {
                             <PrivateRoute exact path="/settings/">
                                 <SettingsPage />
                             </PrivateRoute>
+                            <PrivateRoute exact path="/generate/">
+                                <Generate />
+                            </PrivateRoute>
                             <PrivateRoute exact path="/import-export/">
                                 <ImportExport />
                             </PrivateRoute>

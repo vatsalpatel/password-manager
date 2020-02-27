@@ -1,75 +1,125 @@
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogActions, Slider, Button, TextField, IconButton, Tooltip, Grid, Card } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Slider, TextField, IconButton, Tooltip, Grid, Card, Container, FormControlLabel, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import CachedIcon from '@material-ui/icons/Cached';
 
 
 const useStyles = makeStyles({
+    container: {
+        marginTop: "3em",
+        flexDirection: "column"
+    },
     slider: {
-        marginTop: "2em",
-        width: "90%",
+        width: "75%",
     },
-    text: {
-        marginTop:"0.5em",
-        width: "80%",
+    txt: {
+        marginLeft: "1.5em",
+        width: "10%",
     },
-    card1: {
+    boxes: {
+        display: "flex",
+        flexDirection: "column",
+    },
+    readonly: {
+        width: "65%",
+    },
+    cards: {
+        display: "flex",
+        flexDirection: "row",
+    },
+    card: {
+        height: "10px",
         width: "30%",
-        height: "0.5em",
-    },
-    card2: {
-        width: "30%",
-        height: "0.5em",
-    },
-    card3: {
-        width: "30%",
-        height: "0.5em",
     },
 })
 
+const generatePass = (state, length) => {
+    if (!(state.upper || state.lower || state.digits || state.symbols)) {
+        return "Invalid Options"
+    }
+    let options = {
+        upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        lower: "abcdefghijklmnopqrstuvwxyz",
+        digits: "0123456789",
+        symbols: "!@#$%&*-+=_:;,.?/",
+    }
+    let r = ""
+    for (let box in state) {
+        if (state[box]) {
+            r += options[box]
+        }
+    }
+    let pass = ""
+    for (let i = 0; i < length; i++) {
+        pass += r[Math.floor(Math.random() * r.length)]
+    }
+    return pass
+}
+
 function Generate(props) {
     const classes = useStyles();
-    const {
-        open,
-        onClose
-    } = props
-    const [len, setLen] = useState(12)
 
-    const handleChange = (e, v) => {
+    const [pass, setPass] = useState("")
+    const [len, setLen] = useState(16)
+    const handleSlider = (e, v) => {
         setLen(v)
+        setPass(generatePass(state, v))
     }
+    const handleInput = (e) => {
+        setLen(e.target.value === '' ? '' : Number(e.target.value))
+        setPass(generatePass(state, e.target.value))
+    }
+    const handleBlur = () => {
+        if (len < 1) {
+            setLen(1)
+        } else if (len > 50) {
+            setLen(50)
+        }
+        setPass(generatePass(state, len))
+    }
+
+    const [state, setState] = useState({
+        upper: true,
+        lower: true,
+        digits: true,
+        symbols: true,
+    })
+    const handleCheckBox = name => event => {
+        setState({ ...state, [name]: event.target.checked })
+    }
+
+    useEffect(() => {
+        setPass(generatePass(state, len))
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
-            <Dialog open={open} maxWidth="xs" fullWidth onClose={onClose}>
-                <DialogContent>
-                    <Grid container justify="center">
-                        <Slider
-                            className={classes.slider}
-                            defaultValue={len}
-                            min={1}
-                            max={50}
-                            marks={[{value:1, label:1}, {value:50, label:50}]}
-                            valueLabelDisplay="on"
-                            onChange={handleChange}
-                        />
+            <Container maxWidth="xs">
+                <Grid container justify="center" className={classes.container}>
+                    <Grid item>
+                        <TextField InputProps={{ readOnly: true }} className={classes.readonly} value={pass} />
+                        <Tooltip title="Copy"><IconButton onClick={() => navigator.clipboard.writeText(pass)}><FileCopyIcon /></IconButton></Tooltip>
+                        <Tooltip title="Generate"><IconButton onClick={() => handleBlur()}><CachedIcon /></IconButton></Tooltip>
                     </Grid>
-                    <Grid container justify="center">
-                        <Card className={classes.card1}></Card>
-                        <Card className={classes.card2}></Card>
-                        <Card className={classes.card3}></Card>
+                    <Grid item className={classes.cards}>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length ? pass.length <= 7 ? "red" : pass.length <= 14 ? "yellow" : "green" : "white" }}></Card>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 8 ? pass.length <= 14 ? "yellow" : "green" : "white" }}></Card>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 15 ? "green" : "white" }}></Card>
                     </Grid>
-                    <Grid container justify="center" >
-                        <TextField className={classes.text} InputProps={{readOnly: true}}/>
-                        <Tooltip title="Copy"><IconButton><FileCopyIcon /></IconButton></Tooltip>
+                    <Grid item className={classes.inputs}>
+                        <Slider className={classes.slider} value={typeof len === 'number' ? len : 0} onChange={handleSlider} min={1} max={50} />
+                        <TextField className={classes.txt} value={len} onChange={handleInput} onBlur={handleBlur} type="number" />
                     </Grid>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onClose} variant="outlined" color="primary">Close</Button>
-                    <Button onClick={onClose} variant="contained" color="primary">Generate</Button>
-                </DialogActions>
-            </Dialog>
+                    <Grid item className={classes.boxes}>
+                        <FormControlLabel control={<Checkbox checked={state.upper} onChange={handleCheckBox("upper")} value={"upper"} />} label="Uppercase" />
+                        <FormControlLabel control={<Checkbox checked={state.lower} onChange={handleCheckBox("lower")} value={"lower"} />} label="Lowercase" />
+                        <FormControlLabel control={<Checkbox checked={state.digits} onChange={handleCheckBox("digits")} value={"digits"} />} label="Digits" />
+                        <FormControlLabel control={<Checkbox checked={state.symbols} onChange={handleCheckBox("symbols")} value={"symbols"} />} label="Symbols" />
+                    </Grid>
+                </Grid>
+            </Container>
         </>
     )
 }

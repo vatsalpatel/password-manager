@@ -8,7 +8,6 @@ import ImportExportIcon from '@material-ui/icons/ImportExport';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LoginForm from './Forms/LoginForm';
 import SignupForm from './Forms/SignupForm';
-import Generate from './Generate';
 import { connect } from 'react-redux';
 import { logoutUser } from '../_actions/actions';
 import { withRouter } from 'react-router-dom';
@@ -57,10 +56,6 @@ function User(props) {
         setSignup(false)
     }
 
-    const [gen, setGen] = useState(true) //Make this false
-    const openGen = () => setGen(true)
-    const closeGen = () => setGen(false)
-
     useEffect(() => {
         if (props.user.username) {
             if (!window.sessionStorage.getItem("loggedIn")) {
@@ -82,7 +77,7 @@ function User(props) {
                     <>
                         <Link className={classes.link} onClick={() => props.history.push("/vault")}>Vaults</Link>
                         <Link className={classes.link} onClick={() => props.history.push("/folder")}>Folders</Link>
-                        <Link className={classes.link} onClick={() => openGen()}>Generate Password</Link>
+                        <Link className={classes.link} onClick={() => props.history.push("/generate")}>Generate Password</Link>
                         <Button size="large" className={classes.link} onClick={handleClick}>
                             <Avatar className={classes.avatar}>{props.user.first_name[0]}</Avatar>{props.user.first_name} {props.user.last_name} <ExpandMoreIcon />
                         </Button>
@@ -105,7 +100,6 @@ function User(props) {
             }
             <LoginForm open={login} onClose={closeLogin} />
             <SignupForm open={signup} onClose={closeSignup} />
-            <Generate open={gen} onClose={closeGen} />
         </>
     )
 }
