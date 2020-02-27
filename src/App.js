@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wrapper from './components/Wrapper';
+import Generate from './components/Generate';
+import ImportExport from './components/ImportExport';
 import Home from './components/Home'
 import FolderPage from './components/FolderPage'
 import SettingsPage from './components/SettingsPage';
@@ -69,6 +71,9 @@ function App(props) {
                             </PrivateRoute>
                             <PrivateRoute exact path="/settings/">
                                 <SettingsPage />
+                            </PrivateRoute>
+                            <PrivateRoute exact path="/import-export/">
+                                <ImportExport />
                             </PrivateRoute>
                             <Route exact path="/about/" component={About} />
                             <Route exact path="*" component={NotFound} />
