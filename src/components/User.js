@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Menu, MenuItem, Avatar } from '@material-ui/core';
+import { Button, Menu, MenuItem, Avatar, Link, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import FolderIcon from '@material-ui/icons/Folder';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LoginForm from './Forms/LoginForm';
 import SignupForm from './Forms/SignupForm';
 import { connect } from 'react-redux';
@@ -14,8 +14,11 @@ import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles({
     link: {
-        marginLeft: 15,
+        marginLeft: "1.5em",
         fontFamily: "Roboto Condensed",
+        '&:hover': {
+            cursor: "pointer",
+        }
     },
     logout: {
         color: "#c00",
@@ -54,8 +57,8 @@ function User(props) {
     }
 
     useEffect(() => {
-        if(props.user.username) {
-            if(!window.sessionStorage.getItem("loggedIn")) {
+        if (props.user.username) {
+            if (!window.sessionStorage.getItem("loggedIn")) {
                 window.sessionStorage.setItem("loggedIn", true)
                 props.history.push('/vault')
             }
@@ -72,6 +75,9 @@ function User(props) {
                         <Button variant="contained" color="primary" className={classes.link} onClick={openSignup}>Sign Up</Button>
                     </> :
                     <>
+                        <Link className={classes.link} onClick={() => props.history.push("/vault")}>Vaults</Link>
+                        <Link className={classes.link} onClick={() => props.history.push("/folder")}>Folders</Link>
+                        <Link className={classes.link} onClick={() => props.history.push("/generate")}>Generate Password</Link>
                         <Button size="large" className={classes.link} onClick={handleClick}>
                             <Avatar className={classes.avatar}>{props.user.first_name[0]}</Avatar>{props.user.first_name} {props.user.last_name} <ExpandMoreIcon />
                         </Button>
@@ -84,9 +90,10 @@ function User(props) {
                             transformOrigin={{ vertical: "top", horizontal: "center" }}
                             getContentAnchorEl={null}
                         >
-                            <MenuItem onClick={() => { handleClose(); props.history.push("/vault") }}><LockOpenIcon />Vaults</MenuItem>
-                            <MenuItem onClick={() => { handleClose(); props.history.push("/folder") }}><FolderIcon />Folders</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.history.push("/import-export") }}><ImportExportIcon /> Import/Export</MenuItem>
+                            <MenuItem onClick={() => { handleClose(); props.history.push("/analyze") }}><LockOutlinedIcon /> Analyze</MenuItem>
                             <MenuItem onClick={() => { handleClose(); props.history.push("/settings") }}><SettingsIcon /> Settings</MenuItem>
+                            <Divider />
                             <MenuItem onClick={() => { handleClose(); props.logoutUser() }} className={classes.logout}><ExitToAppIcon /> Logout</MenuItem>
                         </Menu>
                     </>
