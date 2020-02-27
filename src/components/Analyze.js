@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Container, TableBody, TableCell, TableHead, TableRow, Card, Grid } from '@material-ui/core';
+import { Table, Container, TableBody, TableCell, TableHead, TableRow, Card } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { } from '../_actions/actions';
@@ -60,6 +60,7 @@ function Analyze(props) {
                 <Table>
                     <TableHead>
                         <TableRow>
+                            <StyledTableCell>Sr</StyledTableCell>
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Username</StyledTableCell>
                             <StyledTableCell>Password</StyledTableCell>
@@ -68,8 +69,9 @@ function Analyze(props) {
                     </TableHead>
                     <TableBody>
                         {
-                            vaults.map(v => {
+                            vaults.map((v, i) => {
                                 return <StyledTableRow key={v.id}>
+                                    <StyledTableCell>{i+1}</StyledTableCell>
                                     <StyledTableCell>{v.name}</StyledTableCell>
                                     <StyledTableCell>{v.username}</StyledTableCell>
                                     <StyledTableCell>
@@ -77,9 +79,11 @@ function Analyze(props) {
                                         {/* {v.password} */}
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                            <Card className={classes.card}
-                                                style={{ backgroundColor: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "limegreen" : "orange" : "orangered",
-                                                width: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "90%" : "60%" : "30%" }} />
+                                        <Card className={classes.card}
+                                            style={{
+                                                backgroundColor: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "limegreen" : "orange" : "orangered",
+                                                width: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "90%" : "60%" : "30%"
+                                            }} />
                                     </StyledTableCell>
                                 </StyledTableRow>
                             })
