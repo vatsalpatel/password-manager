@@ -33,8 +33,10 @@ class folder {
     constructor({ id, name, ...rest }) {
         this.id = id
         this.name = name
-        if (!(name && id))
+        if (!(name && id)) {
+            //eslint-disable-next-line no-throw-literal
             throw "Improper File"
+        }
     }
 }
 
@@ -44,8 +46,10 @@ class vault {
         this.username = username
         this.password = password
         this.folder = folder
-        if (!(name && username && password && folder))
+        if (!(name && username && password && folder)) {
+            //eslint-disable-next-line no-throw-literal
             throw "Improper File"
+        }
     }
 }
 
