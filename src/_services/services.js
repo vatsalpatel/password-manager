@@ -114,7 +114,7 @@ export const saveImportedVaults = async vaults => {
         password: encrypt(vault.password),
     }))
     encryptedVaults.map(async v => {
-        addData('vaults/', v)
+        return addData('vaults/', v)
     })
     return encryptedVaults
 }
