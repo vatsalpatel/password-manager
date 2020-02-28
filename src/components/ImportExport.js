@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Grid, Button, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { importFolders } from '../_actions/actions';
+import { importFolders, displayError } from '../_actions/actions';
 import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
@@ -30,18 +30,22 @@ const useStyles = makeStyles({
 })
 
 class folder {
-    constructor(id, name) {
+    constructor({ id, name, ...rest }) {
         this.id = id
         this.name = name
+        if (!(name && id))
+            throw "Improper File"
     }
 }
 
 class vault {
-    constructor(name, username, password, folder) {
+    constructor({ name, username, password, folder, ...rest }) {
         this.name = name
         this.username = username
         this.password = password
         this.folder = folder
+        if (!(name && username && password && folder))
+            throw "Improper File"
     }
 }
 
@@ -51,8 +55,8 @@ function ImportExport(props) {
     const [file, setFile] = useState('')
 
     const download = () => {
-        let f = props.folders.map(f => new folder(f.id, f.name))
-        let v = props.vaults.map(v => new vault(v.name, v.username, v.password, v.folder))
+        let f = props.folders.map(f => new folder(f))
+        let v = props.vaults.map(v => new vault(v))
         let text = JSON.stringify({ folders: f, vaults: v }, null, 2)
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -71,8 +75,15 @@ function ImportExport(props) {
         f.readAsText(file)
         f.onloadend = () => {
             let content = f.result
-            let s = JSON.parse(content)
-            props.importFolders(s.folders, s.vaults)
+            try {
+                let s = JSON.parse(content)
+                s.folders.map(f => new folder(f))
+                s.vaults.map(v => new vault(v))
+                props.importFolders(s.folders, s.vaults)
+            } catch (e) {
+                console.log(e)
+                props.displayError({ "code": 500, msg: "Import Failed due to File Error." })
+            }
         }
     }
 
@@ -96,8 +107,10 @@ function ImportExport(props) {
                         </Grid>
                         <Grid item className={classes.content}>
                             <Button variant="contained" component="label" className={classes.button} color="primary">Import
-                            <input onChange={handleFile} type="file" style={{ display: "none" }} />
+                                <input onChange={handleFile} type="file" style={{ display: "none" }} />
                             </Button>
+                        </Grid>
+                        <Grid item>
                             <Typography variant="button">{file.name}</Typography>
                         </Grid>
                         <Grid item className={classes.content}>
@@ -117,13 +130,13 @@ function ImportExport(props) {
                 </Grid>
             </Container>
         </>
-            )
-        }
-        
+    )
+}
+
 const mapStateToProps = state => ({
-                vaults: state.vaults,
-            folders: state.folders,
-            status: state.status,
-        })
-        
-export default connect(mapStateToProps, {importFolders})(ImportExport);
+    vaults: state.vaults,
+    folders: state.folders,
+    status: state.status,
+})
+
+export default connect(mapStateToProps, { importFolders, displayError })(ImportExport);

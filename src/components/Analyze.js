@@ -47,7 +47,6 @@ const analyzeStrength = (pass) => {
         s += 1
     if (pass.match(/[!@#$%&*-+=_:;,.?/]/))
         s += 2
-    console.log(pass, s)
     return s
 }
 
