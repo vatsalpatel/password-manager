@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     },
     container: {
         marginTop: "4em",
+        marginBottom: "4em",
     }
 })
 
@@ -63,6 +64,7 @@ function Analyze(props) {
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell>Username</StyledTableCell>
                             <StyledTableCell>Password</StyledTableCell>
+                            <StyledTableCell>Strength Indicator</StyledTableCell>
                             <StyledTableCell>Strength</StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -70,12 +72,11 @@ function Analyze(props) {
                         {
                             vaults.map((v, i) => {
                                 return <StyledTableRow key={v.id}>
-                                    <StyledTableCell>{i+1}</StyledTableCell>
+                                    <StyledTableCell>{i + 1}</StyledTableCell>
                                     <StyledTableCell>{v.name}</StyledTableCell>
                                     <StyledTableCell>{v.username}</StyledTableCell>
                                     <StyledTableCell>
                                         {'*'.repeat(v.password.length)}
-                                        {/* {v.password} */}
                                     </StyledTableCell>
                                     <StyledTableCell>
                                         <Card className={classes.card}
@@ -83,6 +84,9 @@ function Analyze(props) {
                                                 backgroundColor: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "limegreen" : "orange" : "orangered",
                                                 width: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "90%" : "60%" : "30%"
                                             }} />
+                                    </StyledTableCell>
+                                    <StyledTableCell>
+                                        {analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "Strong" : "Medium" : "Weak"}
                                     </StyledTableCell>
                                 </StyledTableRow>
                             })
