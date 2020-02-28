@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Button, Typography } from '@material-ui/core';
+import { Container, Grid, Button, Typography, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { importFolders } from '../_actions/actions';
@@ -7,15 +7,25 @@ import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
     container: {
+        marginTop: "5em",
         display: "flex",
         flexDirection: "row",
+        justifyContent: "center",
     },
     item: {
         display: "flex",
         flexDirection: "column",
+        height: "50vh",
+        margin: "0 3em",
     },
     button: {
-        width: "5em",
+        width: "8em",
+    },
+    content: {
+        marginTop: "3em",
+    },
+    paper: {
+        height: "50vh",
     }
 })
 
@@ -78,33 +88,42 @@ function ImportExport(props) {
     }, [props.status])
     return (
         <>
-            <Container maxWidth="md" className={classes.container}>
-                <Grid container justify="center" className={classes.item}>
-                    <Grid item>
-                        <Button variant="contained" component="label" className={classes.button}>Import
+            <Container maxWidth="lg" className={classes.container}>
+                <Grid container align="center" className={classes.item}>
+                    <Paper className={classes.paper} elevation={5}>
+                        <Grid item className={classes.content}>
+                            <Typography>Import using a .JSON File</Typography>
+                        </Grid>
+                        <Grid item className={classes.content}>
+                            <Button variant="contained" component="label" className={classes.button} color="primary">Import
                             <input onChange={handleFile} type="file" style={{ display: "none" }} />
-                        </Button>
-                        <Typography variant="button">{file.name}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button onClick={upload} variant="contained" className={classes.button} disabled={!Boolean(file)}>Upload</Button>
-                    </Grid>
+                            </Button>
+                            <Typography variant="button">{file.name}</Typography>
+                        </Grid>
+                        <Grid item className={classes.content}>
+                            <Button onClick={upload} variant="contained" className={classes.button} disabled={!Boolean(file)} color="primary">Upload</Button>
+                        </Grid>
+                    </Paper>
                 </Grid>
-                <Grid container justify="center">
-                    <Grid>
-                        <Button onClick={download} variant="contained" className={classes.button}>Export</Button>
-                    </Grid>
-                    <Grid></Grid>
+                <Grid container align="center" className={classes.item}>
+                    <Paper className={classes.paper} elevation={5}>
+                        <Grid item className={classes.content}>
+                            <Typography>Export to a .JSON File</Typography>
+                        </Grid>
+                        <Grid item className={classes.content}>
+                            <Button onClick={download} variant="contained" className={classes.button} color="primary">Export</Button>
+                        </Grid>
+                    </Paper>
                 </Grid>
             </Container>
         </>
-    )
-}
-
+            )
+        }
+        
 const mapStateToProps = state => ({
-    vaults: state.vaults,
-    folders: state.folders,
-    status: state.status,
-})
-
-export default connect(mapStateToProps, { importFolders })(ImportExport);
+                vaults: state.vaults,
+            folders: state.folders,
+            status: state.status,
+        })
+        
+export default connect(mapStateToProps, {importFolders})(ImportExport);
