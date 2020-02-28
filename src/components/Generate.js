@@ -35,7 +35,7 @@ const useStyles = makeStyles({
 })
 
 const generatePass = (state, length) => {
-    if (!(state.upper || state.lower || state.digits || state.symbols)) {
+    if (!(state.upper || state.lower || state.digits || state.symbols) || length < 4) {
         return "Invalid Options"
     }
     let options = {
@@ -71,8 +71,8 @@ function Generate(props) {
         setPass(generatePass(state, e.target.value))
     }
     const handleBlur = () => {
-        if (len < 1) {
-            setLen(1)
+        if (len < 4) {
+            setLen(4)
         } else if (len > 50) {
             setLen(50)
         }
@@ -104,12 +104,12 @@ function Generate(props) {
                         <Tooltip title="Generate"><IconButton onClick={() => handleBlur()}><CachedIcon /></IconButton></Tooltip>
                     </Grid>
                     <Grid item className={classes.cards}>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length ? pass.length <= 7 ? "red" : pass.length <= 14 ? "yellow" : "green" : "white" }}></Card>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 8 ? pass.length <= 14 ? "yellow" : "green" : "white" }}></Card>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 15 ? "green" : "white" }}></Card>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length ? pass.length <= 7 ? "orangered" : pass.length <= 15 ? "orange" : "limegreen" : "white" }}></Card>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 8 ? pass.length <= 15 ? "orange" : "limegreen" : "white" }}></Card>
+                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 16 ? "limegreen" : "white" }}></Card>
                     </Grid>
                     <Grid item className={classes.inputs}>
-                        <Slider className={classes.slider} value={typeof len === 'number' ? len : 0} onChange={handleSlider} min={1} max={50} />
+                        <Slider className={classes.slider} value={typeof len === 'number' ? len : 0} onChange={handleSlider} min={4} max={50} />
                         <TextField className={classes.txt} value={len} onChange={handleInput} onBlur={handleBlur} type="number" />
                     </Grid>
                     <Grid item className={classes.boxes}>

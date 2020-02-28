@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Wrapper from './components/Wrapper';
 import Generate from './components/Generate';
 import ImportExport from './components/ImportExport';
+import Analyze from './components/Analyze';
 import Home from './components/Home'
 import FolderPage from './components/FolderPage'
 import SettingsPage from './components/SettingsPage';
@@ -74,6 +75,9 @@ function App(props) {
                             </PrivateRoute>
                             <PrivateRoute exact path="/generate/">
                                 <Generate />
+                            </PrivateRoute>
+                            <PrivateRoute exact path="/analyze/">
+                                <Analyze />
                             </PrivateRoute>
                             <PrivateRoute exact path="/import-export/">
                                 <ImportExport />
