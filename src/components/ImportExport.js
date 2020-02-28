@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { importFolders, importVaults } from '../_actions/actions';
-import { mapFolders } from '../_services/services'
+import { importFolders } from '../_actions/actions';
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
     container: {
@@ -30,6 +30,7 @@ class vault {
 
 function ImportExport(props) {
     const classes = useStyles();
+    let history = useHistory()
 
     const download = () => {
         let f = props.folders.map(f => new folder(f.id, f.name))
@@ -53,14 +54,16 @@ function ImportExport(props) {
         f.onloadend = () => {
             let content = f.result
             let s = JSON.parse(content)
-            props.importFolders(s.folders)
-            // props.importVaults(s.vaults)
+            props.importFolders(s.folders, s.vaults)
         }
     }
 
-    const mapFolders = () => {
-        
-    }
+    useEffect(() => {
+        if(props.status.code === 201) {
+            history.push('/vault')
+        }
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.status])
 
     return (
         <>
@@ -90,6 +93,7 @@ function ImportExport(props) {
 const mapStateToProps = state => ({
     vaults: state.vaults,
     folders: state.folders,
+    status: state.status,
 })
 
-export default connect(mapStateToProps, { importFolders, importVaults })(ImportExport);
+export default connect(mapStateToProps, { importFolders })(ImportExport);

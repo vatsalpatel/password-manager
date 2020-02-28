@@ -1,8 +1,8 @@
-import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, REQUEST_FAILURE } from './types';
+import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, REQUEST } from './types';
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER, EDIT_USER } from './types'
-import { produceKey, login, logout, fetchData, deleteData, decrypt, encryptAllVaults, addData } from '../_services/services';
+import { produceKey, login, logout, fetchData, deleteData, decrypt, encryptAllVaults, addData, mapFolders, saveImportedVaults } from '../_services/services';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
@@ -154,21 +154,38 @@ export const updateVaultsAfterUserChange = (username, password) => dispatch => {
 }
 
 export const displayError = data => dispatch => {
-    dispatch({ type: REQUEST_FAILURE.DISPLAY, payload: data })
+    dispatch({ type: REQUEST.DISPLAY, payload: data })
 }
 
 export const clearError = data => dispatch => {
-    dispatch({ type: REQUEST_FAILURE.CLEAR, paylad: data })
+    dispatch({ type: REQUEST.CLEAR, paylad: data })
 }
 
-export const importFolders = (folders) => dispatch => {
-    console.log(folders)
+export const importFolders = (folders, vaults) => dispatch => {
     folders.map(f => {
-        addData('folders/', {name: f.name})
-            .then(res => dispatch(addFolder(res.data)))
+        addData('folders/', { name: f.name })
+            .then(res => {
+                dispatch(addFolder(res.data))
+                dispatch(importVaults(folders, vaults))
+            })
+        return f
     })
 }
 
-export const importVaults = (vaults) => {
-    console.log(vaults)
+export const importVaults = (folders, vaults) => dispatch => {
+    let newFolders = mapFolders(folders)
+    let newVaults = vaults.map(v => ({
+        ...v,
+        folder: newFolders[v.folder],
+    }))
+    let flag = true
+    newVaults.map(v => {
+        if (!v.folder)
+            flag = false
+        return v
+    })
+    if (flag) {
+        saveImportedVaults(newVaults).map(v => dispatch(addVault(v)))
+        dispatch(displayError({code: 201, msg: "Import Successful"}))
+    }
 }

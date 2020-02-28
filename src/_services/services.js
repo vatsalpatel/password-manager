@@ -56,7 +56,7 @@ export const addData = (url, data) => {
 export const editData = (url, data) => {
     const token = store.getState().token
     const user = store.getState().user
-    return axios.put(`/api/${url}`, { ...data, user: user.id}, {
+    return axios.put(`/api/${url}`, { ...data, user: user.id }, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -82,7 +82,7 @@ export const encryptAllVaults = () => {
         username: encrypt(vault.username),
         password: encrypt(vault.password),
     }))
-    newVaults.map( async vault => {
+    newVaults.map(async vault => {
         await editData(`vaults/${vault.id}/`, vault)
     })
     return newVaults
@@ -90,4 +90,31 @@ export const encryptAllVaults = () => {
 
 export const shouldUpdateVaults = (v1, v2) => {
     return !(v1.username === v2.username && v1.password === v2.password && v1.name === v2.name && v1.folder === v2.folder)
+}
+
+export const mapFolders = (folders, vaults) => {
+    let newFolders = store.getState().folders
+    let map = {}
+    folders.map(f => {
+        newFolders.map(nf => {
+            if (nf.name === f.name) {
+                map[f.id] = nf.id
+            }
+            return nf
+        })
+        return f
+    })
+    return map
+}
+
+export const saveImportedVaults = vaults => {
+    let encryptedVaults = vaults.map(vault => ({
+        ...vault,
+        username: encrypt(vault.username),
+        password: encrypt(vault.password),
+    }))
+    encryptedVaults.map(async v => {
+        await addData('vaults/', v)
+    })
+    return encryptedVaults
 }
