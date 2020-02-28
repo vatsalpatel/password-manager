@@ -2,7 +2,7 @@ import { GET_TOKEN, CLEAR_TOKEN, GET_KEY, CLEAR_KEY, REQUEST_FAILURE } from './t
 import { FETCH_VAULTS, CLEAR_VAULTS, ADD_VAULT, EDIT_VAULT, DELETE_VAULT } from './types'
 import { FETCH_FOLDERS, CLEAR_FOLDERS, ADD_FOLDER, EDIT_FOLDER, DELETE_FOLDER } from './types'
 import { FETCH_USER, CLEAR_USER, EDIT_USER } from './types'
-import { produceKey, login, logout, fetchData, deleteData, decrypt, encryptAllVaults } from '../_services/services';
+import { produceKey, login, logout, fetchData, deleteData, decrypt, encryptAllVaults, addData } from '../_services/services';
 
 export const getToken = data => dispatch => {
     dispatch({ type: GET_TOKEN.SUCCESS, payload: data })
@@ -159,4 +159,16 @@ export const displayError = data => dispatch => {
 
 export const clearError = data => dispatch => {
     dispatch({ type: REQUEST_FAILURE.CLEAR, paylad: data })
+}
+
+export const importFolders = (folders) => dispatch => {
+    console.log(folders)
+    folders.map(f => {
+        addData('folders/', {name: f.name})
+            .then(res => dispatch(addFolder(res.data)))
+    })
+}
+
+export const importVaults = (vaults) => {
+    console.log(vaults)
 }

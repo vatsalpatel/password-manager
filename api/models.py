@@ -11,7 +11,7 @@ class VaultUser(AbstractUser):
 
 
 class Folder(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
     user = models.ForeignKey(to=VaultUser, on_delete=models.CASCADE)
 
     def __str__(self):
