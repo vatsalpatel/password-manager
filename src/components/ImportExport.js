@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Container, Grid, Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, Grid, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { importFolders } from '../_actions/actions';
@@ -9,6 +9,13 @@ const useStyles = makeStyles({
     container: {
         display: "flex",
         flexDirection: "row",
+    },
+    item: {
+        display: "flex",
+        flexDirection: "column",
+    },
+    button: {
+        width: "5em",
     }
 })
 
@@ -31,6 +38,7 @@ class vault {
 function ImportExport(props) {
     const classes = useStyles();
     let history = useHistory()
+    const [file, setFile] = useState('')
 
     const download = () => {
         let f = props.folders.map(f => new folder(f.id, f.name))
@@ -48,9 +56,9 @@ function ImportExport(props) {
         document.body.removeChild(element);
     }
 
-    const upload = (e) => {
+    const upload = () => {
         let f = new FileReader()
-        f.readAsText(e.target.files[0])
+        f.readAsText(file)
         f.onloadend = () => {
             let content = f.result
             let s = JSON.parse(content)
@@ -58,32 +66,35 @@ function ImportExport(props) {
         }
     }
 
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
     useEffect(() => {
-        if(props.status.code === 201) {
+        if (props.status.code === 201) {
             history.push('/vault')
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.status])
-
     return (
         <>
-            {/* <Button onClick={download}>Click</Button> */}
             <Container maxWidth="md" className={classes.container}>
-                <Grid container justify="center">
-                    <Button
-                        variant="contained"
-                        component="label"
-                    >
-                        Import
-                    <input
-                            onChange={upload}
-                            type="file"
-                            style={{ display: "none" }}
-                        />
-                    </Button>
+                <Grid container justify="center" className={classes.item}>
+                    <Grid item>
+                        <Button variant="contained" component="label" className={classes.button}>Import
+                            <input onChange={handleFile} type="file" style={{ display: "none" }} />
+                        </Button>
+                        <Typography variant="button">{file.name}</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Button onClick={upload} variant="contained" className={classes.button} disabled={!Boolean(file)}>Upload</Button>
+                    </Grid>
                 </Grid>
                 <Grid container justify="center">
-                    <Button onClick={download} variant="contained">Export</Button>
+                    <Grid>
+                        <Button onClick={download} variant="contained" className={classes.button}>Export</Button>
+                    </Grid>
+                    <Grid></Grid>
                 </Grid>
             </Container>
         </>

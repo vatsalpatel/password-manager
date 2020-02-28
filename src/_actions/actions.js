@@ -172,7 +172,7 @@ export const importFolders = (folders, vaults) => dispatch => {
     })
 }
 
-export const importVaults = (folders, vaults) => dispatch => {
+export const importVaults = (folders, vaults) => async dispatch => {
     let newFolders = mapFolders(folders)
     let newVaults = vaults.map(v => ({
         ...v,
@@ -185,7 +185,8 @@ export const importVaults = (folders, vaults) => dispatch => {
         return v
     })
     if (flag) {
-        saveImportedVaults(newVaults).map(v => dispatch(addVault(v)))
-        dispatch(displayError({code: 201, msg: "Import Successful"}))
+        saveImportedVaults(newVaults)
+            .then(res => res.map(v => dispatch(addVault(v))))
+            .then(() => dispatch(displayError({ code: 201, msg: "Import Successful" })))
     }
 }

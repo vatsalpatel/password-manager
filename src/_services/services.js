@@ -107,14 +107,14 @@ export const mapFolders = (folders, vaults) => {
     return map
 }
 
-export const saveImportedVaults = vaults => {
+export const saveImportedVaults = async vaults => {
     let encryptedVaults = vaults.map(vault => ({
         ...vault,
         username: encrypt(vault.username),
         password: encrypt(vault.password),
     }))
     encryptedVaults.map(async v => {
-        await addData('vaults/', v)
+        addData('vaults/', v)
     })
     return encryptedVaults
 }
