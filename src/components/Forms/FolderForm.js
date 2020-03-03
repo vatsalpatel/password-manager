@@ -96,10 +96,12 @@ const FolderForm = withFormik({
                 .finally(setSubmitting(false))
         }
     },
-    validata: values => {
+    validate: (values, props) => {
         let errors = {}
         if (!values.name)
             errors.name = "Required"
+        if(props.foldersArray.map(f => Object.values(f)[1]).includes(values.name))
+            errors.name = "Folder name can't be same"
         return errors
     },
     enableReinitialize: true,
@@ -112,6 +114,7 @@ const mapStateToProps = (state, ownProps) => {
     }
     return {
         folder: folder,
+        foldersArray: state.folders,
         code: state.status,
     }
 }

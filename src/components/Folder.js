@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Vault from './Vault'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import VaultForm from './Forms/VaultForm';
 
 function Folder(props) {
@@ -24,9 +24,9 @@ function Folder(props) {
     return (
         <>
             <Grid container spacing={4}>
-                {vaults}
+                {vaults.length ? vaults : <Typography>This folder doesn't have any vaults yet.</Typography>}
             </Grid>
-            <VaultForm open={Boolean(dialog)} onClose={closeDialog} vault={dialog}/>
+            <VaultForm open={Boolean(dialog)} onClose={closeDialog} vault={dialog} />
         </>
     )
 }
