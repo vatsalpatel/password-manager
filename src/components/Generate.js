@@ -45,13 +45,16 @@ const generatePass = (state, length) => {
         symbols: "!@#$%&*-+=_:;,.?/",
     }
     let r = ""
+    let o = 0
+    let pass = ""
     for (let box in state) {
         if (state[box]) {
             r += options[box]
+            o += 1
+            pass += options[box][Math.floor(Math.random() * options[box].length)]
         }
     }
-    let pass = ""
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length - 0; i++) {
         pass += r[Math.floor(Math.random() * r.length)]
     }
     return pass
@@ -89,6 +92,25 @@ function Generate(props) {
         setState({ ...state, [name]: event.target.checked })
     }
 
+    const analyzeStrength = (pass) => {
+        let s = 0;
+        if (pass.length > 7)
+            s += 1
+        if (pass.length > 15)
+            s += 2
+        if(pass.length > 23)
+            s += 2
+        if (pass.match(/[A-Z]/))
+            s += 1
+        if (pass.match(/[a-z]/))
+            s += 1
+        if (pass.match(/[0-9]/))
+            s += 1
+        if (pass.match(/[!@#$%&*-+=_:;,.?/]/))
+            s += 2
+        return s
+    }
+
     useEffect(() => {
         setPass(generatePass(state, len))
         //eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,9 +126,11 @@ function Generate(props) {
                         <Tooltip title="Generate"><IconButton onClick={() => handleBlur()}><CachedIcon /></IconButton></Tooltip>
                     </Grid>
                     <Grid item className={classes.cards}>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length ? pass.length <= 7 ? "orangered" : pass.length <= 15 ? "orange" : "limegreen" : "white" }}></Card>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 8 ? pass.length <= 15 ? "orange" : "limegreen" : "white" }}></Card>
-                        <Card className={classes.card} style={{ backgroundColor: pass.length >= 16 ? "limegreen" : "white" }}></Card>
+                        <Card className={classes.card}
+                            style={{
+                                backgroundColor: analyzeStrength(pass) > 3 ? analyzeStrength(pass) > 6 ? "limegreen" : "orange" : "orangered",
+                                width: analyzeStrength(pass) > 3 ? analyzeStrength(pass) > 6 ? "90%" : "60%" : "30%"
+                            }} />
                     </Grid>
                     <Grid item className={classes.inputs}>
                         <Slider className={classes.slider} value={typeof len === 'number' ? len : 0} onChange={handleSlider} min={4} max={50} />

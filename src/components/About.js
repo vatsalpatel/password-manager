@@ -31,8 +31,8 @@ function About(props) {
                     <Typography variant="h4" className={classes.title}>What is Secure Bits?</Typography>
                     <Typography>
                         SecureBits is a password manager made with security in mind.
-                        Users have to remember only one master password which will unlock
-                        all of their other passwords securely placed into vaults.
+                        You only have to remember one master password which will unlock
+                        all of your other passwords which are securely stored into vaults.
                         </Typography>
                 </Grid>
                 <Grid xs={12} sm={6} item >
