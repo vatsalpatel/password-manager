@@ -36,9 +36,11 @@ const StyledTableRow = withStyles(theme => ({
 
 const analyzeStrength = (pass) => {
     let s = 0;
-    if (pass.length >= 8)
+    if (pass.length > 7)
         s += 1
     if (pass.length > 15)
+        s += 2
+    if (pass.length > 23)
         s += 2
     if (pass.match(/[A-Z]/))
         s += 1
@@ -81,8 +83,8 @@ function Analyze(props) {
                                     <StyledTableCell>
                                         <Card className={classes.card}
                                             style={{
-                                                backgroundColor: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "limegreen" : "orange" : "orangered",
-                                                width: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "90%" : "60%" : "30%"
+                                                backgroundColor: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 6 ? "limegreen" : "orange" : "orangered",
+                                                width: analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 6 ? "90%" : "60%" : "30%"
                                             }} />
                                     </StyledTableCell>
                                     <StyledTableCell>
