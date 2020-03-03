@@ -94,10 +94,11 @@ const SignupForm = withFormik({
         first_name: "",
         last_name: "",
     }),
-    handleSubmit: (values, { props, setSubmitting, setErrors }) => {
+    handleSubmit: (values, { props, setSubmitting, setErrors, resetForm }) => {
         axios.post('/api/auth/users/', values)
             .then(res => {
                 props.addUser(values.username, values.password)
+                resetForm()
                 props.onClose()
             })
             .catch(res => {
