@@ -76,7 +76,7 @@ function FolderPage(props) {
 }
 
 const mapStateToProps = state => ({
-    folders: state.folders,
+    folders: state.folders.sort((a, b) => a.id - b.id),
     token: state.token,
 })
 

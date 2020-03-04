@@ -54,7 +54,7 @@ const generatePass = (state, length) => {
             pass += options[box][Math.floor(Math.random() * options[box].length)]
         }
     }
-    for (let i = 0; i < length - 0; i++) {
+    for (let i = 0; i < length - o; i++) {
         pass += r[Math.floor(Math.random() * r.length)]
     }
     return pass
