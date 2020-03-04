@@ -88,7 +88,7 @@ function Analyze(props) {
                                             }} />
                                     </StyledTableCell>
                                     <StyledTableCell>
-                                        {analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 5 ? "Strong" : "Medium" : "Weak"}
+                                        {analyzeStrength(v.password) > 3 ? analyzeStrength(v.password) > 6 ? "Strong" : "Medium" : "Weak"}
                                     </StyledTableCell>
                                 </StyledTableRow>
                             })
