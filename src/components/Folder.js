@@ -5,7 +5,7 @@ import { Grid, Typography } from '@material-ui/core'
 import VaultForm from './Forms/VaultForm';
 
 function Folder(props) {
-    const filteredVaults = props.vaults.filter(vault => vault.folder === props.id)
+    const filteredVaults = props.vaults.filter(vault => vault.folder === props.id).sort((a, b) => a.id - b.id)
 
     const [dialog, setDialog] = useState(0);
     const openDialog = (id) => {

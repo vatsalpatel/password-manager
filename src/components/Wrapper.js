@@ -75,7 +75,7 @@ function Wrapper(props) {
 }
 
 const mapState = state => ({
-    folders: state.folders,
+    folders: state.folders.sort((a, b) => a.id - b.id),
     token: state.token,
 })
 
