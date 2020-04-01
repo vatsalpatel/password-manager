@@ -162,17 +162,20 @@ export const clearError = data => dispatch => {
 }
 
 export const importFolders = (folders, vaults) => dispatch => {
-    folders.map(f => {
+    folders.map((f, index) => {
         addData('folders/', { name: f.name })
             .then(res => {
                 dispatch(addFolder(res.data))
-                dispatch(importVaults(folders, vaults))
+                if (index === folders.length - 1) {
+                    dispatch(importVaults(folders, vaults))
+                }
             })
         return f
     })
+    // dispatch(importVaults(folders, vaults))
 }
 
-export const importVaults = (folders, vaults) => async dispatch => {
+export const importVaults = (folders, vaults) => dispatch => {
     let newFolders = mapFolders(folders)
     let newVaults = vaults.map(v => ({
         ...v,
