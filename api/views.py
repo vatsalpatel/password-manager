@@ -12,6 +12,9 @@ class VaultViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Vault.objects.filter(user=self.request.user)
 
+    def perform_create(self, serializer_class):
+        serializer_class.save(user=self.request.user)
+
 
 class FolderViewSet(viewsets.ModelViewSet):
     serializer_class = FolderSerializer
@@ -19,3 +22,6 @@ class FolderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Folder.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer_class):
+        serializer_class.save(user=self.request.user)

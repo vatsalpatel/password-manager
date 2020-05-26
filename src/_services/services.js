@@ -45,8 +45,7 @@ export const fetchData = (url, token) => {
 
 export const addData = (url, data) => {
     const token = store.getState().token
-    const user = store.getState().user
-    return axios.post(`/api/${url}`, { ...data, user: user.id }, {
+    return axios.post(`/api/${url}`, data, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -55,8 +54,7 @@ export const addData = (url, data) => {
 
 export const editData = (url, data) => {
     const token = store.getState().token
-    const user = store.getState().user
-    return axios.put(`/api/${url}`, { ...data, user: user.id }, {
+    return axios.put(`/api/${url}`, data, {
         headers: {
             Authorization: `Token ${token}`
         }
@@ -64,6 +62,7 @@ export const editData = (url, data) => {
 }
 
 export const deleteData = (url, data) => {
+    console.log(data)
     const token = store.getState().token
     return axios.delete(`/api/${url}`, {
         headers: {

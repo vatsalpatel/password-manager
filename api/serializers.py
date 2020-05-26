@@ -6,13 +6,13 @@ from .models import Vault, Folder, VaultUser
 class VaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vault
-        fields = ["id", "name", "username", "password", "folder", "user"]
+        fields = ["id", "name", "username", "password", "folder"]
 
 
 class FolderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Folder
-        fields = ["id", "name", "user"]
+        fields = ["id", "name"]
 
 
 class VaultUserSerializer(UserSerializer):
