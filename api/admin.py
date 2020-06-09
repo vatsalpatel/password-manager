@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from .models import Vault, Folder, VaultUser
 
 
@@ -6,3 +7,5 @@ from .models import Vault, Folder, VaultUser
 admin.site.register(VaultUser)
 admin.site.register(Vault)
 admin.site.register(Folder)
+
+admin.site.unregister(Group)
