@@ -40,7 +40,7 @@ function Footer(props) {
             <Grid className={classes.footer} container>
                 <Grid className={classes.left}>
                     <span onClick={redirectAbout} className={classes.about}>About Us</span>
-                    <Link href="https://github.com/N3onFrost" color="inherit"><IconButton color="inherit"><GitHubIcon /></IconButton></Link>
+                    <Link href="https://github.com/vatsalpatel" color="inherit"><IconButton color="inherit"><GitHubIcon /></IconButton></Link>
                     <Link href="https://www.linkedin.com/in/vatsal-patel-b95443198/" color="inherit"><IconButton color="inherit" ><LinkedInIcon /></IconButton></Link>
                     <Link href="mailto:n3onfrost@gmail.com" color="inherit"><IconButton color="inherit" ><EmailIcon /></IconButton></Link>
                 </Grid>
