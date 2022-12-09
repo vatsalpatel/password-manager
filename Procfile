@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn securebits.wsgi --log-file -
+web: gunicorn --worker-tmp-dir /dev/shm securebits.wsgi
