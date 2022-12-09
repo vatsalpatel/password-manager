@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'securebits.herokuapp.com',
     'plankton-app-ewh87.ondigitalocean.app',
-    
 ]
 
 
@@ -105,6 +104,11 @@ DJOSER = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USERNAME'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_URL'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
 
@@ -158,4 +162,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'build')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
