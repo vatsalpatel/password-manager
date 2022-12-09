@@ -1,6 +1,6 @@
 # password-manager
 Password Manager created with Django and Django Rest Framework (Python) along with React, Redux and Material-UI (JavaScript)<br>
-[Live Demo](https://securebits.herokuapp.com/)
+[Live Demo](https://plankton-app-ewh87.ondigitalocean.app/)
 
 
 # Setup
