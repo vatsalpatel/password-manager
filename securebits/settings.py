@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'vkf90-40t#&us#azyo8kr4p3$fa-l_1+dvfm=0(f58t=g#suxn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = [
     '0.0.0.0',
     'localhost',
@@ -108,10 +108,9 @@ DATABASES = {
         'USER': os.getenv('DATABASE_USERNAME'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD'),
         'HOST': os.getenv('DATABASE_URL'),
-        'PORT': int(os.getenv('DATABASE_PORT', '25060')),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
-print(os.getenv('DATABASE_PORT', 'not found'), type(os.getenv('DATABASE_PORT', 'not found')))
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
@@ -162,4 +161,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'build')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
