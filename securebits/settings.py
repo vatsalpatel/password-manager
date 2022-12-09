@@ -153,6 +153,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build', 'static'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SECURE_SSL_REDIRECT = True
