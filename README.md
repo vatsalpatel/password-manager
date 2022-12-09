@@ -3,7 +3,7 @@ Password Manager created with Django and Django Rest Framework (Python) along wi
 [Live Demo](https://plankton-app-ewh87.ondigitalocean.app/)
 
 ## Video Demo
-[![videothum](https://user-images.githubusercontent.com/40464744/206746962-0748b63e-ef37-4656-98a6-b2bac173fcac.png)](https://drive.google.com/file/d/1fvAoJUrm9iS-GwdGgHrLgCyTzsHKOEeN/view?usp=sharing)
+[![Watch Video](https://user-images.githubusercontent.com/40464744/206747180-b86e428e-fa0a-4927-8088-77f17e9f5152.png)](https://drive.google.com/file/d/1fvAoJUrm9iS-GwdGgHrLgCyTzsHKOEeN/view?usp=sharing)
 
 # Setup
 ### Master branch is for production only, use dev branch for local development and testing.
