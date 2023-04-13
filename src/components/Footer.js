@@ -46,7 +46,7 @@ function Footer(props) {
                 </Grid>
                 <Grid className={classes.right}>
                     <IconButton color="inherit"><CopyrightIcon /></IconButton>
-                    <span>Copyright SecureBits 2019-2020</span>
+                    <span>Copyright SecureBits 2022-2023</span>
                 </Grid>
             </Grid>
         </>
